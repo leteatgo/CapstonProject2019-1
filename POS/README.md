@@ -1,4 +1,4 @@
-# CapstonProject2019-1
+# CapstoneProject2019-1
 Project LetEatGo
 
 ## POS Opensource from dPOS
