@@ -1,0 +1,15 @@
+{
+  "name": "serverside_leteatgo",
+  "version": "1.0.0",
+  "description": "written by son changwoo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ckddn9496",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "forever": "^0.15.4"
+  }
+}
