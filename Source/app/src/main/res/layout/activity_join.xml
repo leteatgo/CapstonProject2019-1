@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".JoinActivity">
+
+    <Button
+        android:id="@+id/join_prevBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이전으로" />
+
+    <TextView
+        android:id="@+id/loginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="회원 가입"
+        android:textSize="35dp" />
+
+    <EditText
+        android:id="@+id/join_emailInput"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="151dp"
+        android:hint="example@gmail.com" />
+
+    <Button
+        android:id="@+id/join_verifyEmailBtn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/join_emailInput"
+        android:layout_centerHorizontal="true"
+        android:text="이메일 인증하기" />
+
+    <EditText
+        android:id="@+id/join_passwordInput"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/join_verifyEmailBtn"
+        android:layout_centerHorizontal="true"
+        android:inputType="textPassword"
+        android:hint="비밀번호 입력(6~12자)" />
+
+    <EditText
+        android:id="@+id/join_passwordVerify"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/join_passwordInput"
+        android:inputType="textPassword"
+        android:layout_centerHorizontal="true"
+        android:hint="비밀번호 확인" />
+
+    <Button
+        android:id="@+id/joinBtn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/join_passwordVerify"
+        android:layout_centerHorizontal="true"
+        android:text="회원가입" />
+
+
+</RelativeLayout>
