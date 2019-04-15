@@ -19,21 +19,25 @@
         android:textSize="35dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:id="@+id/emailInput"
-        android:layout_centerHorizontal="true"
-        android:hint="example@gmail.com"
-        android:layout_marginTop="151dp" />
 
     <EditText
+        android:id="@+id/emailInput"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="151dp"
+        android:hint="example@gmail.com"
+        android:singleLine="true" />
+
+    <EditText
         android:id="@+id/passwordInput"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/emailInput"
         android:layout_centerHorizontal="true"
         android:hint="비밀번호 입력(6~12자)"
-    android:layout_below="@+id/emailInput" />
+        android:singleLine="true"
+        android:inputType="textPassword" />
 
 <Button
 android:id="@+id/loginBtn"

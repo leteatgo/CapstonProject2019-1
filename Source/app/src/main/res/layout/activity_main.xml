@@ -39,14 +39,15 @@
         android:layout_below = "@id/main_kakaoBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/main_emailBtn"
-        android:text="이메일로 시작하기"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below = "@id/main_naverBtn"
         android:layout_width="300dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_naverBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="이메일로 시작하기" />
 
     <LinearLayout
         android:id="@+id/main_join"
