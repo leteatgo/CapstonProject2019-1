@@ -23,23 +23,17 @@ import org.json.JSONObject;
  */
 public class SeatsInfoSender {
     
-    private static String LetEatGoIP = "http://localhost:5000";
-    private URL url;
-
-    public SeatsInfoSender(String path) {
-        try {
-            this.url = new URL(LetEatGoIP + path);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(SeatsInfoSender.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    private static String LetEatGoIP = "http://35.243.118.35:5000/pos/seatsChanged";
+//    private static String LetEatGoIP = "http://localhost:5000/pos/pos";
    
     public void sendSeatInfo(int totalPlaceNum, int availablePlaceNum) {
         try {
             BufferedReader reader = null;
             JSONObject requestObject = new JSONObject();
+            requestObject.accumulate("no", 1);
             requestObject.accumulate("totalPlaceNum", totalPlaceNum);
             requestObject.accumulate("availablePlaceNum", availablePlaceNum);
+            URL url = new URL(LetEatGoIP);
             HttpURLConnection conn = null;
             try {
                 conn = (HttpURLConnection) url.openConnection();
@@ -66,15 +60,16 @@ public class SeatsInfoSender {
                     buffer.append(line);
                 }
                 System.out.println(buffer.toString());
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(PlaceStatus.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
+            }  catch (IOException ex) {
                 Logger.getLogger(PlaceStatus.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(SeatsInfoSender.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
             Logger.getLogger(SeatsInfoSender.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
+    
 }

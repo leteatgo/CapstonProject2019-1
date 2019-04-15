@@ -33,7 +33,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-// changwoo
+// ckddn
 import com.openbravo.pos.sales.restaurant.leteatgo.*;
 
 /**
@@ -84,7 +84,7 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
     private String customerDetails;
     private String tableName;
 
-    /* Written by changwoo */
+    /* Written by ckddn */
     private PlaceStatus placeStatus;
     
     /**
@@ -184,7 +184,7 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
         // Add all the Table buttons.
         Floor currfloor = null;
         
-        //  Written by changwoo
+        //  Written by ckddn
         placeStatus = new PlaceStatus(m_aplaces.size(), 0);
         int count = 0;
         for (Place pl : m_aplaces) {    //  테이블의 갯수만큼 진행
@@ -196,7 +196,7 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
                     currfloor = m_afloors.get(iFloor++);                            //  curfloor++
                 } while (!currfloor.getID().equals(pl.getFloor()));                 //  만약 하나의 floor에 하나의 place도 나오지 않을 때
             }
-            /* Written by changwoo - table counter */
+            /* Written by ckddn - table counter */
             if (getTicketInfo(pl) != null) {
                 count++;
             }
@@ -206,7 +206,8 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
             pl.getButton().addActionListener(new MyActionListener(pl));             //  MyActionListener를 place마다 추가
         }
      
-        placeStatus.setAvailablePlaceNum(count);
+        // Writtne by ckddn
+        placeStatus.setAvailablePlaceNum(m_aplaces.size() - count);
         System.out.println(placeStatus);
         
         // Add the reservations panel
@@ -416,8 +417,8 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
             
             m_PlaceCurrent = null;
             
-            /* Written by changwoo  */
-            placeStatus.decreaseAvailablePlace();
+            /* Written by ckddn  */
+            placeStatus.increaseAvailablePlace();
             System.out.println(placeStatus);
         }
 
@@ -611,8 +612,8 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
                          선택한 place를 m_PlaceCurrent에 저장, 선택한 place에 대한 ticket을 TicketsEditor에 지정(티켓과 테이블 이름을 담는다) */
                         setActivePlace(m_place, ticket);    //  간단히 말해 현재 사용중인 테이블임을 지정해준다.
                         
-                        /*  Written by changwoo */
-                        placeStatus.increaseAvailablePlace();
+                        /*  Written by ckddn */
+                        placeStatus.decreaseAvailablePlace();
                         System.out.println(placeStatus);  //  check table status
                         
                     } else if (ticket == null && m_place.hasPeople()) {
@@ -767,8 +768,8 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
 
                                 setActivePlace(m_place, ticket);
                                 
-                                /*  Written by changwoo */
-                                placeStatus.decreaseAvailablePlace();
+                                /*  Written by ckddn */
+                                placeStatus.increaseAvailablePlace();
                                 System.out.println(placeStatus);
                             } else {    /*  병합작업을 취소할때 */
                                 // Cancel merge operations

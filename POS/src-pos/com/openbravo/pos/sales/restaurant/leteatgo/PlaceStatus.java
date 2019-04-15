@@ -10,6 +10,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -20,8 +22,6 @@ import org.json.JSONObject;
  * @author ckddn
  */
 public class PlaceStatus {
-
-    private static String URLpath = "/seatsChanged";
    
     private int totalPlaceNum;              //  number of tables
     private int availablePlaceNum;          //  number of available tables
@@ -31,7 +31,7 @@ public class PlaceStatus {
         this.totalPlaceNum = totalPlaceNum;
         this.availablePlaceNum = availablePlaceNum;
         
-        this.sender = new SeatsInfoSender(URLpath);
+        this.sender = new SeatsInfoSender();
     }
 
     public int getTotalPlaceNum() {
@@ -48,6 +48,7 @@ public class PlaceStatus {
 
     public void setAvailablePlaceNum(int availablePlaceNum) {
         this.availablePlaceNum = availablePlaceNum;
+        sender.sendSeatInfo(totalPlaceNum, availablePlaceNum);
     }
 
     public void decreaseAvailablePlace() {
