@@ -4,7 +4,7 @@ var nodemailer = require('nodemailer');
 var bkfd2Password = require('pbkdf2-password');
 var hasher = bkfd2Password();
 
-exports.verify =  (req, res) => {
+exports.verify = (req, res) => {
     console.log('/join/verify');
 
     const inputData = req.body;
@@ -19,8 +19,8 @@ exports.verify =  (req, res) => {
             pass: 'ehowl9496!'          // gmail 계정의 비밀번호를 입력
         }
     });
-    
-    var ip = '10.210.60.17:5000';    //  server ip
+
+    var ip = '35.243.118.35:5000';    //  server ip
 
     var opts = { password: email };
     hasher(opts, function (err, pass, salt, hash) {
@@ -31,12 +31,12 @@ exports.verify =  (req, res) => {
          * verified : 0 (default)
          */
 
-        knex('verify').where({id: email}).select('id').then(function(rows) {
+        knex('verify').where({ id: email }).select('id').then(function (rows) {
             console.log('Inserted Account ' + rows[0].id)
-            return knex('verify').where('id','=',email).update({pw:hash, verified:0})
-        }).catch(function(err) {
+            return knex('verify').where('id', '=', email).update({ pw: hash, verified: 0 })
+        }).catch(function (err) {
             console.log('account that not inserted yet');
-            return knex('verify').insert({id:email, pw:hash, verified:0})
+            return knex('verify').insert({ id: email, pw: hash, verified: 0 })
         })
 
         let mailOptions = {
@@ -65,40 +65,33 @@ exports.signUp = (req, res) => {
     console.log('/join/signUp')
     const inputData = req.body;
     var id = inputData.id;
-    var pw = inputData.pw;
+    var salt = inputData.salt;
+    var hash = inputData.hash;
     var name = inputData.name;
     var mobile = inputData.mobile;
     console.log(inputData);
-    
+
     // 1. 인증된 ip인지 확인
-    knex('verify').where('id','=',id).select('verified').then((rows) => {
-    // 2. 인증이되었다면 salt, hash만들어서 ID password(hash) salt name mobile
+    knex('verify').where('id', '=', id).select('verified').then((rows) => {
+        // 2. 인증이되었다면 salt, hash만들어서 ID password(hash) salt name mobile
         var verified = rows[0].verified;
         if (verified == 1) {    //  진행
-            var opt = {password : pw};
-            hasher(opt, function(err, pass, salt, hash) {
-                if (err) {
-                    console.log(err);
-                    console.log('hasher function error!');
-                } else {
-                    knex('user').insert({id:id, pw:hash, salt:salt, name:name, mobile:mobile}).then((rows) => {
-                        knex('verify').delete({id:id})
-                        console.log(`delete ID: ${id} from verify table`);
-                        res.sendStatus(200) // OK
-                    }).catch((err) => {
-                        console.log(err);
-                        console.log('fail to insert data');
-                        res.send('계정 추가에 실패하였습니다 잠시후 다시 시도해주세요.')                        
-                    })
-                }
-            }) 
+            knex('user').insert({ id: id, hash: hash, salt: salt, name: name, mobile: mobile }).then((rows) => {
+                knex('verify').delete({ id: id })
+                console.log(`delete ID: ${id} from verify table`);
+                res.sendStatus(200) // OK
+            }).catch((err) => {
+                console.log(err);
+                console.log('fail to insert data');
+                res.send('계정 추가에 실패하였습니다 잠시후 다시 시도해주세요.')
+            })
         } else {    //  인증 하지 않았음
             res.send('이메일 인증 후 이용하실 수 있습니다.');
         }
     }).catch((err) => {
         res.send('이메일 인증 후 이용하실 수 있습니다.');
     })
-    
+
 }
 
 exports.auth = (req, res) => {
@@ -106,13 +99,13 @@ exports.auth = (req, res) => {
     var email = req.query.email;
     var token = req.query.token;
     console.log("Email : " + email + " wants to verify");
-    
-    knex('verify').where({id: email}).select('*').then(function(rows) {
+
+    knex('verify').where({ id: email }).select('*').then(function (rows) {
         console.log('인증확인을 진행합니다.')
         var hash = replaceAll(rows[0].pw, "+", " ")
         if (hash == token) {
             res.send('인증에 성공하였습니다.')
-            return knex('verify').where('id','=',email).update({verified:1})
+            return knex('verify').where('id', '=', email).update({ verified: 1 })
         } else {
             res.send('인증에 실패하셨습니다.')
         }
