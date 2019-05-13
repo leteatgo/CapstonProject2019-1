@@ -69,28 +69,55 @@ exports.signUp = (req, res) => {
     var hash = inputData.hash;
     var name = inputData.name;
     var mobile = inputData.mobile;
+    var type = inputData.type;
     console.log(inputData);
 
-    // 1. 인증된 ip인지 확인
-    knex('verify').where('id', '=', id).select('verified').then((rows) => {
-        // 2. 인증이되었다면 salt, hash만들어서 ID password(hash) salt name mobile
-        var verified = rows[0].verified;
-        if (verified == 1) {    //  진행
-            knex('user').insert({ id: id, hash: hash, salt: salt, name: name, mobile: mobile }).then((rows) => {
-                knex('verify').delete({ id: id })
-                console.log(`delete ID: ${id} from verify table`);
-                res.sendStatus(200) // OK
-            }).catch((err) => {
-                console.log(err);
-                console.log('fail to insert data');
-                res.send('계정 추가에 실패하였습니다 잠시후 다시 시도해주세요.')
-            })
-        } else {    //  인증 하지 않았음
+    if (type === 0) { // user
+        // 1. 인증된 id인지 확인
+        knex('verify').where('id', '=', id).select('verified').then((rows) => {
+            // 2. 인증이되었다면 salt, hash만들어서 ID password(hash) salt name mobile
+            var verified = rows[0].verified;
+            if (verified == 1) {    //  진행
+                knex('user').insert({ id: id, hash: hash, salt: salt, name: name, mobile: mobile }).then((rows) => {
+                    knex('verify').delete({ id: id })
+                    console.log(`delete ID: ${id} from verify table`);
+                    res.sendStatus(200) // OK
+                }).catch((err) => {
+                    console.log(err);
+                    console.log('fail to insert data');
+                    res.send('계정 추가에 실패하였습니다 잠시후 다시 시도해주세요.')
+                })
+            } else {    //  인증 하지 않았음
+                res.send('이메일 인증 후 이용하실 수 있습니다.');
+            }
+        }).catch((err) => {
             res.send('이메일 인증 후 이용하실 수 있습니다.');
-        }
-    }).catch((err) => {
-        res.send('이메일 인증 후 이용하실 수 있습니다.');
-    })
+        })
+
+    } else { // owner
+        // 1. 인증된 id인지 확인
+        knex('verify').where('id', '=', id).select('verified').then((rows) => {
+            // 2. 인증이되었다면 salt, hash만들어서 ID password(hash) salt name mobile
+            var verified = rows[0].verified;
+            if (verified == 1) {    //  진행
+                knex('owner').insert({ id: id, hash: hash, salt: salt, name: name, mobile: mobile }).then((rows) => {
+                    knex('verify').delete({ id: id })
+                    console.log(`delete ID: ${id} from verify table`);
+                    res.sendStatus('점주용 계정이 생성되었습니다.') // OK
+                }).catch((err) => {
+                    console.log(err);
+                    console.log('fail to insert data');
+                    res.send('계정 추가에 실패하였습니다 잠시후 다시 시도해주세요.')
+                })
+            } else {    //  인증 하지 않았음
+                res.send('이메일 인증 후 이용하실 수 있습니다.');
+            }
+        }).catch((err) => {
+            res.send('이메일 인증 후 이용하실 수 있습니다.');
+        })
+
+    }
+
 
 }
 

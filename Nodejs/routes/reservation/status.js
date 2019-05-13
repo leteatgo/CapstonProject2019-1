@@ -21,7 +21,7 @@ exports.dateInfo = (req, res) => {
                 date: element.date,
                 people_num: element.people_num,
                 mobile: element.mobile,
-                user_request: element, user_request
+                user_request: element.user_request
             }
             jsonArray.push(reservationInfo);
         });

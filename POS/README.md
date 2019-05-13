@@ -1,5 +1,5 @@
 # CapstoneProject2019-1
-Project LetEatGo
+Project LetEatGo(Miribom)
 
 ## POS Opensource from dPOS
 

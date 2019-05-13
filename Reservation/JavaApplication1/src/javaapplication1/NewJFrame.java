@@ -7,8 +7,13 @@ package javaapplication1;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,15 +27,21 @@ import javax.swing.table.TableColumnModel;
  * @author lee
  */
 public class NewJFrame extends javax.swing.JFrame {
-
+    private ReservationReceiver reservationReceiver;
+    private LoginHelper loginHelper;
+    
+    private OwnerInfo ownerInfo;
+    
+    private ArrayList<Reservation> reservationList;
+    private Reservation cur_reservation; // 선택한 reservation
+    
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() {
+    public NewJFrame() throws UnsupportedEncodingException {
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         selectcomboToday();
-
     }
 
     /**
@@ -118,7 +129,17 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("PW");
 
-        jPasswordField3.setText("jPasswordField3");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jPasswordField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField3ActionPerformed(evt);
+            }
+        });
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newpackage/logo.PNG"))); // NOI18N
 
@@ -129,7 +150,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +250,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jComboBox3.setEditable(true);
         jComboBox3.setFont(new java.awt.Font("HY헤드라인M", 1, 18)); // NOI18N
         jComboBox3.setForeground(new java.awt.Color(153, 153, 0));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         jComboBox3.setAutoscrolls(true);
         jComboBox3.setFocusable(false);
 
@@ -258,7 +279,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jComboBox2.setEditable(true);
         jComboBox2.setFont(new java.awt.Font("HY헤드라인M", 1, 18)); // NOI18N
         jComboBox2.setForeground(new java.awt.Color(153, 153, 0));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         jComboBox2.setAutoscrolls(true);
         jComboBox2.setFocusable(false);
 
@@ -316,7 +337,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -381,7 +402,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 31, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addComponent(jLabel6)
@@ -404,7 +425,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         mainPanel.add(jPanel3, "card3");
@@ -419,7 +440,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("HY헤드라인M", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("000님의 예약 정보");
+        jLabel7.setText("000 님의 예약 정보");
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("HY헤드라인M", 0, 24)); // NOI18N
@@ -496,7 +517,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -544,7 +565,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
         mainPanel.add(jPanel4, "card4");
@@ -563,7 +584,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -592,12 +613,41 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        CardLayout card = (CardLayout) mainPanel.getLayout();
-        card.show(mainPanel, "card2");
+        //  로그인
+        boolean verified = false;
+        // 로그인 성공시 verified = true
+        String id = jTextField1.getText().toString();
+        String pw = "";
+        char[] secret_pw = jPasswordField3.getPassword();
+        for(char c : secret_pw) {
+            Character.toString(c);
+            pw += (pw.equals("")) ? ""+c+"" : ""+c+"";
+        }
+        try {
+            AES256Util aES256Util = new AES256Util();
+            System.out.println(aES256Util.encrypt(pw));
+
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (GeneralSecurityException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+        try {
+            loginHelper = new LoginHelper(id, pw);
+            ownerInfo = loginHelper.signInTask(ownerInfo);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ownerInfo.isVerified()) {
+            System.out.println(ownerInfo.toString());
+            CardLayout card = (CardLayout) mainPanel.getLayout();
+            card.show(mainPanel, "card2");            
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //  로그아웃
         CardLayout card = (CardLayout) mainPanel.getLayout();
         card.show(mainPanel, "card1");
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -635,31 +685,54 @@ public class NewJFrame extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
+            cur_reservation = reservationList.get(jTable1.getSelectedRow());
             CardLayout card = (CardLayout) mainPanel.getLayout();
             card.show(mainPanel, "card4");
+            setDetails(cur_reservation);
         }
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
+    private void setDetails(Reservation reservation) {
+        jLabel7.setText(reservation.getName()+" 님의 예약 정보");
+        jLabel13.setText(reservation.getDate());
+        jLabel14.setText(reservation.getPeople_num()+" 명");
+        jLabel15.setText(reservation.getTime());
+        jLabel16.setText(reservation.getMobile());
+        jTextArea1.setEditable(true);
+        jTextArea1.setText(reservation.getUser_request());
+        jTextArea1.setEditable(false);
+    }
+    
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        System.out.print(jComboBox1.getSelectedItem()+"-"+jComboBox2.getSelectedItem()+"-"+jComboBox3.getSelectedItem());
-        addlist();
+//        System.out.println(jComboBox1.getSelectedItem().toString().substring(2)+"-"+jComboBox2.getSelectedItem()+"-"+jComboBox3.getSelectedItem());
+        String dateStr = jComboBox1.getSelectedItem()+"-"+jComboBox2.getSelectedItem()+"-"+jComboBox3.getSelectedItem();
+        System.out.println(dateStr);
+        addlist(dateStr);
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void addlist() {
-        DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
-        int n = 1;
-        String rowdata[] = new String[3];
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
-        rowdata[0] = Integer.toString(n);
-        rowdata[1] = "11:00";
-        rowdata[2] = "이준호";
-        //모델에 데이터 추가 , 1번째 출에 새로운 데이터를 추가합니다
-        m.addRow(rowdata);
-        rowdata[0] = Integer.toString(n + 1);
-        rowdata[1] = "12:00";
-        rowdata[2] = "손창우";
-        m.addRow(rowdata);
+    private void jPasswordField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField3ActionPerformed
+
+    private void addlist(String dateStr) {
+        DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+        reservationReceiver = new ReservationReceiver(dateStr);
+        reservationList = reservationReceiver.sendDateInfo();
+
+        String rowdata[] = new String[3];
+        for (int i = 0; i < reservationList.size(); i++) {
+            Reservation reservation = reservationList.get(i);
+            rowdata[0] = Integer.toString(i);
+            rowdata[1] = reservation.getTime();
+            rowdata[2] = reservation.getName();
+            m.addRow(rowdata);
+        }
+        
         //추가를 마치고 데이터 갱신을 알립니다.
         DefaultTableCellRenderer mRenderer = new DefaultTableCellRenderer();
         mRenderer.setHorizontalAlignment(SwingConstants.CENTER);

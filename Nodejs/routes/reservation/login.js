@@ -11,9 +11,7 @@ exports.signIn = (req, res) => {
         console.log(rows[0]);
         var info = {
             no: rows[0].no,
-            r_no: rows[0].r_no,
             hash: rows[0].hash,
-            salt: rows[0].salt,
             name: rows[0].name,
             mobile: rows[0].mobile
         }
