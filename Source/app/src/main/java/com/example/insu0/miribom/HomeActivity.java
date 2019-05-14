@@ -1,7 +1,16 @@
 package com.example.insu0.miribom;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.icu.text.UnicodeSetSpanner;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,10 +19,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.insu0.miribom.Data.DataUtils;
 import com.example.insu0.miribom.Lists.HomeRestaurantList;
 import com.example.insu0.miribom.Lists.HomeRestaurantListAdapter;
+import com.example.insu0.miribom.Lists.HomeRestaurantListItem;
 import com.example.insu0.miribom.Servers.MiribomInfo;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,16 +40,41 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-//implemented by Jason Yang
+// implemented by Jason Yang
+// Updated by ckddn 090417
 
 public class HomeActivity extends AppCompatActivity {
     private RecyclerView homeRestaurantListView;
     private HomeRestaurantListAdapter homeRestaurantListAdapter;
 
+    private int uno;
+    private double longitude, latitude;
+
+    ArrayList<HomeRestaurantListItem> itemList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        uno = getIntent().getIntExtra("no", -1);
+        if (uno == -1) {
+            Toast.makeText(getApplicationContext(), "회원정보를 불러오는데 실패 하였습니다.", Toast.LENGTH_LONG).show();
+            finish();
+        }
+        final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         /*List 초기화*/
         homeRestaurantListView = findViewById(R.id.home_restaurant_listview);
@@ -45,18 +82,17 @@ public class HomeActivity extends AppCompatActivity {
         homeRestaurantListView.setLayoutManager(layoutManager);
 
         setHomeRestaurantListTest(); //서버 구현 전 Testing Code
+//        if(location.getLongitude() > 0)
+//            new HomeSettingTask().execute("http://" + MiribomInfo.ipAddress + "/home/"
+//            , Integer.toString(uno), Double.toString(location.getLongitude()), Double.toString(location.getLatitude()));
+//        else
+            new HomeSettingTask().execute("http://" + MiribomInfo.ipAddress + "/home/"
+                    , Integer.toString(uno), "126", "37");
+
     }
 
 
-    private void setHomeRestaurantListTest(){ //서버 구현 전 Testing Code
-
-        ArrayList<String> itemList = new ArrayList<>();
-        itemList.add("우뇽파스타");
-        itemList.add("음식점2");
-        itemList.add("음식점3");
-        itemList.add("음식점4");
-        itemList.add("음식점5");
-        itemList.add("음식점6");
+    private void setHomeRestaurantListTest() { //서버 구현 전 Testing Code
 
         homeRestaurantListAdapter = new HomeRestaurantListAdapter(this, itemList, onClickItem);
         homeRestaurantListView.setAdapter(homeRestaurantListAdapter);
@@ -65,28 +101,36 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private View.OnClickListener onClickItem = new View.OnClickListener(){
+    private View.OnClickListener onClickItem = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
-            String str = (String) v.getTag();
-            Toast.makeText(HomeActivity.this,str,Toast.LENGTH_SHORT).show();
+            HomeRestaurantListItem item = (HomeRestaurantListItem) v.getTag();
+            Toast.makeText(getApplicationContext(), item.toString(), Toast.LENGTH_SHORT).show();
             // 서버에서 레스토랑 정보 가져와서 RestaurantInfoActivity
-            // params: url, restaurant no.
-            new RestaurantInfoRequestTask().execute("http://" + MiribomInfo.ipAddress + "/restaurant/getRestInfo", "1");
-
+            // params: url, restaurant no
+//            Intent intent = new Intent(HomeActivity.this, RestaurantInfoActivity.class);
+            Intent intent = new Intent(HomeActivity.this, ReserveActivity.class);
+            intent.putExtra("uNo", uno);
+            intent.putExtra("resNo", item.getResNo());
+            startActivity(intent);
         }
     };
 
 
-    public class RestaurantInfoRequestTask extends AsyncTask<String, String, String> {
-        String TAG = "RestaurantInfoRequestTask>>>";
+    /* author ckddn
+     * */
+    public class HomeSettingTask extends AsyncTask<String, String, String> {
+        String TAG = "HomeSettingTask>>>";
 
         @Override
         protected String doInBackground(String... strings) {
             try {
                 JSONObject reqInfo = new JSONObject();
-                reqInfo.accumulate("resNo", strings[1]);
+                reqInfo.accumulate("no", strings[1]);
+                reqInfo.accumulate("longitude", strings[2]);
+                reqInfo.accumulate("latitude", strings[3]);
+
                 HttpURLConnection conn = null;
                 BufferedReader reader = null;
                 try {
@@ -132,31 +176,29 @@ public class HomeActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             try {
-                Intent intent = new Intent(HomeActivity.this, RestaurantInfoActivity.class);
-                JSONObject jsonObject = new JSONObject(result);
-//                Toast.makeText(getApplicationContext(),"get JSON Object!!",Toast.LENGTH_LONG).show();
-                intent.putExtra("resNo", jsonObject.getInt("no"));
-                intent.putExtra("restName", jsonObject.getString("name"));
-                intent.putExtra("address", jsonObject.getString("address"));
-                intent.putExtra("mobile", jsonObject.getString("mobile"));
-//                intent.putExtra("longitude", jsonObject.getString("longitude"));
-//                intent.putExtra("latitude", jsonObject.getString("latitude"));
-//                intent.putExtra("r_type", jsonObject.getString("r_type"));
-//                intent.putExtra("s_type", jsonObject.getString("s_type"));
-//                intent.putExtra("f_type", jsonObject.getString("f_type"));
-//                intent.putExtra("r_num", jsonObject.getString("r_num"));
-//                intent.putExtra("image", jsonObject.getString("image"));
-                intent.putExtra("hours", jsonObject.getString("hours"));
-//                intent.putExtra("owner_request", jsonObject.getString("owner_request"));
-                intent.putExtra("totalPlaceNum", jsonObject.getInt("s_total_num"));
-                intent.putExtra("availablePlaceNum", jsonObject.getInt("s_left_num"));
-                intent.putExtra("reservablePlaceNum", jsonObject.getInt("s_ava_num"));
-                startActivity(intent);
+                JSONArray array = new JSONArray(result);
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject jsonObject = array.getJSONObject(i);
+                    JSONObject imageObject = new JSONObject(jsonObject.getString("image"));
+                    String data = imageObject.getString("data");
+                    String[] imageStrs = data.substring(1, data.length()-1).split(",");
+                    byte[] imageDatas = new byte[imageStrs.length];
+                    for (int j = 0; j < imageStrs.length; j++) {
+                        imageDatas[j] = DataUtils.intToByteArray(Integer.parseInt(imageStrs[j]));
+                    }
+                    Bitmap bmp = BitmapFactory.decodeByteArray(imageDatas, 0 , imageDatas.length);
+                    itemList.add(new HomeRestaurantListItem(jsonObject.getInt("no"), jsonObject.getString("name"), bmp));
+                }
             } catch (JSONException e) {
+                Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
-//                Toast.makeText(getApplicationContext(), "JSON 형식 아님", Toast.LENGTH_LONG).show();
             }
+            homeRestaurantListAdapter.notifyDataSetChanged();
         }
     }
+
+
+
+
 
 }

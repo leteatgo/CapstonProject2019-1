@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.insu0.miribom.Servers.MiribomInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -40,7 +43,7 @@ public class JoinActivity extends AppCompatActivity {
     private EditText join_nameInput;
     private EditText join_mobileInput;
 
-    private Button join_verifyEmailBtn;
+//    private Button join_verifyEmailBtn;
     private Button joinBtn;
 
 //    private boolean verified = false;
@@ -56,22 +59,26 @@ public class JoinActivity extends AppCompatActivity {
         join_passwordVerify = (EditText) findViewById(R.id.join_passwordVerify);
         join_nameInput = (EditText) findViewById(R.id.join_nameInput);
         join_mobileInput = (EditText) findViewById(R.id.join_mobileInput);
-        join_verifyEmailBtn = (Button) findViewById(R.id.join_verifyEmailBtn);
+//        join_verifyEmailBtn = (Button) findViewById(R.id.join_verifyEmailBtn);
         joinBtn = (Button) findViewById(R.id.joinBtn);
 
-        join_verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new EmailVerifier().execute("http://" + MiribomInfo.ipAddress + "/join/verify");
-            }
-        });
+
+//        join_verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new EmailVerifier().execute("http://" + MiribomInfo.ipAddress + "/join/verify");
+//            }
+//        });
 
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isFilled()) {
-                    if (join_passwordInput.getText().toString().equals(join_passwordVerify.getText().toString()))
-                        new SignUpTask().execute("http://" + MiribomInfo.ipAddress + "/join/signUp");
+                    if (join_passwordInput.getText().toString().equals(join_passwordVerify.getText().toString())) {
+                        String salt = BCrypt.gensalt();
+                        String hash = BCrypt.hashpw(join_passwordInput.getText().toString(), salt);
+                        new SignUpTask().execute("http://" + MiribomInfo.ipAddress + "/join/signUp", salt, hash);
+                    }
                     else
                         Toast.makeText(getApplicationContext(), "비밀번호를 다시 한번 확인해주세요.", Toast.LENGTH_LONG).show();
                 }
@@ -85,7 +92,7 @@ public class JoinActivity extends AppCompatActivity {
                 || join_passwordVerify.getText().toString().equals("")
                 || join_nameInput.getText().toString().equals("")
                 || join_mobileInput.getText().toString().equals("")) {
-            Toast.makeText(getApplicationContext(),"회원가입위해 모든 항목을 채워주세요.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"모든 항목을 기입해주세요.", Toast.LENGTH_LONG).show();
             return false;
         }
         else return true;
@@ -161,9 +168,11 @@ public class JoinActivity extends AppCompatActivity {
             try {
                 JSONObject regInfo = new JSONObject();
                 regInfo.accumulate("id", join_emailInput.getText().toString());
-                regInfo.accumulate("pw", join_passwordInput.getText().toString());
+                regInfo.accumulate("salt", strings[1]);
+                regInfo.accumulate("hash", strings[2]);
                 regInfo.accumulate("name", join_nameInput.getText().toString());
                 regInfo.accumulate("mobile", join_mobileInput.getText().toString());
+
                 HttpURLConnection conn = null;
                 BufferedReader reader = null;
                 try {
@@ -208,11 +217,12 @@ public class JoinActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if (result.equals("OK")) {
+            if (result.equals("OK")) { // 인증메시지 발송
+                Toast.makeText(getApplicationContext(), "인증메시지가 발송되었습니다.\n이메일을 확인해 주세요.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
                 intent.putExtra("id", join_emailInput.getText().toString());
                 startActivity(intent);
-            } else {
+            } else { // ID 중복
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
             }
 

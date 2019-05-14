@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReserveActivity">
+
+    <ScrollView
+        android:id="@+id/sc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/textbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/res_restName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="파스타 집1"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/res_restRegion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="서울>건대역>양식"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/buttonlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textbox"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/infoBtn"
+                    android:layout_width="59dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_info"
+                    android:text="info"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/resBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_reserve"
+                    android:text="info"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp"
+                android:layout_width="wrap_content"
+                android:layout_height="550dp"
+                android:layout_below="@id/buttonlayout"></android.support.v4.view.ViewPager>
+
+            <Button
+                android:id="@+id/reserveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="예약하기"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

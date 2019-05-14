@@ -11,11 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.insu0.miribom.Data.UserData;
 import com.example.insu0.miribom.Servers.MiribomInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,6 +26,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 
 /*
  * @author ckddn
@@ -46,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         emailInput = (EditText) findViewById(R.id.emailInput);
         login_passwordInput = (EditText) findViewById(R.id.passwordInput);
 
-
+        login_passwordInput.setText("111111");
         /*
          * @author ckddn
          * added 190415
@@ -54,18 +55,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         try {   //  Only after signUp...
             String id = getIntent().getStringExtra("id");
             emailInput.setText(id);
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-
-        loginBtn = (Button)findViewById(R.id.loginBtn);
+        loginBtn = (Button) findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
         new SignInTask().execute("http://" + MiribomInfo.ipAddress + "/login/signIn");
     }
 
@@ -73,11 +73,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String TAG = "SignInTask>>>";
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(String... strings) {    //  id로 서버에서 salt hash 가져옴
             try {
                 JSONObject loginInfo = new JSONObject();
                 loginInfo.accumulate("id", emailInput.getText().toString());
-                loginInfo.accumulate("pw", login_passwordInput.getText().toString());
                 HttpURLConnection conn = null;
                 BufferedReader reader = null;
                 try {
@@ -122,13 +121,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if (result.equals("OK")) {
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                intent.putExtra("id", emailInput.getText().toString());
-                startActivity(intent);
-                finish();
-            } else {
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                if (BCrypt.checkpw(login_passwordInput.getText().toString(), jsonObject.getString("hash"))) {
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.putExtra("no", jsonObject.getInt("no"));
+                    intent.putExtra("id", emailInput.getText().toString());
+                    startActivity(intent);
+                    finish();
+                } else
+                    Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_LONG).show();
+            } catch (JSONException e) { // 인증받지 않은 메일
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                e.printStackTrace();
             }
         }
     }

@@ -10,6 +10,6 @@ public interface MiribomInfo {
             Manifest.permission.ACCESS_NETWORK_STATE };
     /*  setting server ip address   */
     String ipAddress = "35.243.118.35:5000";   //  Google Cloud Platform 외부 고정 ip
-//    String ipAddress = "10.210.60.17:5000";   //  Local ip for Debugging
+//    String ipAddress = "192.168.219.104:5000";   //  Local ip for Debugging
 
 }
