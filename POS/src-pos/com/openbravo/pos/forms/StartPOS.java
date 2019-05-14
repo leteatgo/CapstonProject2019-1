@@ -35,6 +35,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.FileInputStream;
 import java.io.IOException;
+import javax.swing.JFrame;
 import javax.swing.UIDefaults;
 import org.pushingpixels.substance.api.fonts.FontPolicy;
 import org.pushingpixels.substance.api.fonts.FontSet;
@@ -51,6 +52,7 @@ public class StartPOS {
 
     private static final Logger logger = Logger.getLogger("com.openbravo.pos.forms.StartPOS");
     public static Font gblfont = new Font("SansSerif", Font.PLAIN, 12);
+    int ff=1;
 
     /**
      * Creates a new instance of StartPOS
@@ -82,10 +84,13 @@ public class StartPOS {
      */
     public static void main(final String args[]) {
         System.out.println("startPOS service");
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        JFrame frame = new LoginFrame();
+        frame.setVisible(true);
+        
+       /* java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-
+                
                 if (!registerApp()) {
                     System.exit(1);
                 }
@@ -134,18 +139,25 @@ public class StartPOS {
                 String hostname = config.getProperty("machine.hostname");
                 TicketInfo.setHostname(hostname);
 
+                
                 String screenmode = config.getProperty("machine.screenmode");
+                
                 if ("전체화면".equals(screenmode)) {
                     System.out.println("전체화면");
                     JRootKiosk rootkiosk = new JRootKiosk();
                     rootkiosk.initFrame(config);
+                    rootkiosk.setVisible(false);
                 } else {
                     System.out.println("창화면");
                     JRootFrame rootframe = new JRootFrame();
                     rootframe.initFrame(config);
+                    rootframe.setVisible(false);
                 }
             }
         });
+        
+        
+        
     }
     
     public static Font getgblFont() {
@@ -171,7 +183,7 @@ public class StartPOS {
                 Font titleFont=controlFont.deriveFont(Font.BOLD);
                 return FontSets.createDefaultFontSet(controlFont,menuFont,titleFont);
             }
-          });
+          });*/
     } 
     
 }
