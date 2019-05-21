@@ -29,7 +29,8 @@ import javax.swing.table.TableColumnModel;
 public class NewJFrame extends javax.swing.JFrame {
     private ReservationReceiver reservationReceiver;
     private LoginHelper loginHelper;
-    
+    private SeatSetter seatSetter;
+            
     private OwnerInfo ownerInfo;
     
     private ArrayList<Reservation> reservationList;
@@ -253,6 +254,11 @@ public class NewJFrame extends javax.swing.JFrame {
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         jComboBox3.setAutoscrolls(true);
         jComboBox3.setFocusable(false);
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setFont(new java.awt.Font("HY헤드라인M", 0, 18)); // NOI18N
@@ -387,6 +393,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jTextField3.setFont(new java.awt.Font("HY헤드라인M", 1, 18)); // NOI18N
         jTextField3.setForeground(new java.awt.Color(153, 153, 0));
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -664,8 +675,11 @@ public class NewJFrame extends javax.swing.JFrame {
         if (day.length() < 2) {
             day = "0" + day;
         }
-        String a_num = jTextField3.getText();
-        System.out.println(year + "-" + month + "-" + day + "-" + a_num);
+        String date = year + "-" + month + "-" + day;
+        int available_reservation_num = Integer.parseInt(jTextField3.getText());
+        seatSetter = new SeatSetter(1, date, available_reservation_num);
+        seatSetter.sendSeatInfo();
+        
         CardLayout card = (CardLayout) mainPanel.getLayout();
         card.show(mainPanel, "card2");
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -719,11 +733,24 @@ public class NewJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField3ActionPerformed
 
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
     private void addlist(String dateStr) {
         DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+        int rowCount = m.getRowCount();
+        for (int i = 0; i < rowCount; i++) {
+            m.removeRow(0);
+        }
+        
         reservationReceiver = new ReservationReceiver(dateStr);
         reservationList = reservationReceiver.sendDateInfo();
-
+        
         String rowdata[] = new String[3];
         for (int i = 0; i < reservationList.size(); i++) {
             Reservation reservation = reservationList.get(i);

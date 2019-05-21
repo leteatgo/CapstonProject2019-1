@@ -18,6 +18,7 @@
 //    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>
 package com.openbravo.pos.forms;
 
+import com.openbravo.pos.forms.leteatgo.LoginFrame;
 import com.openbravo.format.Formats;
 import com.openbravo.pos.instance.InstanceQuery;
 import java.rmi.NotBoundException;
@@ -87,7 +88,7 @@ public class StartPOS {
         JFrame frame = new LoginFrame();
         frame.setVisible(true);
         
-       /* java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 
@@ -183,7 +184,7 @@ public class StartPOS {
                 Font titleFont=controlFont.deriveFont(Font.BOLD);
                 return FontSets.createDefaultFontSet(controlFont,menuFont,titleFont);
             }
-          });*/
+          });
     } 
     
 }

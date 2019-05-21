@@ -28,7 +28,7 @@ import org.json.JSONObject;
  * @author ckddn
  */
 public class ReservationReceiver {
-    private static String LetEatGoIP = "http://35.243.118.35:5000/reservation/list";
+    private static String LetEatGoIP = "http://34.74.255.9:5000/reservation/list";
     private String dateStr;
     private ArrayList<Reservation> reservationList;
     
@@ -44,7 +44,6 @@ public class ReservationReceiver {
     public void setDateStr(String dateStr) {
         this.dateStr = dateStr;
     }
-    
 
     public ArrayList<Reservation> sendDateInfo() {
         try {

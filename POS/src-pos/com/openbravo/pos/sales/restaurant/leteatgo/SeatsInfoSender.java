@@ -23,8 +23,7 @@ import org.json.JSONObject;
  */
 public class SeatsInfoSender {
     
-    private static String LetEatGoIP = "http://35.243.118.35:5000/pos/seatsChanged";
-//    private static String LetEatGoIP = "http://localhost:5000/pos/pos";
+    private static String LetEatGoIP = "http://34.74.255.9:5000/pos/seatsChanged";
    
     public void sendSeatInfo(int totalPlaceNum, int availablePlaceNum) {
         try {

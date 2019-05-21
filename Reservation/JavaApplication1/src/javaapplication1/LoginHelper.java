@@ -28,7 +28,7 @@ import org.json.JSONObject;
  * @author ckddn
  */
 public class LoginHelper {
-    private static String LetEatGoIP = "http://35.243.118.35:5000/reservation/login";
+    private static String LetEatGoIP = "http://34.74.255.9:5000/reservation/login";
     private AES256Util aES256Util;
 
     private String id, pw;
