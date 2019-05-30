@@ -58,8 +58,8 @@ function sendMail(email) {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: '20146518.sw.cau@gmail.com',  // gmail 계정 아이디를 입력
-            pass: 'ehowl9496!'          // gmail 계정의 비밀번호를 입력
+            user: 'ID',  // gmail 계정 아이디를 입력
+            pass: 'PW'          // gmail 계정의 비밀번호를 입력
         }
     });
     var ip = '35.243.118.35:5000';    //  server ip
