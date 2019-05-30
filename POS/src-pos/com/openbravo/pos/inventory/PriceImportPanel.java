@@ -71,7 +71,8 @@ public class PriceImportPanel extends JPanelTable2 implements EditorListener {
             m_dlSales.getProductCatDelete());
         
         // el panel del editor
-        jeditor = new ProductsEditor(m_dlSales, dirty);       
+        jeditor = new ProductsEditor(m_dlSales, dirty);     
+        System.out.println("com.openbravo.pos.inventory.PriceImportPanel.init()");
     }
     
     /**

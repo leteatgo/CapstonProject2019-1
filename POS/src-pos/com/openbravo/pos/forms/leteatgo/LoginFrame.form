@@ -704,7 +704,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="99" red="99" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#xc608;&#xc57d;&#xc2dc; &#xc694;&#xad6c;&#xc0ac;&#xd56d;"/>
+                <Property name="text" type="java.lang.String" value="&#xc810;&#xc8fc; &#xacf5;&#xc9c0;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField1">

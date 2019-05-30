@@ -25,11 +25,11 @@ public class SeatsInfoSender {
     
     private static String LetEatGoIP = "http://34.74.255.9:5000/pos/seatsChanged";
    
-    public void sendSeatInfo(int totalPlaceNum, int availablePlaceNum) {
+    public void sendSeatInfo(int r_no, int totalPlaceNum, int availablePlaceNum) {
         try {
             BufferedReader reader = null;
             JSONObject requestObject = new JSONObject();
-            requestObject.accumulate("no", 1);
+            requestObject.accumulate("no", r_no);
             requestObject.accumulate("totalPlaceNum", totalPlaceNum);
             requestObject.accumulate("availablePlaceNum", availablePlaceNum);
             URL url = new URL(LetEatGoIP);

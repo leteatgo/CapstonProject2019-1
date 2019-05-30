@@ -34,8 +34,12 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import com.openbravo.pos.ticket.TicketInfo;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import javax.swing.JFrame;
 import javax.swing.UIDefaults;
 import org.pushingpixels.substance.api.fonts.FontPolicy;
@@ -85,8 +89,18 @@ public class StartPOS {
      */
     public static void main(final String args[]) {
         System.out.println("startPOS service");
-        JFrame frame = new LoginFrame();
+        LoginFrame frame = new LoginFrame();
         frame.setVisible(true);
+        while (true){
+            boolean flag = frame.isSignIn(); // 로그인 성공 시
+            System.out.print("");
+            if (flag) {
+                frame.writeRestInfo();
+                break;      
+            }
+        }
+        
+        
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -147,12 +161,12 @@ public class StartPOS {
                     System.out.println("전체화면");
                     JRootKiosk rootkiosk = new JRootKiosk();
                     rootkiosk.initFrame(config);
-                    rootkiosk.setVisible(false);
+                    rootkiosk.setVisible(true);
                 } else {
                     System.out.println("창화면");
                     JRootFrame rootframe = new JRootFrame();
                     rootframe.initFrame(config);
-                    rootframe.setVisible(false);
+                    rootframe.setVisible(true);
                 }
             }
         });

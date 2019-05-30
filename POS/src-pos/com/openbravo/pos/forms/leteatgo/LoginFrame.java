@@ -7,6 +7,11 @@ package com.openbravo.pos.forms.leteatgo;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -20,17 +25,41 @@ public class LoginFrame extends javax.swing.JFrame {
     /**
      * Creates new form LoginFrame
      */
-    Restaurant rest;
-    Owner owner;
-
+    private Restaurant rest;
+    private Owner owner;
+    private int leftnum = 0;
+    private int resnum = 0;
+   
     public LoginFrame() {
 
         initComponents();
         getContentPane().setBackground(Color.WHITE);
     }
-    int leftnum = 0;
-    int resnum = 0;
-
+     
+    public void writeRestInfo() {
+        FileWriter fw = null;
+        try {
+            File file = new File("restInfo");
+            fw = new FileWriter(file);
+            fw.write(owner.getR_no());
+            fw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+    
+    public boolean isSignIn() {
+        if (owner == null)
+            return false;
+        return (!this.isVisible()) && owner.IsRegistered(); //  LoginFrame의 화면이 꺼지고 owner가 regist되어있으면 로그인 성공
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -426,7 +455,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(153, 153, 0));
-        jLabel9.setText("예약시 요구사항");
+        jLabel9.setText("점주 공지");
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
@@ -1408,7 +1437,7 @@ public class LoginFrame extends javax.swing.JFrame {
         rest.setHours(rest.getHours()+rest.getTime());
         System.out.println(rest.getHours());
         RegistRestaurant registRestaurant = new RegistRestaurant();
-        registRestaurant.regist(rest, owner.getNo());
+        registRestaurant.regist(rest, owner);
         setVisible(false);
         dispose();
 
@@ -1447,7 +1476,7 @@ public class LoginFrame extends javax.swing.JFrame {
         rest.setHours(rest.getHours()+" "+rest.getTime());
         System.out.println(rest.getHours());
         RegistRestaurant registRestaurant = new RegistRestaurant();
-        registRestaurant.regist(rest, owner.getNo());
+        registRestaurant.regist(rest, owner);
         setVisible(false);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -1466,7 +1495,7 @@ public class LoginFrame extends javax.swing.JFrame {
         System.out.println(rest.getImage());
         
     }//GEN-LAST:event_jButton3ActionPerformed
-
+  
     /**
      * @param args the command line arguments
      */

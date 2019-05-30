@@ -279,7 +279,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
      */
     @Override
     public void writeValueInsert() {
-
+        System.out.println("com.openbravo.pos.inventory.ProductsEditor.writeValueInsert()");
         reportlock = true;
 
         m_jTitle.setText(AppLocal.getIntString("label.recordnew"));
@@ -999,39 +999,49 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
         setLayout(null);
 
-        m_jTitle.setFont(StartPOS.getgblFont().deriveFont( 1, 12)); // NOI18N
+        m_jTitle.setFont(StartPOS.getgblFont().deriveFont(1, 12));
         m_jTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         add(m_jTitle);
         m_jTitle.setBounds(310, 0, 240, 20);
 
-        jTabbedPane1.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jTabbedPane1.setFont(StartPOS.getgblFont().deriveFont(0, 12));
 
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel1.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel1.setText(AppLocal.getIntString("label.prodref")); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(10, 10, 65, 25);
 
-        m_jRef.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jRef.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jRef.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 m_jRefFocusLost(evt);
             }
         });
+        m_jRef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jRefActionPerformed(evt);
+            }
+        });
         jPanel1.add(m_jRef);
         m_jRef.setBounds(130, 10, 80, 25);
 
-        jLabel6.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel6.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel6.setText(AppLocal.getIntString("label.prodbarcode")); // NOI18N
         jPanel1.add(jLabel6);
         jLabel6.setBounds(10, 40, 110, 25);
 
-        m_jCode.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jCode.setFont(StartPOS.getgblFont().deriveFont(0, 12));
+        m_jCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jCodeActionPerformed(evt);
+            }
+        });
         jPanel1.add(m_jCode);
         m_jCode.setBounds(130, 40, 170, 25);
 
-        m_jCodetype.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        m_jCodetype.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         m_jCodetype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 m_jCodetypeActionPerformed(evt);
@@ -1040,12 +1050,12 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jPanel1.add(m_jCodetype);
         m_jCodetype.setBounds(310, 40, 90, 25);
 
-        jLabel2.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel2.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel2.setText(AppLocal.getIntString("label.prodname")); // NOI18N
         jPanel1.add(jLabel2);
         jLabel2.setBounds(10, 70, 100, 25);
 
-        m_jName.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jName.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 m_jNameFocusLost(evt);
@@ -1054,30 +1064,30 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jPanel1.add(m_jName);
         m_jName.setBounds(130, 70, 270, 25);
 
-        jLabel5.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel5.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel5.setText(AppLocal.getIntString("label.prodcategory")); // NOI18N
         jPanel1.add(jLabel5);
         jLabel5.setBounds(10, 100, 110, 25);
 
-        m_jCategory.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        m_jCategory.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jPanel1.add(m_jCategory);
         m_jCategory.setBounds(130, 100, 170, 25);
 
-        jLabel13.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel13.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel13.setText(AppLocal.getIntString("label.attributes")); // NOI18N
         jPanel1.add(jLabel13);
         jLabel13.setBounds(10, 130, 110, 25);
 
-        m_jAtt.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        m_jAtt.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jPanel1.add(m_jAtt);
         m_jAtt.setBounds(130, 130, 170, 25);
 
-        jLabel7.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel7.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel7.setText(AppLocal.getIntString("label.taxcategory")); // NOI18N
         jPanel1.add(jLabel7);
         jLabel7.setBounds(10, 160, 110, 25);
 
-        m_jTax.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        m_jTax.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         m_jTax.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 m_jTaxActionPerformed(evt);
@@ -1086,12 +1096,12 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jPanel1.add(m_jTax);
         m_jTax.setBounds(130, 160, 170, 25);
 
-        jLabel16.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel16.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel16.setText(AppLocal.getIntString("label.prodpriceselltax")); // NOI18N
         jPanel1.add(jLabel16);
         jLabel16.setBounds(10, 190, 90, 25);
 
-        m_jPriceSellTax.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jPriceSellTax.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jPriceSellTax.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         m_jPriceSellTax.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1101,18 +1111,18 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jPanel1.add(m_jPriceSellTax);
         m_jPriceSellTax.setBounds(130, 190, 80, 25);
 
-        jLabel4.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel4.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText(AppLocal.getIntString("label.prodpricesell")); // NOI18N
         jPanel1.add(jLabel4);
         jLabel4.setBounds(210, 190, 100, 25);
 
-        m_jPriceSell.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jPriceSell.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jPriceSell.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel1.add(m_jPriceSell);
         m_jPriceSell.setBounds(310, 190, 70, 25);
 
-        jLabel19.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel19.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
         jLabel19.setText(bundle.getString("label.margin")); // NOI18N
@@ -1120,24 +1130,24 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jPanel1.add(jLabel19);
         jLabel19.setBounds(390, 190, 70, 25);
 
-        m_jmargin.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jmargin.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jmargin.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        m_jmargin.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        m_jmargin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         m_jmargin.setEnabled(false);
         jPanel1.add(m_jmargin);
         m_jmargin.setBounds(460, 190, 70, 25);
 
-        jLabel3.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel3.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel3.setText(AppLocal.getIntString("label.prodpricebuy")); // NOI18N
         jPanel1.add(jLabel3);
         jLabel3.setBounds(10, 220, 80, 25);
 
-        m_jPriceBuy.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jPriceBuy.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jPriceBuy.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel1.add(m_jPriceBuy);
         m_jPriceBuy.setBounds(130, 220, 80, 25);
 
-        m_jVerpatrib.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jVerpatrib.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jVerpatrib.setText(bundle.getString("label.mandatory")); // NOI18N
         m_jVerpatrib.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         m_jVerpatrib.addActionListener(new java.awt.event.ActionListener() {
@@ -1146,18 +1156,18 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
             }
         });
         jPanel1.add(m_jVerpatrib);
-        m_jVerpatrib.setBounds(310, 130, 120, 18);
+        m_jVerpatrib.setBounds(310, 130, 120, 27);
 
-        m_jTextTip.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jTextTip.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jPanel1.add(m_jTextTip);
         m_jTextTip.setBounds(130, 250, 220, 25);
 
-        jLabel21.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel21.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel21.setText(bundle.getString("label.texttip")); // NOI18N
         jPanel1.add(jLabel21);
         jLabel21.setBounds(10, 250, 100, 25);
 
-        m_jCheckWarrantyReceipt.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jCheckWarrantyReceipt.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jCheckWarrantyReceipt.setText(bundle.getString("label.productreceipt")); // NOI18N
         m_jCheckWarrantyReceipt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1165,16 +1175,16 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
             }
         });
         jPanel1.add(m_jCheckWarrantyReceipt);
-        m_jCheckWarrantyReceipt.setBounds(130, 290, 310, 18);
+        m_jCheckWarrantyReceipt.setBounds(130, 290, 310, 27);
 
-        m_jGrossProfit.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jGrossProfit.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jGrossProfit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         m_jGrossProfit.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         m_jGrossProfit.setEnabled(false);
         jPanel1.add(m_jGrossProfit);
         m_jGrossProfit.setBounds(460, 220, 70, 25);
 
-        jLabel22.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel22.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText(bundle.getString("label.grossprofit")); // NOI18N
         jPanel1.add(jLabel22);
@@ -1182,38 +1192,38 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
         jLabel33.setText("(*) 표시가 되어 있는 항목은 필수로 입력하셔야 합니다.");
         jPanel1.add(jLabel33);
-        jLabel33.setBounds(250, 0, 300, 16);
+        jLabel33.setBounds(250, 0, 300, 18);
 
         jTabbedPane1.addTab(AppLocal.getIntString("label.prodgeneral"), jPanel1); // NOI18N
 
         jPanel2.setLayout(null);
 
-        jLabel9.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel9.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel9.setText(AppLocal.getIntString("label.prodstockcost")); // NOI18N
         jPanel2.add(jLabel9);
         jLabel9.setBounds(250, 60, 120, 25);
 
-        m_jstockcost.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jstockcost.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jstockcost.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel2.add(m_jstockcost);
         m_jstockcost.setBounds(370, 60, 80, 25);
 
-        jLabel10.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel10.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel10.setText(AppLocal.getIntString("label.prodstockvol")); // NOI18N
         jPanel2.add(jLabel10);
         jLabel10.setBounds(250, 100, 120, 25);
 
-        m_jstockvolume.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jstockvolume.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jstockvolume.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel2.add(m_jstockvolume);
         m_jstockvolume.setBounds(370, 100, 80, 25);
 
-        jLabel8.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel8.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel8.setText(AppLocal.getIntString("label.prodincatalog")); // NOI18N
         jPanel2.add(jLabel8);
         jLabel8.setBounds(10, 140, 150, 25);
 
-        m_jInCatalog.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jInCatalog.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jInCatalog.setSelected(true);
         m_jInCatalog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1223,64 +1233,64 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jPanel2.add(m_jInCatalog);
         m_jInCatalog.setBounds(160, 140, 30, 25);
 
-        jLabel18.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel18.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel18.setText(AppLocal.getIntString("label.prodorder")); // NOI18N
         jPanel2.add(jLabel18);
         jLabel18.setBounds(250, 140, 120, 25);
 
-        m_jCatalogOrder.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jCatalogOrder.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jCatalogOrder.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel2.add(m_jCatalogOrder);
         m_jCatalogOrder.setBounds(370, 140, 80, 25);
 
-        jLabel15.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel15.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel15.setText("서비스 상품");
         jPanel2.add(jLabel15);
         jLabel15.setBounds(10, 80, 150, 25);
 
-        m_jService.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jService.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         m_jService.setToolTipText("A Service Item will not be deducted from the Inventory");
         jPanel2.add(m_jService);
         m_jService.setBounds(160, 80, 30, 25);
         m_jService.getAccessibleContext().setAccessibleDescription("null");
 
-        jLabel11.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel11.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel11.setText(AppLocal.getIntString("label.prodaux")); // NOI18N
         jPanel2.add(jLabel11);
         jLabel11.setBounds(10, 110, 150, 25);
 
-        m_jComment.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jComment.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jPanel2.add(m_jComment);
         m_jComment.setBounds(160, 110, 30, 25);
 
-        jLabel12.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel12.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel12.setText(AppLocal.getIntString("label.prodscale")); // NOI18N
         jPanel2.add(jLabel12);
         jLabel12.setBounds(10, 50, 150, 25);
 
-        m_jScale.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jScale.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jPanel2.add(m_jScale);
         m_jScale.setBounds(160, 50, 30, 25);
 
-        m_jKitchen.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jKitchen.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jPanel2.add(m_jKitchen);
         m_jKitchen.setBounds(160, 170, 30, 25);
 
-        jLabel14.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel14.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel14.setText("원격 프린터로 출력");
         jPanel2.add(jLabel14);
         jLabel14.setBounds(10, 170, 150, 25);
 
-        jLabel20.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel20.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel20.setText(bundle.getString("label.variableprice")); // NOI18N
         jPanel2.add(jLabel20);
         jLabel20.setBounds(10, 200, 130, 25);
 
-        m_jVprice.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jVprice.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jPanel2.add(m_jVprice);
         m_jVprice.setBounds(160, 200, 30, 25);
 
-        jLabel23.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel23.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText(bundle.getString("label.prodminmax")); // NOI18N
         jLabel23.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -1290,21 +1300,21 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jTabbedPane1.addTab(AppLocal.getIntString("label.prodstock"), jPanel2); // NOI18N
         jTabbedPane1.addTab("이미지", m_jImage);
 
-        jPanel4.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jPanel4.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jPanel4.setLayout(null);
 
-        jLabel28.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel28.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel28.setText(bundle.getString("label.prodbuttonhtml")); // NOI18N
         jPanel4.add(jLabel28);
         jLabel28.setBounds(10, 10, 270, 20);
 
-        m_jDisplay.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        m_jDisplay.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jScrollPane2.setViewportView(m_jDisplay);
 
         jPanel4.add(jScrollPane2);
         jScrollPane2.setBounds(10, 40, 480, 40);
 
-        jButtonHTML.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jButtonHTML.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jButtonHTML.setText(bundle.getString("button.htmltest")); // NOI18N
         jButtonHTML.setMargin(new java.awt.Insets(1, 1, 1, 1));
         jButtonHTML.setMaximumSize(new java.awt.Dimension(96, 72));
@@ -1323,7 +1333,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
         jPanel4.add(jButtonHTML);
         jButtonHTML.setBounds(205, 90, 110, 70);
 
-        jLabel17.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel17.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel17.setText(bundle.getString("label.producthtmlguide")); // NOI18N
         jLabel17.setToolTipText("");
@@ -1335,7 +1345,7 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jLabel32.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jLabel32.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel32.setText(bundle.getString("label.fontexample")); // NOI18N
         jLabel32.setToolTipText(bundle.getString("tooltip.fontexample")); // NOI18N
@@ -1345,28 +1355,28 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
             }
         });
 
-        jLabel25.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jLabel25.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jLabel25.setText(bundle.getString("label.fontcolour")); // NOI18N
         jLabel25.setToolTipText(bundle.getString("tooltip.fontcolour")); // NOI18N
         jLabel25.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        jLabel29.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jLabel29.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jLabel29.setText(bundle.getString("label.fontsizelarge")); // NOI18N
         jLabel29.setToolTipText(bundle.getString("tooltip.fontsizelarge")); // NOI18N
         jLabel29.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel29.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        jLabel26.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jLabel26.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jLabel26.setText(bundle.getString("label.fontsize")); // NOI18N
         jLabel26.setToolTipText(bundle.getString("tooltip.fontsizesmall")); // NOI18N
         jLabel26.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        jLabel31.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jLabel31.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jLabel31.setText(bundle.getString("label.fontitalic")); // NOI18N
         jLabel31.setToolTipText(bundle.getString("tooltip.fontitalic")); // NOI18N
         jLabel31.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        jLabel30.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jLabel30.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jLabel30.setText(bundle.getString("label.fontweight")); // NOI18N
         jLabel30.setToolTipText(bundle.getString("tooltip.fontbold")); // NOI18N
         jLabel30.setPreferredSize(new java.awt.Dimension(160, 30));
@@ -1485,6 +1495,14 @@ public final class ProductsEditor extends JPanel implements EditorRecord {
     private void m_jCodetypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jCodetypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_m_jCodetypeActionPerformed
+
+    private void m_jRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jRefActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_m_jRefActionPerformed
+
+    private void m_jCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_m_jCodeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonHTML;

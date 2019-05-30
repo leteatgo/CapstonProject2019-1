@@ -15,13 +15,23 @@ public class Owner {
     private String name;
     private String mobile;
     private boolean registered;
-
+    private int r_no;
+    
     public Owner(int no, String id, String name, String mobile, boolean registered) {
         this.no = no;
         this.id = id;
         this.name = name;
         this.mobile = mobile;
         this.registered = registered;
+    }
+    
+    public Owner(int no, String id, String name, String mobile, boolean registered, int r_no) {
+        this.no = no;
+        this.id = id;
+        this.name = name;
+        this.mobile = mobile;
+        this.registered = registered;
+        this.r_no = r_no;
     }
 
     public String getId() {
@@ -62,6 +72,14 @@ public class Owner {
 
     public void setRegistered(boolean registered) {
         this.registered = registered;
+    }
+
+    public int getR_no() {
+        return r_no;
+    }
+
+    public void setR_no(int r_no) {
+        this.r_no = r_no;
     }
     
 }

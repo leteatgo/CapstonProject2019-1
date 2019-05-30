@@ -29,12 +29,7 @@ import org.json.JSONObject;
 public class LoginOwner {
     private final String LetEatGoIP = "http://34.74.255.9:5000/pos/login";
     private final String UNKNOWN_ID_STR = "존재하지 않는 ID입니다. 올바른 ID를 입력해주세요.";
-    public static int ERROR_OCCURED = -4;
-    public static int UNKNOWN_ID = -2;
-    public static int WRONG_PASSWORD = -1;
-    public static int UNREGISTERED = 0;
-    public static int REGISTERED = 1;
-    
+
     private Owner owner;
     
     private AES256Util aES256Util;
@@ -94,7 +89,7 @@ public class LoginOwner {
                             
                    if (aES256Util.decrypt(object.getString("hash")).equals(pw))
                         if (object.has("r_no")) {
-                            owner = new Owner(object.getInt("no"), id, object.getString("name"), object.getString("mobile"), true);
+                            owner = new Owner(object.getInt("no"), id, object.getString("name"), object.getString("mobile"), true, object.getInt("r_no"));
                             return owner;
                         }
                         else {

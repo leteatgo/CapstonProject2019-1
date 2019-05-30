@@ -37,7 +37,7 @@ public class RegistRestaurant {
     }
     
     
-    public int regist(Restaurant restaurant, int o_no) {
+    public int regist(Restaurant restaurant, Owner owner) {
         byte[] imageInByte;
         BufferedImage originalImage;
 
@@ -70,7 +70,7 @@ public class RegistRestaurant {
             JSONObject hours = new JSONObject("{"+restaurant.getHours()+"}");
             requestObject.accumulate("hours", hours);
             requestObject.accumulate("owner_request", restaurant.getOwner_request());
-            requestObject.accumulate("o_no", o_no);
+            requestObject.accumulate("o_no", owner.getNo());
             requestObject.accumulate("initial_reservable", 0);
             System.out.println(requestObject);
                     
@@ -100,7 +100,9 @@ public class RegistRestaurant {
                 while((line = reader.readLine()) != null) {
                     buffer.append(line);
                 }
-                System.out.println(buffer.toString());
+                System.out.println(buffer.toString().substring(1, 3));
+                owner.setRegistered(true);
+                owner.setR_no(Integer.parseInt(buffer.toString().substring(1, 3)));
             }  catch (IOException ex) {
                 Logger.getLogger(RegistRestaurant.class.getName()).log(Level.SEVERE, null, ex);
             }

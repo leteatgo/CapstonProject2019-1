@@ -64,13 +64,14 @@ public class ProductsPanel extends JPanelTable2 implements EditorListener {
 
         lpr =  new ListProviderCreator(m_dlSales.getProductCatQBF(), jproductfilter);
 
-        spr = new SaveProvider(
+        spr = new SaveProvider( // 규칙 정의
             m_dlSales.getProductCatUpdate(),
             m_dlSales.getProductCatInsert(),
             m_dlSales.getProductCatDelete());
         
         // el panel del editor
         jeditor = new ProductsEditor(m_dlSales, dirty);       
+        System.out.println("com.openbravo.pos.inventory.ProductsPanel.init()");
     }
     
     /**

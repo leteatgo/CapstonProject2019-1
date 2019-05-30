@@ -624,7 +624,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         try {
             if (pType == "new") {
                 spr.insertData(myprod);
-
+                System.out.println("com.openbravo.pos.imports.JPanelCSVImport.createProduct()");
             } else {
                 spr.updateData(myprod);
             }
@@ -738,12 +738,12 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(630, 430));
 
-        jLabel1.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel1.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
         jLabel1.setText(bundle.getString("label.csvfile")); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jFileName.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jFileName.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jFileName.setPreferredSize(new java.awt.Dimension(275, 30));
         jFileName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -784,7 +784,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             .addComponent(jbtnDbDriverLib, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jComboReference.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jComboReference.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jComboReference.setEnabled(false);
         jComboReference.setMinimumSize(new java.awt.Dimension(32, 25));
         jComboReference.setPreferredSize(new java.awt.Dimension(275, 30));
@@ -799,7 +799,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             }
         });
 
-        jComboBarcode.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jComboBarcode.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jComboBarcode.setEnabled(false);
         jComboBarcode.setMinimumSize(new java.awt.Dimension(32, 25));
         jComboBarcode.setPreferredSize(new java.awt.Dimension(275, 30));
@@ -814,7 +814,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             }
         });
 
-        jComboName.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jComboName.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jComboName.setEnabled(false);
         jComboName.setMinimumSize(new java.awt.Dimension(32, 25));
         jComboName.setPreferredSize(new java.awt.Dimension(275, 30));
@@ -829,7 +829,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             }
         });
 
-        jComboBuy.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jComboBuy.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jComboBuy.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
         jComboBuy.setSelectedIndex(-1);
         jComboBuy.setEnabled(false);
@@ -846,7 +846,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             }
         });
 
-        jComboSell.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jComboSell.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jComboSell.setEnabled(false);
         jComboSell.setMinimumSize(new java.awt.Dimension(32, 25));
         jComboSell.setPreferredSize(new java.awt.Dimension(275, 30));
@@ -861,7 +861,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             }
         });
 
-        jComboDefaultCategory.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jComboDefaultCategory.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jComboDefaultCategory.setEnabled(false);
         jComboDefaultCategory.setMinimumSize(new java.awt.Dimension(32, 25));
         jComboDefaultCategory.setPreferredSize(new java.awt.Dimension(275, 30));
@@ -876,51 +876,51 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             }
         });
 
-        jComboTax.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jComboTax.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jComboTax.setEnabled(false);
         jComboTax.setPreferredSize(new java.awt.Dimension(275, 30));
 
-        jLabel3.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel3.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel3.setText(bundle.getString("label.prodref1")); // NOI18N
         jLabel3.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jLabel4.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel4.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel4.setText(bundle.getString("label.prodbarcode1")); // NOI18N
         jLabel4.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jLabel5.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel5.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel5.setText(bundle.getString("label.prodname1")); // NOI18N
         jLabel5.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jLabel10.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel10.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel10.setText(bundle.getString("label.prodpricebuy1")); // NOI18N
         jLabel10.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jLabel11.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel11.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel11.setText(bundle.getString("label.prodcategory1")); // NOI18N
         jLabel11.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jLabel6.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel6.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel6.setText(bundle.getString("label.proddefaultcategory")); // NOI18N
         jLabel6.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jLabel7.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel7.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel7.setText(bundle.getString("label.prodtaxcode")); // NOI18N
         jLabel7.setPreferredSize(new java.awt.Dimension(100, 30));
 
         jCheckInCatalogue.setEnabled(false);
 
-        jLabel8.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel8.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText(bundle.getString("label.prodincatalog")); // NOI18N
 
         jCheckSellIncTax.setEnabled(false);
 
-        jLabel12.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel12.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText(bundle.getString("label.csvsellingintax")); // NOI18N
 
-        jComboCategory.setFont(StartPOS.getgblFont().deriveFont( 0, 14)); // NOI18N
+        jComboCategory.setFont(StartPOS.getgblFont().deriveFont(0, 14));
         jComboCategory.setEnabled(false);
         jComboCategory.setMinimumSize(new java.awt.Dimension(32, 25));
         jComboCategory.setName(""); // NOI18N
@@ -936,7 +936,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
             }
         });
 
-        jLabel20.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel20.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel20.setText(bundle.getString("label.prodpricesell")); // NOI18N
         jLabel20.setPreferredSize(new java.awt.Dimension(100, 30));
 
@@ -1033,14 +1033,14 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
                 .addGap(54, 54, 54))
         );
 
-        jLabel17.setFont(StartPOS.getgblFont().deriveFont( 0, 10)); // NOI18N
+        jLabel17.setFont(StartPOS.getgblFont().deriveFont(0, 10));
         jLabel17.setText("Import Version V2.1");
 
-        jLabel18.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel18.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel18.setText(bundle.getString("label.csvdelimit")); // NOI18N
         jLabel18.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jHeaderRead.setFont(StartPOS.getgblFont().deriveFont( 0, 11)); // NOI18N
+        jHeaderRead.setFont(StartPOS.getgblFont().deriveFont(0, 11));
         jHeaderRead.setText(bundle.getString("label.csvread")); // NOI18N
         jHeaderRead.setEnabled(false);
         jHeaderRead.setPreferredSize(new java.awt.Dimension(120, 30));
@@ -1052,38 +1052,38 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true), bundle.getString("title.CSVImport"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, StartPOS.getgblFont().deriveFont( 1, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
-        jLabel9.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel9.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel9.setText(bundle.getString("label.csvrecordsfound")); // NOI18N
         jLabel9.setPreferredSize(new java.awt.Dimension(100, 25));
 
-        jLabel14.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel14.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel14.setText(bundle.getString("label.csvnewproducts")); // NOI18N
         jLabel14.setMaximumSize(new java.awt.Dimension(77, 14));
         jLabel14.setMinimumSize(new java.awt.Dimension(77, 14));
         jLabel14.setPreferredSize(new java.awt.Dimension(100, 25));
 
-        jLabel16.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel16.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel16.setText(bundle.getString("label.cvsinvalid")); // NOI18N
         jLabel16.setPreferredSize(new java.awt.Dimension(100, 25));
 
-        jTextUpdates.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jTextUpdates.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jTextUpdates.setText(bundle.getString("label.csvpriceupdated")); // NOI18N
         jTextUpdates.setPreferredSize(new java.awt.Dimension(100, 25));
 
-        jLabel2.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel2.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel2.setText(bundle.getString("label.csvmissing")); // NOI18N
         jLabel2.setPreferredSize(new java.awt.Dimension(100, 25));
 
-        jLabel15.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel15.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel15.setText(bundle.getString("label.csvbad")); // NOI18N
         jLabel15.setPreferredSize(new java.awt.Dimension(100, 25));
 
-        jLabel13.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel13.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel13.setText(bundle.getString("label.cvsnotchanged")); // NOI18N
         jLabel13.setPreferredSize(new java.awt.Dimension(100, 25));
 
         jTextRecords.setBackground(new java.awt.Color(224, 223, 227));
-        jTextRecords.setFont(StartPOS.getgblFont().deriveFont( 1, 11)); // NOI18N
+        jTextRecords.setFont(StartPOS.getgblFont().deriveFont(1, 11));
         jTextRecords.setForeground(new java.awt.Color(102, 102, 102));
         jTextRecords.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextRecords.setBorder(null);
@@ -1092,7 +1092,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         jTextRecords.setPreferredSize(new java.awt.Dimension(70, 25));
 
         jTextNew.setBackground(new java.awt.Color(224, 223, 227));
-        jTextNew.setFont(StartPOS.getgblFont().deriveFont( 1, 11)); // NOI18N
+        jTextNew.setFont(StartPOS.getgblFont().deriveFont(1, 11));
         jTextNew.setForeground(new java.awt.Color(102, 102, 102));
         jTextNew.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextNew.setBorder(null);
@@ -1101,7 +1101,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         jTextNew.setPreferredSize(new java.awt.Dimension(70, 25));
 
         jTextInvalid.setBackground(new java.awt.Color(224, 223, 227));
-        jTextInvalid.setFont(StartPOS.getgblFont().deriveFont( 1, 11)); // NOI18N
+        jTextInvalid.setFont(StartPOS.getgblFont().deriveFont(1, 11));
         jTextInvalid.setForeground(new java.awt.Color(102, 102, 102));
         jTextInvalid.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextInvalid.setBorder(null);
@@ -1115,7 +1115,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         });
 
         jTextUpdate.setBackground(new java.awt.Color(224, 223, 227));
-        jTextUpdate.setFont(StartPOS.getgblFont().deriveFont( 1, 11)); // NOI18N
+        jTextUpdate.setFont(StartPOS.getgblFont().deriveFont(1, 11));
         jTextUpdate.setForeground(new java.awt.Color(102, 102, 102));
         jTextUpdate.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextUpdate.setBorder(null);
@@ -1124,7 +1124,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         jTextUpdate.setPreferredSize(new java.awt.Dimension(70, 25));
 
         jTextMissing.setBackground(new java.awt.Color(224, 223, 227));
-        jTextMissing.setFont(StartPOS.getgblFont().deriveFont( 1, 11)); // NOI18N
+        jTextMissing.setFont(StartPOS.getgblFont().deriveFont(1, 11));
         jTextMissing.setForeground(new java.awt.Color(102, 102, 102));
         jTextMissing.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextMissing.setBorder(null);
@@ -1133,7 +1133,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         jTextMissing.setPreferredSize(new java.awt.Dimension(70, 25));
 
         jTextBadPrice.setBackground(new java.awt.Color(224, 223, 227));
-        jTextBadPrice.setFont(StartPOS.getgblFont().deriveFont( 1, 11)); // NOI18N
+        jTextBadPrice.setFont(StartPOS.getgblFont().deriveFont(1, 11));
         jTextBadPrice.setForeground(new java.awt.Color(102, 102, 102));
         jTextBadPrice.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextBadPrice.setBorder(null);
@@ -1142,7 +1142,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         jTextBadPrice.setPreferredSize(new java.awt.Dimension(70, 25));
 
         jTextNoChange.setBackground(new java.awt.Color(224, 223, 227));
-        jTextNoChange.setFont(StartPOS.getgblFont().deriveFont( 1, 11)); // NOI18N
+        jTextNoChange.setFont(StartPOS.getgblFont().deriveFont(1, 11));
         jTextNoChange.setForeground(new java.awt.Color(102, 102, 102));
         jTextNoChange.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextNoChange.setBorder(null);
@@ -1150,12 +1150,12 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
         jTextNoChange.setEnabled(false);
         jTextNoChange.setPreferredSize(new java.awt.Dimension(70, 25));
 
-        jLabel19.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jLabel19.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jLabel19.setText(bundle.getString("label.cvsbadcats")); // NOI18N
         jLabel19.setPreferredSize(new java.awt.Dimension(100, 25));
 
         jTextBadCats.setBackground(new java.awt.Color(224, 223, 227));
-        jTextBadCats.setFont(StartPOS.getgblFont().deriveFont( 1, 11)); // NOI18N
+        jTextBadCats.setFont(StartPOS.getgblFont().deriveFont(1, 11));
         jTextBadCats.setForeground(new java.awt.Color(102, 102, 102));
         jTextBadCats.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextBadCats.setBorder(null);
@@ -1176,7 +1176,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
                         .addComponent(jTextRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextUpdates, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1232,10 +1232,10 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jComboSeparator.setFont(StartPOS.getgblFont().deriveFont( 0, 12)); // NOI18N
+        jComboSeparator.setFont(StartPOS.getgblFont().deriveFont(0, 12));
         jComboSeparator.setPreferredSize(new java.awt.Dimension(50, 30));
 
-        jImport.setFont(StartPOS.getgblFont().deriveFont( 0, 11)); // NOI18N
+        jImport.setFont(StartPOS.getgblFont().deriveFont(0, 11));
         jImport.setText(bundle.getString("label.csvimpostbtn")); // NOI18N
         jImport.setEnabled(false);
         jImport.setPreferredSize(new java.awt.Dimension(120, 30));
@@ -1276,7 +1276,7 @@ public class JPanelCSVImport extends JPanel implements JPanelView {
                                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 139, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

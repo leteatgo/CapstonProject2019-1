@@ -86,7 +86,7 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
 
     /* Written by ckddn */
     private PlaceStatus placeStatus;
-    
+//    private P
     /**
      * Creates new form JTicketsBagRestaurant
      *
