@@ -17,13 +17,13 @@ public class Restaurant {
     private int resnum;
     private int foodtype;
     private int break_num;
-    private String Break_time="";
-    private String hours="";
-    private String holiday_num="";
+    private String Break_time = "";
+    private String hours = "";
+    private String holiday_num = "";
     private int h_type;
-    private String time="";
-    private String image="";
-    private String owner_request="";
+    private String time = "";
+    private String image = "";
+    private String owner_request = "";
 
     public String getImage() {
         return image;
@@ -46,9 +46,8 @@ public class Restaurant {
     }
 
     public void setTime(String time) {
-        this.time =  ",\"time\":\""+time+"\"";
+        this.time = ",\"time\":\"" + time + "\"";
     }
-    
 
     public int getH_type() {
         return h_type;
@@ -71,7 +70,7 @@ public class Restaurant {
     }
 
     public void setBreak_time(String Break_time) {
-        this.Break_time = ",\"break\":\""+Break_time+"\"";
+        this.Break_time = ",\"break\":\"" + Break_time + "\"";
     }
 
     public String getHours() {
