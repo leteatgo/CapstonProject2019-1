@@ -29,13 +29,13 @@ public class LoginFrame extends javax.swing.JFrame {
     private Owner owner;
     private int leftnum = 0;
     private int resnum = 0;
-   
+
     public LoginFrame() {
 
         initComponents();
         getContentPane().setBackground(Color.WHITE);
     }
-     
+
     public void writeRestInfo() {
         FileWriter fw = null;
         try {
@@ -52,14 +52,16 @@ public class LoginFrame extends javax.swing.JFrame {
                 Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
-    
+
     public boolean isSignIn() {
-        if (owner == null)
+        if (owner == null) {
             return false;
+        }
         return (!this.isVisible()) && owner.IsRegistered(); //  LoginFrame의 화면이 꺼지고 owner가 regist되어있으면 로그인 성공
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,6 +72,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jToggleButton1 = new javax.swing.JToggleButton();
         mainPanel = new javax.swing.JPanel();
         login_Panel = new javax.swing.JPanel();
         register_button = new javax.swing.JButton();
@@ -92,6 +95,8 @@ public class LoginFrame extends javax.swing.JFrame {
         register_PW_Text = new javax.swing.JPasswordField();
         register_Phone = new javax.swing.JLabel();
         register_Phone_Text = new javax.swing.JTextField();
+        logo3 = new javax.swing.JLabel();
+        logo5 = new javax.swing.JLabel();
         shop_Panel1 = new javax.swing.JPanel();
         reservation_Check = new javax.swing.JCheckBox();
         left_seat_Check = new javax.swing.JCheckBox();
@@ -108,6 +113,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        logo4 = new javax.swing.JLabel();
         shop_Panel2 = new javax.swing.JPanel();
         shop2_title = new javax.swing.JLabel();
         shop2_label1 = new javax.swing.JLabel();
@@ -128,6 +134,7 @@ public class LoginFrame extends javax.swing.JFrame {
         shop2_next_button = new javax.swing.JButton();
         shop2_label6 = new javax.swing.JLabel();
         shop2_hours_Box = new javax.swing.JComboBox<>();
+        logo6 = new javax.swing.JLabel();
         shop_Panel3 = new javax.swing.JPanel();
         shop3_title = new javax.swing.JLabel();
         shop3_label1 = new javax.swing.JLabel();
@@ -154,6 +161,7 @@ public class LoginFrame extends javax.swing.JFrame {
         shop3_Sun_Start = new javax.swing.JComboBox<>();
         shop3_Sun_End = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        logo7 = new javax.swing.JLabel();
         shop_Panel4 = new javax.swing.JPanel();
         shop4_title1 = new javax.swing.JLabel();
         shop4_label2 = new javax.swing.JLabel();
@@ -169,6 +177,7 @@ public class LoginFrame extends javax.swing.JFrame {
         shop4_Weekend_Start = new javax.swing.JComboBox<>();
         shop4_Weekend_End = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
+        logo8 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -181,18 +190,31 @@ public class LoginFrame extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        jToggleButton1.setText("jToggleButton1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(551, 700));
+        setResizable(false);
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        mainPanel.setPreferredSize(new java.awt.Dimension(551, 700));
         mainPanel.setLayout(new java.awt.CardLayout());
 
         login_Panel.setBackground(new java.awt.Color(255, 255, 255));
+        login_Panel.setPreferredSize(new java.awt.Dimension(551, 700));
 
         register_button.setBackground(new java.awt.Color(255, 255, 255));
-        register_button.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
-        register_button.setForeground(new java.awt.Color(153, 153, 0));
+        register_button.setFont(new java.awt.Font("휴먼편지체", 1, 36)); // NOI18N
+        register_button.setForeground(new java.awt.Color(102, 102, 0));
+        register_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/password.png"))); // NOI18N
         register_button.setText("회원가입");
+        register_button.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        register_button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        register_button.setMaximumSize(new java.awt.Dimension(71, 71));
+        register_button.setMinimumSize(new java.awt.Dimension(71, 71));
+        register_button.setPreferredSize(new java.awt.Dimension(71, 71));
         register_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 register_buttonActionPerformed(evt);
@@ -200,9 +222,13 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         login_button.setBackground(new java.awt.Color(255, 255, 255));
-        login_button.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
-        login_button.setForeground(new java.awt.Color(153, 153, 0));
+        login_button.setFont(new java.awt.Font("휴먼편지체", 1, 36)); // NOI18N
+        login_button.setForeground(new java.awt.Color(102, 102, 0));
+        login_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/key.png"))); // NOI18N
         login_button.setText("로그인");
+        login_button.setToolTipText("");
+        login_button.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        login_button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         login_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 login_buttonActionPerformed(evt);
@@ -210,26 +236,32 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         login_PW.setBackground(new java.awt.Color(255, 255, 255));
-        login_PW.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        login_PW.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         login_PW.setForeground(new java.awt.Color(153, 153, 0));
+        login_PW.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         login_PW.setText("PW");
 
         login_ID.setBackground(new java.awt.Color(255, 255, 255));
-        login_ID.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        login_ID.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         login_ID.setForeground(new java.awt.Color(153, 153, 0));
-        login_ID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        login_ID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         login_ID.setText("ID");
 
         login_ID_Text.setFont(new java.awt.Font("굴림", 0, 18)); // NOI18N
+        login_ID_Text.setForeground(new java.awt.Color(153, 153, 0));
 
         login_PW_Text.setFont(new java.awt.Font("굴림", 0, 18)); // NOI18N
+        login_PW_Text.setForeground(new java.awt.Color(153, 153, 0));
 
+        logo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/logo2.PNG"))); // NOI18N
 
+        logo.setBackground(new java.awt.Color(204, 255, 204));
+        logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/logo.PNG"))); // NOI18N
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel11.setFont(new java.awt.Font("굴림", 1, 48)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("휴먼편지체", 1, 48)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 153, 0));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("미리봄 pos 로그인");
@@ -238,41 +270,34 @@ public class LoginFrame extends javax.swing.JFrame {
         login_Panel.setLayout(login_PanelLayout);
         login_PanelLayout.setHorizontalGroup(
             login_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, login_PanelLayout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+            .addComponent(logo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(login_PanelLayout.createSequentialGroup()
+                .addGroup(login_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(login_PW, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                    .addComponent(login_ID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(login_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, login_PanelLayout.createSequentialGroup()
-                        .addComponent(logo1)
-                        .addGap(213, 213, 213))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, login_PanelLayout.createSequentialGroup()
-                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(128, 128, 128))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, login_PanelLayout.createSequentialGroup()
-                        .addGroup(login_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(login_PanelLayout.createSequentialGroup()
-                                .addComponent(login_PW)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(login_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(login_PW_Text)
-                                    .addComponent(login_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(register_button, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, login_PanelLayout.createSequentialGroup()
-                                .addComponent(login_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(login_ID_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(102, 102, 102))))
+                    .addComponent(login_ID_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(login_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(login_PanelLayout.createSequentialGroup()
+                            .addComponent(login_button, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(register_button, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(login_PW_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         login_PanelLayout.setVerticalGroup(
             login_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, login_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel11)
-                .addGap(38, 38, 38)
-                .addComponent(logo1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel11)
+                .addGap(35, 35, 35)
+                .addComponent(logo1)
+                .addGap(61, 61, 61)
                 .addGroup(login_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(login_ID_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(login_ID))
@@ -280,43 +305,51 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(login_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(login_PW)
                     .addComponent(login_PW_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(login_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(register_button)
-                .addGap(87, 87, 87))
+                .addGap(38, 38, 38)
+                .addGroup(login_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(login_button, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(register_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         mainPanel.add(login_Panel, "card1");
 
         register_Panel.setBackground(new java.awt.Color(255, 255, 255));
         register_Panel.setForeground(new java.awt.Color(153, 153, 0));
+        register_Panel.setPreferredSize(new java.awt.Dimension(551, 700));
 
         register_Name.setBackground(new java.awt.Color(255, 255, 255));
-        register_Name.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        register_Name.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         register_Name.setForeground(new java.awt.Color(153, 153, 0));
+        register_Name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         register_Name.setText("이름");
 
         register_ID.setBackground(new java.awt.Color(255, 255, 255));
-        register_ID.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        register_ID.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         register_ID.setForeground(new java.awt.Color(153, 153, 0));
+        register_ID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         register_ID.setText("ID");
 
         register_PW.setBackground(new java.awt.Color(255, 255, 255));
-        register_PW.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        register_PW.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         register_PW.setForeground(new java.awt.Color(153, 153, 0));
+        register_PW.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         register_PW.setText("PW");
 
         jLabel13.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel13.setFont(new java.awt.Font("굴림", 1, 36)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("휴먼편지체", 1, 48)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(153, 153, 0));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("회원가입");
 
         register_confirm.setBackground(new java.awt.Color(255, 255, 255));
-        register_confirm.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        register_confirm.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         register_confirm.setForeground(new java.awt.Color(153, 153, 0));
-        register_confirm.setText("확인");
+        register_confirm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/arrows.png"))); // NOI18N
+        register_confirm.setText("등록");
+        register_confirm.setToolTipText("");
+        register_confirm.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        register_confirm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         register_confirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 register_confirmActionPerformed(evt);
@@ -329,49 +362,53 @@ public class LoginFrame extends javax.swing.JFrame {
 
         register_PW_Text.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
 
-        register_Phone.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        register_Phone.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         register_Phone.setForeground(new java.awt.Color(153, 153, 0));
+        register_Phone.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         register_Phone.setText("휴대폰 번호");
 
         register_Phone_Text.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+
+        logo3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/logo.PNG"))); // NOI18N
+
+        logo5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/logo2.PNG"))); // NOI18N
 
         javax.swing.GroupLayout register_PanelLayout = new javax.swing.GroupLayout(register_Panel);
         register_Panel.setLayout(register_PanelLayout);
         register_PanelLayout.setHorizontalGroup(
             register_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logo5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(register_PanelLayout.createSequentialGroup()
+                .addGroup(register_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(register_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, register_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(register_PW, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(register_ID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(register_Name, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(register_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(register_PW_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(register_Phone_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(register_Name_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(register_ID_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(register_PanelLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addGroup(register_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(register_PanelLayout.createSequentialGroup()
-                                .addGap(64, 64, 64)
-                                .addGroup(register_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(register_ID)
-                                    .addComponent(register_PW)
-                                    .addComponent(register_Name))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(register_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(register_PW_Text, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                                    .addComponent(register_ID_Text, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                                    .addComponent(register_Name_Text)))))
-                    .addGroup(register_PanelLayout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(register_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(register_PanelLayout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(register_Phone)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(register_Phone_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(80, Short.MAX_VALUE))
+                        .addGap(75, 75, 75)
+                        .addComponent(register_confirm)))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         register_PanelLayout.setVerticalGroup(
             register_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(register_PanelLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
+                .addComponent(logo3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(logo5)
+                .addGap(18, 18, 18)
                 .addGroup(register_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(register_ID_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(register_Name))
@@ -387,17 +424,18 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(register_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(register_Phone)
                     .addComponent(register_Phone_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
-                .addComponent(register_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90))
+                .addGap(18, 18, 18)
+                .addComponent(register_confirm)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mainPanel.add(register_Panel, "card2");
 
         shop_Panel1.setBackground(new java.awt.Color(255, 255, 255));
+        shop_Panel1.setPreferredSize(new java.awt.Dimension(551, 700));
 
         reservation_Check.setBackground(new java.awt.Color(255, 255, 255));
-        reservation_Check.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        reservation_Check.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         reservation_Check.setForeground(new java.awt.Color(153, 153, 0));
         reservation_Check.setText("예약");
         reservation_Check.addItemListener(new java.awt.event.ItemListener() {
@@ -407,7 +445,7 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         left_seat_Check.setBackground(new java.awt.Color(255, 255, 255));
-        left_seat_Check.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        left_seat_Check.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         left_seat_Check.setForeground(new java.awt.Color(153, 153, 0));
         left_seat_Check.setText("잔여좌석");
         left_seat_Check.addItemListener(new java.awt.event.ItemListener() {
@@ -416,36 +454,49 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
-        food_type_Combo.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        food_type_Combo.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         food_type_Combo.setForeground(new java.awt.Color(153, 153, 0));
         food_type_Combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "한식", "중식", "일식", "양식" }));
         food_type_Combo.setFocusable(false);
 
         shop_Name.setBackground(new java.awt.Color(255, 255, 255));
-        shop_Name.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop_Name.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop_Name.setForeground(new java.awt.Color(153, 153, 0));
+        shop_Name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         shop_Name.setText("매장 이름");
 
         shop_Phone.setBackground(new java.awt.Color(255, 255, 255));
-        shop_Phone.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop_Phone.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop_Phone.setForeground(new java.awt.Color(153, 153, 0));
+        shop_Phone.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         shop_Phone.setText("매장 전화번호");
 
         shop_Address.setBackground(new java.awt.Color(255, 255, 255));
-        shop_Address.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop_Address.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop_Address.setForeground(new java.awt.Color(153, 153, 0));
+        shop_Address.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         shop_Address.setText("매장 주소");
 
-        shop1_title.setFont(new java.awt.Font("굴림", 1, 36)); // NOI18N
+        shop_Name_Text.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
+
+        shop_Phone_Text.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
+
+        shop_Address_Text.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
+
+        shop1_title.setBackground(new java.awt.Color(255, 255, 255));
+        shop1_title.setFont(new java.awt.Font("휴먼편지체", 1, 36)); // NOI18N
         shop1_title.setForeground(new java.awt.Color(153, 153, 0));
         shop1_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop1_title.setText("매장 정보 입력");
         shop1_title.setToolTipText("");
 
         shop1_next_button.setBackground(new java.awt.Color(255, 255, 255));
-        shop1_next_button.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop1_next_button.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop1_next_button.setForeground(new java.awt.Color(153, 153, 0));
+        shop1_next_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/arrows.png"))); // NOI18N
         shop1_next_button.setText("다음");
+        shop1_next_button.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        shop1_next_button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         shop1_next_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 shop1_next_buttonActionPerformed(evt);
@@ -453,12 +504,15 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel9.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(153, 153, 0));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("점주 공지");
 
+        jTextField1.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
+
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        jButton3.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         jButton3.setForeground(new java.awt.Color(153, 153, 0));
         jButton3.setText("불러오기");
         jButton3.setToolTipText("");
@@ -469,55 +523,60 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel10.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 153, 0));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("매장 이미지");
         jLabel10.setToolTipText("");
+
+        logo4.setBackground(new java.awt.Color(204, 255, 204));
+        logo4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/logo.PNG"))); // NOI18N
 
         javax.swing.GroupLayout shop_Panel1Layout = new javax.swing.GroupLayout(shop_Panel1);
         shop_Panel1.setLayout(shop_Panel1Layout);
         shop_Panel1Layout.setHorizontalGroup(
             shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(shop1_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(shop_Panel1Layout.createSequentialGroup()
-                .addContainerGap(113, Short.MAX_VALUE)
-                .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(shop_Panel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(55, 55, 55)
-                        .addComponent(jButton3))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(shop_Panel1Layout.createSequentialGroup()
+                        .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(shop_Name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(shop_Phone, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                            .addComponent(shop_Address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(shop_Phone_Text)
+                            .addComponent(shop_Address_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(shop_Name_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, shop_Panel1Layout.createSequentialGroup()
+                        .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(left_seat_Check)
-                            .addGap(41, 41, 41)
-                            .addComponent(reservation_Check)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(food_type_Combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(shop1_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(shop_Panel1Layout.createSequentialGroup()
-                            .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(shop_Address)
-                                .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(shop_Phone, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(shop_Name)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(shop_Phone_Text)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(shop1_next_button)
+                            .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(shop_Panel1Layout.createSequentialGroup()
+                                    .addComponent(reservation_Check)
+                                    .addGap(18, 18, 18)
                                     .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(shop_Name_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(shop_Address_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(0, 0, Short.MAX_VALUE))))
-                        .addComponent(shop1_next_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(food_type_Combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                .addGap(100, 100, 100))
+            .addComponent(logo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         shop_Panel1Layout.setVerticalGroup(
             shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(shop_Panel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(logo4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(shop1_title)
-                .addGap(123, 123, 123)
+                .addGap(61, 61, 61)
                 .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(shop_Name)
                     .addComponent(shop_Name_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -530,33 +589,35 @@ public class LoginFrame extends javax.swing.JFrame {
                     .addComponent(shop_Address)
                     .addComponent(shop_Address_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
-                .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(left_seat_Check)
-                    .addComponent(reservation_Check)
-                    .addComponent(food_type_Combo))
-                .addGap(38, 38, 38)
+                    .addComponent(jLabel9)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(left_seat_Check)
+                        .addComponent(reservation_Check))
+                    .addComponent(food_type_Combo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(shop_Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(shop1_next_button)
-                .addGap(73, 73, 73))
+                .addGap(68, 68, 68))
         );
 
         mainPanel.add(shop_Panel1, "card3");
 
         shop_Panel2.setBackground(new java.awt.Color(255, 255, 255));
+        shop_Panel2.setPreferredSize(new java.awt.Dimension(551, 700));
 
-        shop2_title.setFont(new java.awt.Font("굴림", 1, 36)); // NOI18N
+        shop2_title.setFont(new java.awt.Font("휴먼편지체", 1, 36)); // NOI18N
         shop2_title.setForeground(new java.awt.Color(153, 153, 0));
         shop2_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop2_title.setText("매장 정보 입력");
 
-        shop2_label1.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        shop2_label1.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         shop2_label1.setForeground(new java.awt.Color(153, 153, 0));
         shop2_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop2_label1.setText("영업시간");
@@ -566,7 +627,7 @@ public class LoginFrame extends javax.swing.JFrame {
         shop2_label2.setText("휴일을 선택하세요");
 
         shop2_Mon_check.setBackground(new java.awt.Color(255, 255, 255));
-        shop2_Mon_check.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_Mon_check.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_Mon_check.setForeground(new java.awt.Color(153, 153, 0));
         shop2_Mon_check.setText("월");
         shop2_Mon_check.addItemListener(new java.awt.event.ItemListener() {
@@ -576,7 +637,7 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         shop2_Tue_check.setBackground(new java.awt.Color(255, 255, 255));
-        shop2_Tue_check.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_Tue_check.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_Tue_check.setForeground(new java.awt.Color(153, 153, 0));
         shop2_Tue_check.setText("화");
         shop2_Tue_check.addItemListener(new java.awt.event.ItemListener() {
@@ -586,7 +647,7 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         shop2_Wen_check.setBackground(new java.awt.Color(255, 255, 255));
-        shop2_Wen_check.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_Wen_check.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_Wen_check.setForeground(new java.awt.Color(153, 153, 0));
         shop2_Wen_check.setText("수");
         shop2_Wen_check.setToolTipText("");
@@ -597,7 +658,7 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         shop2_Thr_check.setBackground(new java.awt.Color(255, 255, 255));
-        shop2_Thr_check.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_Thr_check.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_Thr_check.setForeground(new java.awt.Color(153, 153, 0));
         shop2_Thr_check.setText("목");
         shop2_Thr_check.setToolTipText("");
@@ -608,7 +669,7 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         shop2_Fri_check.setBackground(new java.awt.Color(255, 255, 255));
-        shop2_Fri_check.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_Fri_check.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_Fri_check.setForeground(new java.awt.Color(153, 153, 0));
         shop2_Fri_check.setText("금");
         shop2_Fri_check.addItemListener(new java.awt.event.ItemListener() {
@@ -618,7 +679,7 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         shop2_Sat_check.setBackground(new java.awt.Color(255, 255, 255));
-        shop2_Sat_check.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_Sat_check.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_Sat_check.setForeground(new java.awt.Color(153, 153, 0));
         shop2_Sat_check.setText("토");
         shop2_Sat_check.addItemListener(new java.awt.event.ItemListener() {
@@ -628,7 +689,7 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         shop2_Sun_check.setBackground(new java.awt.Color(255, 255, 255));
-        shop2_Sun_check.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_Sun_check.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_Sun_check.setForeground(new java.awt.Color(153, 153, 0));
         shop2_Sun_check.setText("일");
         shop2_Sun_check.addItemListener(new java.awt.event.ItemListener() {
@@ -637,12 +698,12 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
-        shop2_label3.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_label3.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_label3.setForeground(new java.awt.Color(153, 153, 0));
         shop2_label3.setText("Break 유무를 선택하세요");
 
         shop2_Break_check.setBackground(new java.awt.Color(255, 255, 255));
-        shop2_Break_check.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_Break_check.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_Break_check.setForeground(new java.awt.Color(153, 153, 0));
         shop2_Break_check.setText("Break");
         shop2_Break_check.addItemListener(new java.awt.event.ItemListener() {
@@ -651,13 +712,13 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
-        shop2_Break_Startbox.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_Break_Startbox.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_Break_Startbox.setForeground(new java.awt.Color(153, 153, 0));
         shop2_Break_Startbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
         shop2_Break_Startbox.setToolTipText("");
         shop2_Break_Startbox.setEnabled(false);
 
-        shop2_Break_Endbox.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_Break_Endbox.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_Break_Endbox.setForeground(new java.awt.Color(153, 153, 0));
         shop2_Break_Endbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
         shop2_Break_Endbox.setEnabled(false);
@@ -667,15 +728,17 @@ public class LoginFrame extends javax.swing.JFrame {
         shop2_label4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop2_label4.setText("~");
 
-        shop2_label5.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_label5.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_label5.setForeground(new java.awt.Color(153, 153, 0));
         shop2_label5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop2_label5.setText("Break time");
 
         shop2_next_button.setBackground(new java.awt.Color(255, 255, 255));
-        shop2_next_button.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        shop2_next_button.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         shop2_next_button.setForeground(new java.awt.Color(153, 153, 0));
+        shop2_next_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/arrows.png"))); // NOI18N
         shop2_next_button.setText("다음");
+        shop2_next_button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         shop2_next_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 shop2_next_buttonActionPerformed(evt);
@@ -683,13 +746,17 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         shop2_label6.setBackground(new java.awt.Color(255, 255, 255));
-        shop2_label6.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_label6.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_label6.setForeground(new java.awt.Color(153, 153, 0));
         shop2_label6.setText("영업시간(요일)");
 
-        shop2_hours_Box.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop2_hours_Box.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop2_hours_Box.setForeground(new java.awt.Color(153, 153, 0));
         shop2_hours_Box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "모든 시간 상이", "모든 시간 동일", "평일/주말" }));
+
+        logo6.setBackground(new java.awt.Color(204, 255, 204));
+        logo6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/logo.PNG"))); // NOI18N
 
         javax.swing.GroupLayout shop_Panel2Layout = new javax.swing.GroupLayout(shop_Panel2);
         shop_Panel2.setLayout(shop_Panel2Layout);
@@ -700,47 +767,54 @@ public class LoginFrame extends javax.swing.JFrame {
             .addGroup(shop_Panel2Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(shop_Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(shop2_label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(shop_Panel2Layout.createSequentialGroup()
-                        .addComponent(shop2_Break_Startbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(shop2_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(shop2_Break_Endbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(shop2_label5)
-                    .addComponent(shop2_next_button, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(shop2_label2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(shop_Panel2Layout.createSequentialGroup()
-                        .addComponent(shop2_Mon_check)
-                        .addGap(18, 18, 18)
-                        .addComponent(shop2_Tue_check)
-                        .addGap(18, 18, 18)
-                        .addComponent(shop2_Wen_check)
-                        .addGap(18, 18, 18)
-                        .addComponent(shop2_Thr_check)
-                        .addGap(18, 18, 18)
-                        .addGroup(shop_Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(shop_Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(shop_Panel2Layout.createSequentialGroup()
-                                .addComponent(shop2_Fri_check)
+                                .addComponent(shop2_Mon_check)
                                 .addGap(18, 18, 18)
-                                .addComponent(shop2_Sat_check))
-                            .addComponent(shop2_Break_check))
-                        .addGap(18, 18, 18)
-                        .addComponent(shop2_Sun_check))
-                    .addComponent(shop2_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(shop_Panel2Layout.createSequentialGroup()
-                        .addComponent(shop2_label6)
-                        .addGap(30, 30, 30)
-                        .addComponent(shop2_hours_Box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                                .addComponent(shop2_Tue_check)
+                                .addGap(18, 18, 18)
+                                .addComponent(shop2_Wen_check)
+                                .addGap(18, 18, 18)
+                                .addComponent(shop2_Thr_check)
+                                .addGap(18, 18, 18)
+                                .addGroup(shop_Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(shop_Panel2Layout.createSequentialGroup()
+                                        .addComponent(shop2_Fri_check)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(shop2_Sat_check))
+                                    .addComponent(shop2_Break_check))
+                                .addGap(18, 18, 18)
+                                .addComponent(shop2_Sun_check))
+                            .addComponent(shop2_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(shop_Panel2Layout.createSequentialGroup()
+                                .addGap(116, 116, 116)
+                                .addComponent(shop2_Break_Startbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(shop2_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(shop2_Break_Endbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(shop_Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(shop2_next_button)
+                                .addGroup(shop_Panel2Layout.createSequentialGroup()
+                                    .addComponent(shop2_label6)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(shop2_hours_Box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 100, Short.MAX_VALUE))
+                    .addComponent(shop2_label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(logo6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         shop_Panel2Layout.setVerticalGroup(
             shop_Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(shop_Panel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addComponent(logo6)
+                .addGap(13, 13, 13)
                 .addComponent(shop2_title)
                 .addGap(18, 18, 18)
                 .addComponent(shop2_label1)
-                .addGap(65, 65, 65)
+                .addGap(18, 18, 18)
                 .addComponent(shop2_label2)
                 .addGap(18, 18, 18)
                 .addGroup(shop_Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -766,123 +840,130 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(shop_Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(shop2_label6)
                     .addComponent(shop2_hours_Box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addGap(55, 55, 55)
                 .addComponent(shop2_next_button)
-                .addGap(46, 46, 46))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
         mainPanel.add(shop_Panel2, "card4");
 
         shop_Panel3.setBackground(new java.awt.Color(255, 255, 255));
+        shop_Panel3.setPreferredSize(new java.awt.Dimension(551, 700));
 
         shop3_title.setFont(new java.awt.Font("굴림", 1, 36)); // NOI18N
         shop3_title.setForeground(new java.awt.Color(153, 153, 0));
         shop3_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop3_title.setText("매장 정보 입력");
 
-        shop3_label1.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        shop3_label1.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         shop3_label1.setForeground(new java.awt.Color(153, 153, 0));
         shop3_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop3_label1.setText("영업시간");
 
-        jLabel1.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 0));
         jLabel1.setText("월");
 
-        jLabel2.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 0));
         jLabel2.setText("화");
 
-        jLabel3.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 153, 0));
         jLabel3.setText("수");
 
-        jLabel4.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(153, 153, 0));
         jLabel4.setText("목");
 
-        jLabel5.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 153, 0));
         jLabel5.setText("금");
 
-        jLabel6.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(153, 153, 0));
         jLabel6.setText("토");
 
-        jLabel7.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 0));
         jLabel7.setText("일");
 
-        jLabel8.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(153, 153, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("요일           시작        ~       종료");
 
-        shop3_Mon_Start.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Mon_Start.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Mon_Start.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Mon_Start.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Mon_End.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Mon_End.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Mon_End.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Mon_End.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Tue_Start.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Tue_Start.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Tue_Start.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Tue_Start.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Tue_End.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Tue_End.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Tue_End.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Tue_End.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Wen_Start.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Wen_Start.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Wen_Start.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Wen_Start.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Wen_End.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Wen_End.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Wen_End.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Wen_End.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Thr_Start.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Thr_Start.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Thr_Start.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Thr_Start.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Thr_End.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Thr_End.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Thr_End.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Thr_End.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Fri_Start.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Fri_Start.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Fri_Start.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Fri_Start.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Fri_End.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Fri_End.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Fri_End.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Fri_End.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Sat_Start.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Sat_Start.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Sat_Start.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Sat_Start.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Sat_End.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Sat_End.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Sat_End.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Sat_End.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Sun_Start.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Sun_Start.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Sun_Start.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Sun_Start.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop3_Sun_End.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop3_Sun_End.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop3_Sun_End.setForeground(new java.awt.Color(153, 153, 0));
         shop3_Sun_End.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        jButton1.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(153, 153, 0));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/arrows.png"))); // NOI18N
         jButton1.setText("등록");
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        logo7.setBackground(new java.awt.Color(204, 255, 204));
+        logo7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/logo.PNG"))); // NOI18N
 
         javax.swing.GroupLayout shop_Panel3Layout = new javax.swing.GroupLayout(shop_Panel3);
         shop_Panel3.setLayout(shop_Panel3Layout);
@@ -890,52 +971,57 @@ public class LoginFrame extends javax.swing.JFrame {
             shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(shop_Panel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(shop3_title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
-                    .addComponent(shop3_label1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(shop3_title, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, shop_Panel3Layout.createSequentialGroup()
+            .addGroup(shop_Panel3Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(shop_Panel3Layout.createSequentialGroup()
-                        .addGroup(shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6))
-                        .addGap(156, 156, 156)
-                        .addGroup(shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(shop3_Mon_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Tue_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Wen_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Thr_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Fri_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Sat_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Sun_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(shop3_Mon_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Tue_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Wen_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Thr_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Fri_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Sat_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop3_Sun_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6))
+                .addGap(156, 156, 156)
+                .addGroup(shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(shop3_Mon_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Tue_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Wen_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Thr_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Fri_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Sat_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Sun_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(shop3_Mon_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Tue_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Wen_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Thr_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Fri_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Sat_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop3_Sun_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(67, 67, 67))
+            .addGroup(shop_Panel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(shop3_label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(logo7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(shop_Panel3Layout.createSequentialGroup()
+                .addGap(206, 206, 206)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         shop_Panel3Layout.setVerticalGroup(
             shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(shop_Panel3Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addComponent(logo7)
+                .addGap(4, 4, 4)
                 .addComponent(shop3_title)
                 .addGap(18, 18, 18)
                 .addComponent(shop3_label1)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(shop_Panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -972,138 +1058,145 @@ public class LoginFrame extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(shop3_Sun_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(shop3_Sun_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         mainPanel.add(shop_Panel3, "card5");
 
         shop_Panel4.setBackground(new java.awt.Color(255, 255, 255));
+        shop_Panel4.setPreferredSize(new java.awt.Dimension(551, 700));
 
-        shop4_title1.setFont(new java.awt.Font("굴림", 1, 36)); // NOI18N
+        shop4_title1.setFont(new java.awt.Font("휴먼편지체", 1, 36)); // NOI18N
         shop4_title1.setForeground(new java.awt.Color(153, 153, 0));
         shop4_title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop4_title1.setText("매장 정보 입력");
 
-        shop4_label2.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        shop4_label2.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         shop4_label2.setForeground(new java.awt.Color(153, 153, 0));
         shop4_label2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop4_label2.setText("영업시간");
 
         shop4_label3.setBackground(new java.awt.Color(255, 255, 255));
-        shop4_label3.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        shop4_label3.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         shop4_label3.setForeground(new java.awt.Color(153, 153, 0));
         shop4_label3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop4_label3.setText("모든 시간 동일");
 
-        shop4_label4.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop4_label4.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop4_label4.setForeground(new java.awt.Color(153, 153, 0));
         shop4_label4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop4_label4.setText("~");
 
         shop4_label5.setBackground(new java.awt.Color(255, 255, 255));
-        shop4_label5.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        shop4_label5.setFont(new java.awt.Font("휴먼편지체", 1, 24)); // NOI18N
         shop4_label5.setForeground(new java.awt.Color(153, 153, 0));
         shop4_label5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop4_label5.setText("평일/주말");
 
-        shop4_label6.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop4_label6.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop4_label6.setForeground(new java.awt.Color(153, 153, 0));
         shop4_label6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop4_label6.setText("~");
 
-        shop4_label7.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop4_label7.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop4_label7.setForeground(new java.awt.Color(153, 153, 0));
         shop4_label7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shop4_label7.setText("~");
 
-        shop4_All_Start.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop4_All_Start.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop4_All_Start.setForeground(new java.awt.Color(153, 153, 0));
         shop4_All_Start.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop4_All_End.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop4_All_End.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop4_All_End.setForeground(new java.awt.Color(153, 153, 0));
         shop4_All_End.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop4_Weekday_Start.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop4_Weekday_Start.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop4_Weekday_Start.setForeground(new java.awt.Color(153, 153, 0));
         shop4_Weekday_Start.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop4_Weekday_End.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop4_Weekday_End.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop4_Weekday_End.setForeground(new java.awt.Color(153, 153, 0));
         shop4_Weekday_End.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop4_Weekend_Start.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop4_Weekend_Start.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop4_Weekend_Start.setForeground(new java.awt.Color(153, 153, 0));
         shop4_Weekend_Start.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
-        shop4_Weekend_End.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        shop4_Weekend_End.setFont(new java.awt.Font("휴먼편지체", 1, 18)); // NOI18N
         shop4_Weekend_End.setForeground(new java.awt.Color(153, 153, 0));
         shop4_Weekend_End.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("굴림", 1, 36)); // NOI18N
+        jButton2.setFont(new java.awt.Font("휴먼편지체", 1, 36)); // NOI18N
         jButton2.setForeground(new java.awt.Color(153, 153, 0));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/arrows.png"))); // NOI18N
         jButton2.setText("등록");
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
+        logo8.setBackground(new java.awt.Color(204, 255, 204));
+        logo8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/pos/forms/leteatgo/logo.PNG"))); // NOI18N
+
         javax.swing.GroupLayout shop_Panel4Layout = new javax.swing.GroupLayout(shop_Panel4);
         shop_Panel4.setLayout(shop_Panel4Layout);
         shop_Panel4Layout.setHorizontalGroup(
             shop_Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(shop_Panel4Layout.createSequentialGroup()
-                .addGroup(shop_Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(shop_Panel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(shop_Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(shop4_title1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
-                            .addComponent(shop4_label2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(shop_Panel4Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(shop4_All_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(shop4_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(shop4_All_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121)))
-                .addContainerGap())
             .addComponent(shop4_label3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(shop4_label2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, shop_Panel4Layout.createSequentialGroup()
+                .addComponent(shop4_title1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(logo8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(shop4_label5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, shop_Panel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(shop4_All_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(shop4_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(shop4_All_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(133, 133, 133))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, shop_Panel4Layout.createSequentialGroup()
                 .addGap(132, 132, 132)
-                .addGroup(shop_Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(shop_Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(shop_Panel4Layout.createSequentialGroup()
-                        .addGroup(shop_Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(shop_Panel4Layout.createSequentialGroup()
-                                .addComponent(shop4_Weekday_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(shop4_label6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(shop_Panel4Layout.createSequentialGroup()
-                                .addComponent(shop4_Weekend_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(shop4_label7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(shop4_Weekday_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(shop4_label6, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                    .addGroup(shop_Panel4Layout.createSequentialGroup()
+                        .addComponent(shop4_Weekend_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(shop_Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(shop4_Weekday_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shop4_Weekend_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(shop4_label7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, shop_Panel4Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton2)
+                                .addGap(15, 15, 15)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(shop_Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(shop4_Weekday_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shop4_Weekend_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(127, 127, 127))
         );
         shop_Panel4Layout.setVerticalGroup(
             shop_Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(shop_Panel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(shop4_title1)
+                .addComponent(logo8)
                 .addGap(18, 18, 18)
-                .addComponent(shop4_label2)
-                .addGap(52, 52, 52)
-                .addComponent(shop4_label3)
+                .addComponent(shop4_title1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(shop4_label2)
+                .addGap(18, 18, 18)
+                .addComponent(shop4_label3)
+                .addGap(18, 18, 18)
                 .addGroup(shop_Panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(shop4_All_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(shop4_All_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1120,9 +1213,9 @@ public class LoginFrame extends javax.swing.JFrame {
                     .addComponent(shop4_Weekend_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(shop4_Weekend_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(shop4_label7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addComponent(jButton2)
-                .addGap(78, 78, 78))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         mainPanel.add(shop_Panel4, "card6");
@@ -1136,7 +1229,7 @@ public class LoginFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
+                .addContainerGap()
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1145,11 +1238,19 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void register_confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register_confirmActionPerformed
         // TODO add your handling code here:
-        RegistOwner registOwner = new RegistOwner(register_ID_Text.getText(), register_Name_Text.getText(), register_PW_Text.getText(), register_Phone_Text.getText());
-        if (registOwner.regist()) {
-            CardLayout card = (CardLayout) mainPanel.getLayout();
-            card.show(mainPanel, "card1");
+        if (register_ID_Text.getText().isEmpty() || register_Name_Text.getText().isEmpty() || register_PW_Text.getText().isEmpty() || register_Phone_Text.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "회원가입 실패", "알림 메시지", JOptionPane.INFORMATION_MESSAGE);
+        } 
+        else {
+            RegistOwner registOwner = new RegistOwner(register_ID_Text.getText(), register_Name_Text.getText(), register_PW_Text.getText(), register_Phone_Text.getText());
+            if (registOwner.regist()) {
+                JOptionPane.showMessageDialog(null, "회원가입 완료", "알림 메시지", JOptionPane.INFORMATION_MESSAGE);
+                CardLayout card = (CardLayout) mainPanel.getLayout();
+                card.show(mainPanel, "card1");
+            }
         }
+
+
     }//GEN-LAST:event_register_confirmActionPerformed
 
     private void login_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_buttonActionPerformed
@@ -1157,12 +1258,17 @@ public class LoginFrame extends javax.swing.JFrame {
         LoginOwner loginOwner = new LoginOwner(login_ID_Text.getText(), login_PW_Text.getText());
         rest = new Restaurant();
         owner = loginOwner.login();
-        if (owner.IsRegistered()) {
+        if (owner == null) {
+            JOptionPane.showMessageDialog(null, "로그인 실패.", "오류 메시지", JOptionPane.ERROR_MESSAGE);
+            System.out.println("로그인 실패");
+        } else if (owner.IsRegistered()) {
             // 검증 후 dPos화면
+            JOptionPane.showMessageDialog(null, "이미 레스토랑을 등록한 유저", "알림 메시지", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
             dispose();
             System.out.println("이미 레스토랑을 등록한 유저");
         } else {
+            JOptionPane.showMessageDialog(null, "첫 로그인 유저", "알림 메시지", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) mainPanel.getLayout();
             card.show(mainPanel, "card3");
         }
@@ -1208,25 +1314,25 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String break_time = shop2_Break_Startbox.getSelectedItem().toString();
         break_time = break_time + " ~ " + shop2_Break_Endbox.getSelectedItem();
-       
+
         rest.setBreak_time(break_time);
-        
+
         if (shop2_hours_Box.getSelectedIndex() == 0) {
             if (!"".equals(rest.getHoliday_num())) {
                 if (rest.getBreak_num() == 1) {
                     rest.setH_type(9);
-                    
+
                 } else {
                     rest.setH_type(10);
-                    
+
                 }
             } else {
                 if (rest.getBreak_num() == 1) {
                     rest.setH_type(11);
-                    
+
                 } else {
                     rest.setH_type(12);
-                    rest.setHours("t"+rest.getH_type());
+                    rest.setHours("t" + rest.getH_type());
                 }
             }
             CardLayout card = (CardLayout) mainPanel.getLayout();
@@ -1274,18 +1380,20 @@ public class LoginFrame extends javax.swing.JFrame {
         }//평일/주말
 
         if (rest.getHoliday_num().length() == 0) {
-            if(rest.getBreak_num()==1)
+            if (rest.getBreak_num() == 1) {
                 rest.setHours("\"t\":" + rest.getH_type() + rest.getBreak_time());
-            else
-                 rest.setHours("\"t\":" + rest.getH_type() );
+            } else {
+                rest.setHours("\"t\":" + rest.getH_type());
+            }
         } else {
-            if(rest.getBreak_num()==1)
-                rest.setHours("\"t\":" + rest.getH_type() + ",\"cd\":" +rest.getHoliday_num() + rest.getBreak_time());
-            else
-                rest.setHours("\"t\":" + rest.getH_type() +",\"cd\":" + rest.getHoliday_num());
-            
+            if (rest.getBreak_num() == 1) {
+                rest.setHours("\"t\":" + rest.getH_type() + ",\"cd\":" + rest.getHoliday_num() + rest.getBreak_time());
+            } else {
+                rest.setHours("\"t\":" + rest.getH_type() + ",\"cd\":" + rest.getHoliday_num());
+            }
+
         }
-        
+
     }//GEN-LAST:event_shop2_next_buttonActionPerformed
 
     private void shop2_Mon_checkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_shop2_Mon_checkItemStateChanged
@@ -1411,30 +1519,37 @@ public class LoginFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //  모든시간 상이
         // TODO add your handling code here:
-        String mon="";
-        String tue="";
-        String wen="";
-        String thr="";
-        String fri="";
-        String sat="";
-        String sun="";
-        if(!rest.getHoliday_num().contains("0"))
-            mon = " 0(월): "+shop3_Mon_Start.getSelectedItem() +" ~ "+ shop3_Mon_End.getSelectedItem();
-        if(!rest.getHoliday_num().contains("1"))
-            tue = " 1(화): "+shop3_Tue_Start.getSelectedItem() +" ~ "+ shop3_Tue_End.getSelectedItem();
-        if(!rest.getHoliday_num().contains("2"))
-            wen = " 2(수): "+shop3_Wen_Start.getSelectedItem() +" ~ "+ shop3_Wen_End.getSelectedItem();
-        if(!rest.getHoliday_num().contains("3"))
-            thr = " 3(목): "+shop3_Thr_Start.getSelectedItem() +" ~ "+ shop3_Thr_End.getSelectedItem();
-        if(!rest.getHoliday_num().contains("4"))
-            fri = " 4(금): "+shop3_Fri_Start.getSelectedItem() +" ~ "+ shop3_Fri_End.getSelectedItem();
-        if(!rest.getHoliday_num().contains("5"))
-            sat = " 5(토): "+shop3_Sat_Start.getSelectedItem() +" ~ "+ shop3_Sat_End.getSelectedItem();
-        if(!rest.getHoliday_num().contains("6"))
-            sun = " 6(일): "+shop3_Sun_Start.getSelectedItem() +" ~ "+ shop3_Sun_End.getSelectedItem();
-    
-        rest.setTime(mon+tue+wen+thr+fri+sat+sun);
-        rest.setHours(rest.getHours()+rest.getTime());
+        String mon = "";
+        String tue = "";
+        String wen = "";
+        String thr = "";
+        String fri = "";
+        String sat = "";
+        String sun = "";
+        if (!rest.getHoliday_num().contains("0")) {
+            mon = " 0(월): " + shop3_Mon_Start.getSelectedItem() + " ~ " + shop3_Mon_End.getSelectedItem();
+        }
+        if (!rest.getHoliday_num().contains("1")) {
+            tue = " 1(화): " + shop3_Tue_Start.getSelectedItem() + " ~ " + shop3_Tue_End.getSelectedItem();
+        }
+        if (!rest.getHoliday_num().contains("2")) {
+            wen = " 2(수): " + shop3_Wen_Start.getSelectedItem() + " ~ " + shop3_Wen_End.getSelectedItem();
+        }
+        if (!rest.getHoliday_num().contains("3")) {
+            thr = " 3(목): " + shop3_Thr_Start.getSelectedItem() + " ~ " + shop3_Thr_End.getSelectedItem();
+        }
+        if (!rest.getHoliday_num().contains("4")) {
+            fri = " 4(금): " + shop3_Fri_Start.getSelectedItem() + " ~ " + shop3_Fri_End.getSelectedItem();
+        }
+        if (!rest.getHoliday_num().contains("5")) {
+            sat = " 5(토): " + shop3_Sat_Start.getSelectedItem() + " ~ " + shop3_Sat_End.getSelectedItem();
+        }
+        if (!rest.getHoliday_num().contains("6")) {
+            sun = " 6(일): " + shop3_Sun_Start.getSelectedItem() + " ~ " + shop3_Sun_End.getSelectedItem();
+        }
+
+        rest.setTime(mon + tue + wen + thr + fri + sat + sun);
+        rest.setHours(rest.getHours() + rest.getTime());
         System.out.println(rest.getHours());
         RegistRestaurant registRestaurant = new RegistRestaurant();
         registRestaurant.regist(rest, owner);
@@ -1465,15 +1580,14 @@ public class LoginFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         //  평일/주말, 모든시간 동일
-        if(rest.getH_type()<5){
-            rest.setTime(shop4_All_Start.getSelectedItem()+" ~ " + shop4_All_End.getSelectedItem());
-        }
-        else{
-            String weekday = shop4_Weekday_Start.getSelectedItem()+ "~" + shop4_Weekday_End.getSelectedItem();
+        if (rest.getH_type() < 5) {
+            rest.setTime(shop4_All_Start.getSelectedItem() + " ~ " + shop4_All_End.getSelectedItem());
+        } else {
+            String weekday = shop4_Weekday_Start.getSelectedItem() + "~" + shop4_Weekday_End.getSelectedItem();
             String weekend = shop4_Weekend_Start.getSelectedItem() + " ~ " + shop4_Weekend_End.getSelectedItem();
             rest.setTime(weekday + "," + weekend);
         }
-        rest.setHours(rest.getHours()+" "+rest.getTime());
+        rest.setHours(rest.getHours() + " " + rest.getTime());
         System.out.println(rest.getHours());
         RegistRestaurant registRestaurant = new RegistRestaurant();
         registRestaurant.regist(rest, owner);
@@ -1484,18 +1598,18 @@ public class LoginFrame extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(new FileNameExtensionFilter("JPG & PNG Images", "jpg","png"));
+        chooser.setFileFilter(new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png"));
         int ret = chooser.showOpenDialog(null);  //열기창 정의
-        
+
         if (ret != JFileChooser.APPROVE_OPTION) {
             JOptionPane.showMessageDialog(null, "경로를 선택하지않았습니다.", "경고", JOptionPane.WARNING_MESSAGE);
             return;
         }
         rest.setImage(chooser.getSelectedFile().getPath());
         System.out.println(rest.getImage());
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
-  
+
     /**
      * @param args the command line arguments
      */
@@ -1519,6 +1633,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JCheckBox left_seat_Check;
     private javax.swing.JLabel login_ID;
     private javax.swing.JTextField login_ID_Text;
@@ -1528,6 +1643,12 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JButton login_button;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel logo1;
+    private javax.swing.JLabel logo3;
+    private javax.swing.JLabel logo4;
+    private javax.swing.JLabel logo5;
+    private javax.swing.JLabel logo6;
+    private javax.swing.JLabel logo7;
+    private javax.swing.JLabel logo8;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JLabel register_ID;
     private javax.swing.JTextField register_ID_Text;

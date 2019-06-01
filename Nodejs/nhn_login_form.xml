@@ -1,18 +1,28 @@
-<xml>
-    <data>
-        <result>
-            <resultcode></resultcode>
-            <message></message>
-        </result>
-        <response>
-            id
-            nickname
-            profile_image
-            age
-            gender
-            email
-            name
-            
-        </response>
-    </data>
-</xml>
+<?xml version="1.0" encoding="UTF-8" ?>
+<data>
+    <result>
+        <resultcode>00</resultcode>
+        <message>success</message>
+    </result>
+    <response>
+        <id><![CDATA[43681551]]></id>
+        <nickname><![CDATA[ckddn****]]></nickname>
+        <profile_image>https://ssl.pstatic.net/static/pwe/address/img_profile.png</profile_image>
+        <age><![CDATA[20-29]]></age>
+        <gender>M</gender>
+        <email><![CDATA[ckddn9496@naver.com]]></email>
+        <name><![CDATA[손창우]]></name>
+        <birthday><![CDATA[04-28]]></birthday>
+    </response>
+</data>
+
+{"resultcode":"00",
+"message":"success",
+"id":"43681551",
+"nickname":"ckddn****",
+"profile_image":"https:\/\/ssl.pstatic.net\/static\/pwe\/address\/img_profile.png",
+"age":"20-29",
+"gender":"M",
+"email":"ckddn9496@naver.com",
+"name":"손창우",
+"birthday":"04-28"}
