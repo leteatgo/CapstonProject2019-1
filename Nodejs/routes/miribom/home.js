@@ -3,7 +3,7 @@ var knex = require('./../knex-mysql');
 var fs = require('fs');
 /* when user click the login, give information about restaurants */
 exports.home = (req, res) => {
-    console.log('/home/home')
+    console.log('/home')
     const inputData = req.body;
     var no = inputData.no;
     var longitude = inputData.longitude;
@@ -25,6 +25,8 @@ exports.home = (req, res) => {
                 no: element.no,
                 name: element.name,
                 address: element.address,
+                latitude: element.latitude,
+                longitude: element.longitude,
                 distance: getDistance(longitude, latitude, element.longitude, element.latitude, "kilometer"),
                 image: JSON.stringify(bmpBuffer)
             }

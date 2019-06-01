@@ -24,6 +24,7 @@ app.post('/join/signUp', (req, res) => { miribom_join.signUp(req, res)});
 // 이메일 인증
 app.get('/join/auth', (req, res) => { miribom_join.auth(req, res);});
 // 사용자 로그인
+app.post('/login/signIn/nhn', (req, res) => { miribom_login.signInByNaver(req, res);})
 app.post('/login/signIn', (req, res) => { miribom_login.signIn(req, res);});
 // 홈 화면 구성
 app.post('/home/', (req, res) => { miribom_home.home(req, res);});

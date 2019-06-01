@@ -29,7 +29,7 @@ import org.json.JSONObject;
 public class Geocoding {
     private static String baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 //    private static String address = "서울특별시 동작구 상도로 272";
-    private static String API_KEY = "&key=AIzaSyBfBvkgwy1_WNNroj7OfLRSrOA1IJbpVw0";
+    private static String API_KEY = "&key=API_KEYS";
    
     public static double[] geoCoding(String address) {
         double[] longlat = new double[2];
