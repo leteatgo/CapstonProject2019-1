@@ -11,34 +11,32 @@ exports.getRestInfo = (req, res) => {
     var resNo = inputData.resNo;
     console.log('resNo : ' + resNo);
 
-    knex.select('*').from('restaurant')
-        .leftOuterJoin('seat', 'restaurant.no', 'seat.no')
-        .where('restaurant.no', resNo)
+
+    // 필요한것
+    // 
+    knex.select('s_left_num','image').from('seat')
+        .leftOuterJoin('menu', 'seat.no', 'menu.res_no')
+        .where('seat.no', resNo)
         .then((rows) => {
             console.log(rows[0]);
-            var filename = "/home/ckddn9496/LetEatGo/images/" + rows[0].image + ".jpg";
-            var bmpBuffer = fs.readFileSync(filename);
-
-            var restInfo = {
-                no: rows[0].no,
-                name: rows[0].name,
-                address: rows[0].address,
-                mobile: rows[0].mobile,
-                // longitude: rows[0].longitude,
-                // latitude: rows[0].latitude,
-                // r_type: rows[0].r_type,
-                // s_type: rows[0].s_type,
-                // f_type: rows[0].f_type,
-                // r_num: rows[0].r_num,
-                image: JSON.stringify(bmpBuffer),
-                hours: rows[0].hours,
-                s_total_num: rows[0].s_total_num,
-                s_left_num: rows[0].s_left_num,
-                // s_ava_num: rows[0].s_ava_num,    //  removed from Database
-                owner_request: rows[0].owner_request
+            if (rows[0].image != null) {
+                var filename = "/home/ckddn9496/LetEatGo/images/" + rows[0].image + ".jpg";
+                var bmpBuffer = fs.readFileSync(filename);
+                var restInfo = {
+                    // r_type: rows[0].r_type,
+                    // s_type: rows[0].s_type,
+                    // f_type: rows[0].f_type,
+                    // r_num: rows[0].r_num,
+                    image: JSON.stringify(bmpBuffer),
+                    s_left_num: rows[0].s_left_num,
+                }
+                res.json(restInfo);
+            } else {
+                var restInfo = {
+                    s_left_num: rows[0].s_left_num,
+                }
+                res.json(restInfo);
             }
-
-            res.json(restInfo);
         }).catch((err) => {
             res.send('더 이상 존재하지 않는 가게입니다.');
         })
@@ -104,7 +102,7 @@ exports.makeReservation = (req, res) => {
         },
         function (rest_name, callback) {
             exec(`curl -v -X POST 'https://kapi.kakao.com/v1/payment/ready' \
-                        -H 'Authorization: KakaoAK {AdminKey}' \
+                        -H 'Authorization: KakaoAK {Admin Key}' \
                         --data-urlencode 'cid=TC0ONETIME' \
                         --data-urlencode 'partner_order_id=partner_order_id' \
                         --data-urlencode 'partner_user_id=partner_user_id' \

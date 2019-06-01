@@ -65,6 +65,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -160,7 +162,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         /*Google Map*/
-        locationRequest = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(UPDATE_INTERVAL_MS).setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
+        locationRequest = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//                .setInterval(UPDATE_INTERVAL_MS).setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
 
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(locationRequest);
@@ -214,7 +217,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             new HomeSettingTask().execute("http://" + MiribomInfo.ipAddress + "/home/"
                     , Integer.toString(uno), "126", "37");
 
-        new GetRestaurantALL().execute("http://" + MiribomInfo.ipAddress + "/home/search/all");
     }
 
     LocationCallback locationCallback = new LocationCallback() {
@@ -530,13 +532,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         public void onClick(View v) {
 
             HomeRestaurantListItem item = (HomeRestaurantListItem) v.getTag();
-            Toast.makeText(getApplicationContext(), item.toString(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), item.toString(), Toast.LENGTH_SHORT).show();
             // 서버에서 레스토랑 정보 가져와서 RestaurantInfoActivity
             // params: url, restaurant no
-//            Intent intent = new Intent(HomeActivity.this, RestaurantInfoActivity.class);
             Intent intent = new Intent(HomeActivity.this, ReserveActivity.class);
+            intent.putExtra("ResItem", item);
             intent.putExtra("uNo", uno);
-            intent.putExtra("resNo", item.getResNo());
             startActivity(intent);
         }
     };
@@ -601,8 +602,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
         }
-
-
 
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
         mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -688,13 +687,37 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         imageDatas[j] = DataUtils.intToByteArray(Integer.parseInt(imageStrs[j]));
                     }
                     Bitmap bmp = BitmapFactory.decodeByteArray(imageDatas, 0 , imageDatas.length);
-                    itemList.add(new HomeRestaurantListItem(jsonObject.getInt("no"), jsonObject.getString("name"), bmp));
+
+                    itemList.add(
+                            new HomeRestaurantListItem(jsonObject.getInt("no"), jsonObject.getString("name")
+                                    , jsonObject.getString("address"), jsonObject.getString("mobile"), bmp
+                                    , jsonObject.getDouble("latitude"), jsonObject.getDouble("longitude")
+                                    , jsonObject.getString("hours"), jsonObject.getDouble("distance")));
                 }
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
+            Log.d(TAG, "onPostExecute: \n" + itemList.toString());
+            Collections.sort(itemList);
             homeRestaurantListAdapter.notifyDataSetChanged();
+
+            // add markers on google maps
+            MarkRestaurants();
+            new GetRestaurantALL().execute("http://" + MiribomInfo.ipAddress + "/home/search/all");
+        }
+    }
+
+    private void MarkRestaurants() {
+        for (int i = 0; i < itemList.size(); i++) {
+            HomeRestaurantListItem item = itemList.get(i);
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(new LatLng(item.getLatitude(), item.getLongitude()));
+            markerOptions.title(item.getResName());
+            markerOptions.snippet(item.getAddress());
+            markerOptions.draggable(false);
+
+            mGoogleMap.addMarker(markerOptions);
         }
     }
 
@@ -752,15 +775,14 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Log.d(TAG, "onPostExecute: "+ result);
             // 예약되었습니다. or 예약 등록에 실패 하였습니다.
             try {
                 allRestArray = new JSONArray(result);
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(), "못가져옴", Toast.LENGTH_LONG).show();
             }
+            Toast.makeText(getApplicationContext(), "완료", Toast.LENGTH_LONG).show();
         }
     }
 

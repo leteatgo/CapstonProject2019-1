@@ -17,7 +17,8 @@ public class DataUtils {
     public static String hoursFormatter(String hours) {
         String str = null;
         try {
-            Log.d(TAG, "hoursFormatter: " + hours);
+            String s = hours;
+            Log.d(TAG, "hoursFormatter: " + hours.substring(1, hours.length()-1));
             JSONObject jsonObject = new JSONObject(hours);
             int type = jsonObject.getInt("t");
             String[] bStr;

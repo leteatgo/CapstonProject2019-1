@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 intent.putExtra("no", jsonObject.getInt("no"));
                 intent.putExtra("id", naverUserAccountInfo.getString("email"));
-                Log.d(TAG, "onPostExecute: json");
+//                Log.d(TAG, "onPostExecute: json");
                 startActivity(intent);
             } catch (JSONException e) {
                 int no = Integer.parseInt(result.substring(1, result.length() - 1));
@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
-                Log.d(TAG, "onPostExecute: catch");
+//                Log.d(TAG, "onPostExecute: catch");
                 startActivity(intent);
             }
         }

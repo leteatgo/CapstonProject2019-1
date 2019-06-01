@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.insu0.miribom.HomeActivity;
 import com.example.insu0.miribom.Lists.DateList;
 import com.example.insu0.miribom.Lists.DateListAdapter;
+import com.example.insu0.miribom.Lists.HomeRestaurantListItem;
 import com.example.insu0.miribom.R;
 import com.example.insu0.miribom.Servers.MiribomInfo;
 
@@ -52,6 +53,8 @@ import java.util.Set;
 @SuppressLint("ValidFragment")
 public class ReserveFragment extends Fragment implements View.OnClickListener{
     private String TAG = "ReserveFragment";
+
+    private HomeRestaurantListItem item;
     private int uNo, resNo, availablePlaceNum;
     private Context context;
     private int numofPerson;
@@ -76,7 +79,7 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
 
 
 
-    public ReserveFragment(int uNo, int resNo, int availablePlaceNum, Context context) {
+    public ReserveFragment(int uNo, HomeRestaurantListItem item, Context context) {
         this.uNo = uNo;
         this.resNo = resNo;
         this.availablePlaceNum = availablePlaceNum;

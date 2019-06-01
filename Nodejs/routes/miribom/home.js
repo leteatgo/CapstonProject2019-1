@@ -25,9 +25,11 @@ exports.home = (req, res) => {
                 no: element.no,
                 name: element.name,
                 address: element.address,
+                mobile: element.mobile,
                 latitude: element.latitude,
                 longitude: element.longitude,
                 distance: getDistance(longitude, latitude, element.longitude, element.latitude, "kilometer"),
+                hours: element.hours,
                 image: JSON.stringify(bmpBuffer)
             }
             jsonArray.push(restInfo);
