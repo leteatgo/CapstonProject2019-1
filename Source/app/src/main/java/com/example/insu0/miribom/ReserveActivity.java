@@ -85,7 +85,7 @@ public class ReserveActivity extends AppCompatActivity
         telTextView = (TextView) findViewById(R.id.telTextView);
         addrTextView = (TextView) findViewById(R.id.addrTextView);
         seatinfoTextView = (TextView) findViewById(R.id.seatinfoTextView);
-        res_restImageView = (ImageView) findViewById(R.id.res_restImageView);
+        //res_restImageView = (ImageView) findViewById(R.id.res_restImageView);
 
         new RestaurantInfoRequestTask().execute("http://" + MiribomInfo.ipAddress + "/restaurant/getRestInfo", Integer.toString(resNo));
 
