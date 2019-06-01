@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.insu0.miribom.Data.DataUtils;
 import com.example.insu0.miribom.Data.InfoFragment;
+import com.example.insu0.miribom.Data.ReserveData;
 import com.example.insu0.miribom.Data.ReserveFragment;
 import com.example.insu0.miribom.Servers.MiribomInfo;
 
@@ -48,11 +49,24 @@ public class ReserveActivity extends AppCompatActivity
     private String image;
     private byte[] imageDatas;
     private int totalPlaceNum, availablePlaceNum, reservablePlaceNum;
+
     private TextView lunchtimeTextView;
     private TextView restName;
     private TextView telTextView;
     private TextView addrTextView;
     private TextView seatinfoTextView;
+    private ImageView res_restImageView;
+
+    /*Reservation Information*/
+    private int res_ppl_num;
+    private String res_day;
+    private String res_time;
+    private String usr_Req;
+    private String owner_Req;
+
+    private ReserveData reserveData;
+
+
 
     ViewPager vp;
     @Override
@@ -71,6 +85,7 @@ public class ReserveActivity extends AppCompatActivity
         telTextView = (TextView) findViewById(R.id.telTextView);
         addrTextView = (TextView) findViewById(R.id.addrTextView);
         seatinfoTextView = (TextView) findViewById(R.id.seatinfoTextView);
+        res_restImageView = (ImageView) findViewById(R.id.res_restImageView);
 
         new RestaurantInfoRequestTask().execute("http://" + MiribomInfo.ipAddress + "/restaurant/getRestInfo", Integer.toString(resNo));
 
@@ -101,7 +116,6 @@ public class ReserveActivity extends AppCompatActivity
         vp = (ViewPager)findViewById(R.id.vp);
         ImageButton infoBtn = (ImageButton)findViewById(R.id.infoBtn);
         ImageButton resBtn = (ImageButton)findViewById(R.id.resBtn);
-        Button reserveBtn = (Button)findViewById(R.id.reserveBtn);
 
         vp.setAdapter(new pagerAdapter(getSupportFragmentManager()));
         vp.setCurrentItem(0);
@@ -110,6 +124,8 @@ public class ReserveActivity extends AppCompatActivity
         infoBtn.setTag(0);
         resBtn.setOnClickListener(movePageListener);
         resBtn.setTag(1);
+
+
     }
 
     View.OnClickListener movePageListener = new View.OnClickListener()
@@ -148,70 +164,7 @@ public class ReserveActivity extends AppCompatActivity
         }
     }
 
-    public class MakeRequestTask extends AsyncTask<String, String, String> {
-        String TAG = "MakeRequestTask>>>";
 
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                JSONObject reqInfo = new JSONObject();
-                reqInfo.accumulate("uNo", strings[1]);
-                reqInfo.accumulate("resNo", strings[2]);
-                reqInfo.accumulate("date", strings[3]);
-                reqInfo.accumulate("time", strings[4]);
-                reqInfo.accumulate("deposit", strings[5]);
-                reqInfo.accumulate("peopleNum", strings[6]);
-                reqInfo.accumulate("userRequest", strings[7]);
-
-                HttpURLConnection conn = null;
-                BufferedReader reader = null;
-                try {
-                    URL url = new URL(strings[0]);
-                    // settings
-                    conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Cache-Control", "no-cache");
-                    conn.setRequestProperty("Content-Type", "application/json");
-                    conn.setRequestProperty("Accept", "application/text");
-                    conn.setRequestProperty("Accept", "application/json");
-                    conn.setDoOutput(true);
-                    conn.setDoInput(true);
-                    conn.connect();
-
-                    OutputStream outputStream = conn.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
-                    writer.write(reqInfo.toString());
-                    writer.flush();
-                    writer.close();
-
-                    InputStream stream = conn.getInputStream();
-                    reader = new BufferedReader(new InputStreamReader(stream));
-                    StringBuffer buffer = new StringBuffer();
-                    String line = "";
-                    while ((line = reader.readLine()) != null) {
-                        buffer.append(line);
-                        Log.d(TAG, "doInBackground: readLine, " + line);
-                    }
-                    return buffer.toString();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Log.d(TAG, "onPostExecute: "+ result);
-            // 예약되었습니다. or 예약 등록에 실패 하였습니다.
-            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-        }
-    }
 
 
     public class FindRequestTask extends AsyncTask<String, String, String> {
@@ -345,30 +298,28 @@ public class ReserveActivity extends AppCompatActivity
                 name = jsonObject.getString("name");
                 address = jsonObject.getString("address");
                 mobile = jsonObject.getString("mobile");
-//                image = jsonObject.getString("image");
+                image = jsonObject.getString("image");
                 hours = jsonObject.getString("hours");
                 totalPlaceNum = jsonObject.getInt("s_total_num");
                 availablePlaceNum = jsonObject.getInt("s_left_num");
-                reservablePlaceNum = jsonObject.getInt("s_ava_num");
 
-//
-//                DisplayMetrics displayMetrics = new DisplayMetrics();
-//                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//                int width = displayMetrics.widthPixels;
-////        int height = displayMetrics.heightPixels;
-//                ImageView restImageView = (ImageView) findViewById(R.id.restImageView);
-//                /* put Image*/
-//
-//                JSONObject object = new JSONObject(image);
-//                String data = object.getString("data");
-//                String[] imageStrs = data.substring(1, data.length() - 1).split(",");
-//                imageDatas = new byte[imageStrs.length];
-//                for (int i = 0; i < imageStrs.length; i++) {
-//                    imageDatas[i] = DataUtils.intToByteArray(Integer.parseInt(imageStrs[i]));
-//                }
-//                Bitmap bmp = BitmapFactory.decodeByteArray(imageDatas, 0, imageDatas.length);
-//                bmp = Bitmap.createScaledBitmap(bmp, width, (int) restImageView.getScaleY() * bmp.getHeight(), true);
-//                restImageView.setImageBitmap(bmp);
+
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int width = displayMetrics.widthPixels;
+                int height = displayMetrics.heightPixels;
+                /* put Image*/
+
+                JSONObject object = new JSONObject(image);
+                String data = object.getString("data");
+                String[] imageStrs = data.substring(1, data.length() - 1).split(",");
+                imageDatas = new byte[imageStrs.length];
+                for (int i = 0; i < imageStrs.length; i++) {
+                    imageDatas[i] = DataUtils.intToByteArray(Integer.parseInt(imageStrs[i]));
+                }
+                Bitmap bmp = BitmapFactory.decodeByteArray(imageDatas, 0, imageDatas.length);
+//                bmp = Bitmap.createScaledBitmap(bmp, width, (int) res_restImageView.getScaleY() * bmp.getHeight(), true);
+                res_restImageView.setImageBitmap(bmp);
 
                 restName.setText(name);
 //                telTextView.setText(mobile);

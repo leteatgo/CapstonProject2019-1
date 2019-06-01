@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/dateview"
-        android:text="몇시:몇분"
-        android:textStyle="bold"
-        android:textColor="@color/cardview_light_background"
-        android:background="@color/cardview_dark_background"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@color/design_default_color_primary"
+        android:text="몇시:몇분"
+        android:textColor="@color/cardview_light_background"
+        android:textStyle="bold" />
 
 </LinearLayout>

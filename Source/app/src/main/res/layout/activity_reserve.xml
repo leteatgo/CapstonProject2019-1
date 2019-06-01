@@ -17,6 +17,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/res_restImageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_loading" />
+
             <LinearLayout
                 android:id="@+id/textbox"
                 android:layout_width="match_parent"
@@ -72,13 +79,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="550dp"
                 android:layout_below="@id/buttonlayout"></android.support.v4.view.ViewPager>
-
-            <Button
-                android:id="@+id/reserveBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="예약하기"
-                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>

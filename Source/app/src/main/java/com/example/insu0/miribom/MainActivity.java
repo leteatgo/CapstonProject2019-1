@@ -30,19 +30,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
     private static final String TAG = "MainActivity";
     Button main_kakaoBtn;
     Button main_emailBtn;
     TextView main_joinText;
 
-
-    /*
-    * @author ckddn
-    * added 190412
-    * */
-
-    /*implemented by Insu Yang*/
 
     /*Naver Login Module*/
     private OAuthLoginButton main_naverBtn;
@@ -54,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     private static OAuthLogin mOAuthLoginInstance;
     private static Context mContext;
 
+
+    /*
+    * @author ckddn
+    * added 190412
+    * */
     @Override
     protected void onStart() {
 
@@ -75,11 +72,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         mContext = this;
         initNaver();
-
 
         main_joinText = findViewById(R.id.main_jointext);
         main_joinText.setOnClickListener(new Button.OnClickListener() {
@@ -109,11 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
-
     private void initNaver(){
         //Naver Instance Initialization
         mOAuthLoginInstance = OAuthLogin.getInstance();
@@ -167,26 +157,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class RequestApiTask extends AsyncTask<Void, Void, Void> {
+    private class RequestApiTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
 
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected String doInBackground(Void... params) {
             String url = "https://openapi.naver.com/v1/nid/getUserProfile.xml";
             String at = mOAuthLoginInstance.getAccessToken(mContext);
+            String data = mOAuthLoginInstance.requestApi(mContext, at, url);
             myUserInfoMap = requestNaverUserInfo(mOAuthLoginInstance.requestApi(mContext, at, url));
-            return null;
+            return data;
         }
 
-        protected void onPostExecute(Void content) {
+        protected void onPostExecute(String data) {
+            Toast.makeText(mContext, data, Toast.LENGTH_LONG).show();
             if (myUserInfoMap.get("email") == null) {
                 Toast.makeText(mContext, "로그인 실패하였습니다.  잠시후 다시 시도해 주세요!!", Toast.LENGTH_SHORT).show();
             } else {
                 Log.d(TAG, String.valueOf(myUserInfoMap));
-                Toast.makeText(mContext, myUserInfoMap.get("enc_id") + "님 환영합니다", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -270,4 +261,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 }

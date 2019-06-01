@@ -37,16 +37,13 @@ public class JoinActivity extends AppCompatActivity {
 
     private static final String TAG = "JoinActivity";
 
+    private Button join_prevBtn;
     private EditText join_emailInput;
     private EditText join_passwordInput;
     private EditText join_passwordVerify;
     private EditText join_nameInput;
     private EditText join_mobileInput;
-
-//    private Button join_verifyEmailBtn;
     private Button joinBtn;
-
-//    private boolean verified = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,22 +51,21 @@ public class JoinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_join);
 
         // init
+        join_prevBtn = (Button) findViewById(R.id.join_prevBtn);
+        join_prevBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         join_emailInput = (EditText) findViewById(R.id.join_emailInput);
         join_passwordInput = (EditText) findViewById(R.id.join_passwordInput);
         join_passwordVerify = (EditText) findViewById(R.id.join_passwordVerify);
         join_nameInput = (EditText) findViewById(R.id.join_nameInput);
         join_mobileInput = (EditText) findViewById(R.id.join_mobileInput);
-//        join_verifyEmailBtn = (Button) findViewById(R.id.join_verifyEmailBtn);
+
         joinBtn = (Button) findViewById(R.id.joinBtn);
-
-
-//        join_verifyEmailBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                new EmailVerifier().execute("http://" + MiribomInfo.ipAddress + "/join/verify");
-//            }
-//        });
-
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

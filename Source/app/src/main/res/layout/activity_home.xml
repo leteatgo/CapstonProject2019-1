@@ -11,7 +11,9 @@
         android:id="@+id/searchLayout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="0dp"

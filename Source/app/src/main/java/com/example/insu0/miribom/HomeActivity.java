@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.insu0.miribom.Data.DataUtils;
@@ -39,6 +40,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 // implemented by Jason Yang
 // Updated by ckddn 090417
@@ -49,19 +51,16 @@ public class HomeActivity extends AppCompatActivity {
 
     private int uno;
     private double longitude, latitude;
+    Button searchBtn;
 
-    ArrayList<HomeRestaurantListItem> itemList = new ArrayList<>();
+    private ArrayList<HomeRestaurantListItem> itemList = new ArrayList<>();
+    private JSONArray allRestArray;
+    private List<String> allRestList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        uno = getIntent().getIntExtra("no", -1);
-        if (uno == -1) {
-            Toast.makeText(getApplicationContext(), "회원정보를 불러오는데 실패 하였습니다.", Toast.LENGTH_LONG).show();
-            finish();
-        }
-        final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -71,10 +70,31 @@ public class HomeActivity extends AppCompatActivity {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
 
+        final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        uno = getIntent().getIntExtra("no", -1);
+        if (uno == -1) {
+            Toast.makeText(getApplicationContext(), "회원정보를 불러오는데 실패 하였습니다.", Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+        searchBtn = findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                intent.putExtra("uno", uno);
+                intent.putExtra("list", allRestArray.toString());
+                intent.putExtra("lon", location.getLongitude());
+                intent.putExtra("lat", location.getLatitude());
+                startActivity(intent);
+            }
+        });
+
 
         /*List 초기화*/
         homeRestaurantListView = findViewById(R.id.home_restaurant_listview);
@@ -82,13 +102,21 @@ public class HomeActivity extends AppCompatActivity {
         homeRestaurantListView.setLayoutManager(layoutManager);
 
         setHomeRestaurantListTest(); //서버 구현 전 Testing Code
-//        if(location.getLongitude() > 0)
-//            new HomeSettingTask().execute("http://" + MiribomInfo.ipAddress + "/home/"
-//            , Integer.toString(uno), Double.toString(location.getLongitude()), Double.toString(location.getLatitude()));
-//        else
+
+        if (location != null) {
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            Log.d("Locations>>", "onCreate: " + longitude + ", " + latitude);
+        }
+
+        if (longitude > 0)
+            new HomeSettingTask().execute("http://" + MiribomInfo.ipAddress + "/home/"
+            , Integer.toString(uno), Double.toString(longitude), Double.toString(latitude));
+        else
             new HomeSettingTask().execute("http://" + MiribomInfo.ipAddress + "/home/"
                     , Integer.toString(uno), "126", "37");
 
+        new GetRestaurantALL().execute("http://" + MiribomInfo.ipAddress + "/home/search/all");
     }
 
 
@@ -198,7 +226,69 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    public class GetRestaurantALL extends AsyncTask<String, String, String> {
+        String TAG = "GetRestaurantALL>>>";
 
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                JSONObject reqInfo = new JSONObject();
+                reqInfo.accumulate("uno", "1");
 
+                HttpURLConnection conn = null;
+                BufferedReader reader = null;
+                try {
+                    URL url = new URL(strings[0]);
+                    // settings
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Cache-Control", "no-cache");
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setRequestProperty("Accept", "application/text");
+                    conn.setRequestProperty("Accept", "application/json");
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
+                    conn.connect();
+
+                    OutputStream outputStream = conn.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                    writer.write(reqInfo.toString());
+                    writer.flush();
+                    writer.close();
+
+                    InputStream stream = conn.getInputStream();
+                    reader = new BufferedReader(new InputStreamReader(stream));
+                    StringBuffer buffer = new StringBuffer();
+                    String line = "";
+                    while ((line = reader.readLine()) != null) {
+                        buffer.append(line);
+                        Log.d(TAG, "doInBackground: readLine, " + line);
+                    }
+                    return buffer.toString();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.d(TAG, "onPostExecute: "+ result);
+            // 예약되었습니다. or 예약 등록에 실패 하였습니다.
+            try {
+                allRestArray = new JSONArray(result);
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "못가져옴", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
 }

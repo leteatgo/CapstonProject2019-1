@@ -1,0 +1,18 @@
+<xml>
+    <data>
+        <result>
+            <resultcode></resultcode>
+            <message></message>
+        </result>
+        <response>
+            id
+            nickname
+            profile_image
+            age
+            gender
+            email
+            name
+            
+        </response>
+    </data>
+</xml>
