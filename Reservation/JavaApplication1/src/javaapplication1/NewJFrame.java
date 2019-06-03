@@ -688,7 +688,7 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         String date = year + "-" + month + "-" + day;
         int available_reservation_num = Integer.parseInt(jTextField3.getText());
-        seatSetter = new SeatSetter(1, date, available_reservation_num);
+        seatSetter = new SeatSetter(ownerInfo.getNo(), date, available_reservation_num);
         seatSetter.sendSeatInfo();
         
         CardLayout card = (CardLayout) mainPanel.getLayout();

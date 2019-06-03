@@ -28,22 +28,22 @@ import org.json.JSONObject;
  */
 public class SeatSetter {
     private static String LetEatGoIP = "http://34.74.255.9:5000/reservation/seat";
-    private int resNo;
+    private int oNo;
     private String date;
     private int seat;
 
-    public SeatSetter(int resNo, String date, int seat) {
-        this.resNo = resNo;
+    public SeatSetter(int oNo, String date, int seat) {
+        this.oNo = oNo;
         this.date = date;
         this.seat = seat;
     }
 
-    public int getResNo() {
-        return resNo;
+    public int getONo() {
+        return oNo;
     }
 
-    public void setResNo(int resNo) {
-        this.resNo = resNo;
+    public void setONo(int resNo) {
+        this.oNo = resNo;
     }
 
     public String getDate() {
@@ -66,7 +66,7 @@ public class SeatSetter {
         try {
             BufferedReader reader = null;
             JSONObject requestObject = new JSONObject();
-            requestObject.accumulate("resNo", resNo);
+            requestObject.accumulate("oNo", oNo);
             requestObject.accumulate("date", date);
             requestObject.accumulate("seat", seat);
             URL url = new URL(this.LetEatGoIP);
