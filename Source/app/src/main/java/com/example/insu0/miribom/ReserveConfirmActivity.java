@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.insu0.miribom.Lists.HomeRestaurantListItem;
+import com.example.insu0.miribom.Servers.MiribomInfo;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -21,6 +23,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 //implemented by Insu Yang
 public class ReserveConfirmActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -37,7 +52,7 @@ public class ReserveConfirmActivity extends AppCompatActivity implements OnMapRe
     private String restName;
     private String restAddr;
     private String restPhNum;
-
+    private int payNo;
 
     /*Reservation Info*/
     private int personNum;
@@ -62,7 +77,7 @@ public class ReserveConfirmActivity extends AppCompatActivity implements OnMapRe
         restaurant = bundle.getParcelable("ResItem");
 
         //resImageView 이미지 띄어줄 부분
-
+        payNo = getIntent().getIntExtra("payNo", -1);
         restName = restaurant.getResName();
         restAddr = restaurant.getAddress();
         restPhNum = restaurant.getMobile();
@@ -105,6 +120,8 @@ public class ReserveConfirmActivity extends AppCompatActivity implements OnMapRe
             public void onClick(View v) {
                 //여기 예약취소 로직 구현
                 Toast.makeText(ReserveConfirmActivity.this, "예약 취소되었습니다", Toast.LENGTH_SHORT).show();
+                new CancelReservationTask().execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/delete");
+
             }
         });
 
@@ -131,6 +148,61 @@ public class ReserveConfirmActivity extends AppCompatActivity implements OnMapRe
     }
 
 
+    public class CancelReservationTask extends AsyncTask<String, String, String> {
+        String TAG = "CancelReservationTask>>>";
 
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                JSONObject reqInfo = new JSONObject();
+                reqInfo.accumulate("payNo", payNo);
+                HttpURLConnection conn = null;
+                BufferedReader reader = null;
+                try {
+                    URL url = new URL(strings[0]);
+                    // settings
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Cache-Control", "no-cache");
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setRequestProperty("Accept", "application/text");
+                    conn.setRequestProperty("Accept", "application/json");
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
+                    conn.connect();
+
+                    OutputStream outputStream = conn.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                    writer.write(reqInfo.toString());
+                    writer.flush();
+                    writer.close();
+
+                    InputStream stream = conn.getInputStream();
+                    reader = new BufferedReader(new InputStreamReader(stream));
+                    StringBuffer buffer = new StringBuffer();
+                    String line = "";
+                    while ((line = reader.readLine()) != null) {
+                        buffer.append(line);
+                        Log.d(TAG, "doInBackground: readLine, " + line);
+                    }
+                    return buffer.toString();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

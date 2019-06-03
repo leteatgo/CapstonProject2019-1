@@ -53,6 +53,9 @@ app.post('/restaurant/reservation/seats', (req, res) => { miribom_restaurant.get
 app.post('/restaurant/reservation/find', (req, res) => { miribom_restaurant.findReservation(req, res);});
 // 선택 레스토랑 예약 하기
 app.post('/restaurant/reservation/make', (req, res) => { miribom_restaurant.makeReservation(req, res);});
+// 선택 예약 삭제 하기
+app.post('/restaurant/reservation/delete', (req, res) => { miribom_restaurant.deleteReservation(req, res);});
+
 
 // 카카오 페이 결과 페이지
 app.get('/pay/approval', (req, res) => { miribom_pay.approval(req, res);});

@@ -89,7 +89,7 @@ exports.getTodayAvailableSeatNums = (req, res) => {
             };
             res.json(info);
         }).catch((err) => {
-            console.log(err);
+            // console.log(err);
             var info = {
                 seat: 0
             };
@@ -149,7 +149,7 @@ exports.makeReservation = (req, res) => {
         },
         function (rest_name, callback) {
             exec(`curl -v -X POST 'https://kapi.kakao.com/v1/payment/ready' \
-                        -H 'Authorization: KakaoAK {Admin Key}' \
+                        -H 'Authorization: KakaoAK {Admin key}' \
                         --data-urlencode 'cid=TC0ONETIME' \
                         --data-urlencode 'partner_order_id=partner_order_id' \
                         --data-urlencode 'partner_user_id=partner_user_id' \
@@ -163,16 +163,21 @@ exports.makeReservation = (req, res) => {
                         --data-urlencode 'cancel_url=http://34.74.255.9:5000/pay/cancel'`
             , function (err, stdout, stderr) {
                 var jRes = JSON.parse(stdout);
-                console.log(jRes)
-                callback(null, jRes.next_redirect_mobile_url);
+                // console.log(jRes)
+                
+                callback(null, jRes.next_redirect_app_url);
             })
         },
         function (url, callback) {
             knex('reservation')
-            .insert({ u_no: u_no, res_no: res_no, date: date, time: time, deposit: deposit, people_num: people_num, user_request: user_request })
+            .insert({u_no: u_no, res_no: res_no, date: date, time: time, deposit: deposit, people_num: people_num, user_request: user_request })
             .then((rows) => {
-                console.log(rows);
-                res.send(url);
+                console.log(rows);  //  고유키
+                var result = {
+                    pay_no: rows,
+                    url: url
+                };
+                res.json(result);
             }).catch((err) => {
                 console.log(err);   
                 res.send('예약 등록에 실패 하였습니다.');
@@ -188,4 +193,20 @@ exports.makeReservation = (req, res) => {
     })
     
     
+}
+
+
+exports.deleteReservation = (req, res) => {
+    console.log('/restaurant/reservation/delete');
+    const inputData = req.body;
+    var payNo = inputData.payNo;
+
+    knex.from('reservation').where({no: payNo}).del()
+    .then((rows) => {
+        console.log(rows);
+        res.send('제거 완료');
+    }).catch((err) => {
+        console.log(err);
+        res.send('제거 실패')
+    })
 }
