@@ -83,7 +83,11 @@ public class ReserveConfirmActivity extends AppCompatActivity implements OnMapRe
         resDateTV.setText(String.valueOf(resDate));
         resTimeTV = findViewById(R.id.resconf_time);
         resTimeTV.setText(String.valueOf(resTime));
+        resImageView = (ImageView) findViewById(R.id.resconf_ImageView);
+        resImageView.setImageBitmap(restaurant.getResIcon());
 
+        TextView title = (TextView) findViewById(R.id.resconf_resName);
+        title.setText(restName);
 
         callBtn = findViewById(R.id.resconf_callBtn);
         callBtn.setOnClickListener(new View.OnClickListener() {
@@ -125,4 +129,8 @@ public class ReserveConfirmActivity extends AppCompatActivity implements OnMapRe
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
     }
+
+
+
+
 }

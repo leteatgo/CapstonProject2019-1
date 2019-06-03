@@ -17,9 +17,12 @@ import java.util.ArrayList;
 public class CatListViewAdapter extends BaseAdapter {
 
     private ArrayList<CatListViewItem> catListViewItemList = new ArrayList<CatListViewItem>();
+    private Context context;
+    private View.OnClickListener onClickItem;
 
-    public CatListViewAdapter(){
-
+    public CatListViewAdapter(Context context, View.OnClickListener onClickItem){
+        this.context = context;
+        this.onClickItem = onClickItem;
     }
 
 
@@ -54,9 +57,16 @@ public class CatListViewAdapter extends BaseAdapter {
 
         CatListViewItem catListViewItem = catListViewItemList.get(position);
 
+        catRestImageView.setTag(catListViewItem);
+        catRestImageView.setOnClickListener(onClickItem);
+        catRestTitle.setTag(catListViewItem);
+        catRestTitle.setOnClickListener(onClickItem);
+        catRestDesc.setTag(catListViewItem);
+        catRestDesc.setOnClickListener(onClickItem);
+
         catRestImageView.setImageBitmap(catListViewItem.getCatResImg());
         catRestTitle.setText(catListViewItem.getCatResName());
-        catRestDesc.setText(catListViewItem.getCatResDesc());
+        catRestDesc.setText(catListViewItem.getCatResDest());
 
         return convertView;
     }
@@ -64,12 +74,4 @@ public class CatListViewAdapter extends BaseAdapter {
     public void addItem(CatListViewItem item){
         catListViewItemList.add(item);
     }
-//    public void addItem(Bitmap image, String title, String desc){
-//        CatListViewItem item = new CatListViewItem();
-//
-//        item.setCatResImage(image);
-//        item.setCatResName(title);
-//        item.setCatResDesc(desc);
-//        catListViewItemList.add()
-//    }
 }

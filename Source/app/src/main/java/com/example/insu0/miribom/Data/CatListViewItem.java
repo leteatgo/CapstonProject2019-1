@@ -28,18 +28,58 @@ public class CatListViewItem {
     private String catImgUrl;
     private Bitmap catResImg;
     private String catResName;
-    private String catResDesc;
+    private String catResAddress;
+    private String catResDest;
+    private int catLeftSeatNum;
+    private double distance;
 
-    public CatListViewItem(int resNo, String catImgUrl, String catResName, String catResDesc, CatListViewAdapter catListViewAdapter) {
+    //  음식 종류로 클릭
+    public CatListViewItem(int resNo, String catImgUrl, String catResName, String catResAddress, CatListViewAdapter catListViewAdapter) {
         this.resNo = resNo;
         this.catImgUrl = catImgUrl;
         this.catResName = catResName;
-        this.catResDesc = catResDesc;
+        this.catResAddress = catResAddress;
         setResIcon(catImgUrl);
         this.catListViewAdapter = catListViewAdapter;
+        this.catResDest = catResAddress;
     }
+
+    //  가까운 음식점 순
+    public CatListViewItem(int resNo, String catImgUrl, String catResName, String catResAddress, double distance, CatListViewAdapter catListViewAdapter) {
+        this.resNo = resNo;
+        this.catImgUrl = catImgUrl;
+        this.catResName = catResName;
+        this.catResAddress = catResAddress;
+        setResIcon(catImgUrl);
+        this.distance = distance;
+        this.catListViewAdapter = catListViewAdapter;
+        this.catResDest = distance + "km";
+    }
+
+    //  기다리지 않고 바로가기
+    public CatListViewItem(int resNo, String catImgUrl, String catResName, String catResAddress, int catLeftSeatNum, CatListViewAdapter catListViewAdapter) {
+        this.resNo = resNo;
+        this.catImgUrl = catImgUrl;
+        this.catResName = catResName;
+        this.catResAddress = catResAddress;
+        setResIcon(catImgUrl);
+        this.catLeftSeatNum = catLeftSeatNum;
+        this.catListViewAdapter = catListViewAdapter;
+        this.catResDest = catLeftSeatNum + "좌석 이용가능";
+    }
+
+
+
     private void setResIcon(String imageUrl) {
         new ImageLoader().execute("http://" + MiribomInfo.ipAddress + "/image/load", imageUrl);
+    }
+
+    public String getCatResDest() {
+        return catResDest;
+    }
+
+    public void setCatResDest(String catResDest) {
+        this.catResDest = catResDest;
     }
 
     public void setCatResImage(Bitmap image){
@@ -50,8 +90,8 @@ public class CatListViewItem {
         catResName = title;
     }
 
-    public void setCatResDesc(String desc){
-        catResDesc = desc;
+    public void setCatResAddress(String address){
+        catResAddress = address;
     }
 
     public void setResNo(int resNo) {
@@ -66,14 +106,29 @@ public class CatListViewItem {
         return this.catResName;
     }
 
-    public String getCatResDesc(){
-        return this.catResDesc;
+    public String getCatResAddress(){
+        return this.catResAddress;
     }
 
     public int getResNo() {
         return resNo;
     }
 
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public int getCatLeftSeatNum() {
+        return catLeftSeatNum;
+    }
+
+    public void setCatLeftSeatNum(int catLeftSeatNum) {
+        this.catLeftSeatNum = catLeftSeatNum;
+    }
 
     public String getCatImgUrl() {
         return catImgUrl;

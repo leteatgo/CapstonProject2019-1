@@ -227,14 +227,17 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             new HomeSettingTask().execute("http://" + MiribomInfo.ipAddress + "/home/"
                     , Integer.toString(uno), "126", "37");
 
+
+        new GetRestaurantALL().execute("http://" + MiribomInfo.ipAddress + "/home/search/all");
+
         ImageButton cat_korean_btn = (ImageButton) findViewById(R.id.cat_korean_btn); // 1
         cat_korean_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, CatSearchActivity.class);
+                intent.putExtra("uno", uno);
                 intent.putExtra("f_type", CAT_KOEARN);
                 startActivity(intent);
-//                new CategorySearchTask().execute("http://" + MiribomInfo.ipAddress + "/home/search/category/" + CAT_KOEARN);
             }
         });
 
@@ -243,9 +246,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, CatSearchActivity.class);
+                intent.putExtra("uno", uno);
                 intent.putExtra("f_type", CAT_CHINESE);
                 startActivity(intent);
-//                new CategorySearchTask().execute("http://" + MiribomInfo.ipAddress + "/home/search/category/" + CAT_CHINESE);
             }
         });
 
@@ -254,9 +257,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, CatSearchActivity.class);
+                intent.putExtra("uno", uno);
                 intent.putExtra("f_type", CAT_JAPANES);
                 startActivity(intent);
-//                new CategorySearchTask().execute("http://" + MiribomInfo.ipAddress + "/home/search/category/" + CAT_JAPANES);
             }
         });
 
@@ -265,9 +268,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, CatSearchActivity.class);
+                intent.putExtra("uno", uno);
                 intent.putExtra("f_type", CAT_WESTERN);
                 startActivity(intent);
-//                new CategorySearchTask().execute("http://" + MiribomInfo.ipAddress + "/home/search/category/" + CAT_WESTERN);
             }
         });
 
@@ -733,7 +736,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             // add markers on google maps
             MarkRestaurants();
-            new GetRestaurantALL().execute("http://" + MiribomInfo.ipAddress + "/home/search/all");
         }
     }
 

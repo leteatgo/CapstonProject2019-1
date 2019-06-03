@@ -315,7 +315,6 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
             Log.d(TAG, "onPostExecute: "+ result);
             // 예약되었습니다. or 예약 등록에 실패 하였습니다.
 
-
             Intent intent = new Intent(getActivity(), ReserveConfirmActivity.class);
             intent.putExtra("ResItem",item);
             intent.putExtra("uNo",uNo);

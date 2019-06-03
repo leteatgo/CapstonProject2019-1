@@ -7,9 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".CatSearchActivity">
 
+    <TextView
+        android:id="@+id/typeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="food type"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/catlistView"
+        android:layout_below="@id/typeTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
 </RelativeLayout>

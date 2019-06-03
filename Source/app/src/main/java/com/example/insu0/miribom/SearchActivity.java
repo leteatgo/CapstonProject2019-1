@@ -1,5 +1,6 @@
 package com.example.insu0.miribom;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -30,6 +31,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -120,12 +122,18 @@ public class SearchActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                            Toast.makeText(SearchActivity.this ,list2.get(position),Toast.LENGTH_LONG).show();
                             if (position == 0) {
-                                new GetRestaurantDistance().execute("http://" + MiribomInfo.ipAddress + "/home/search/distance",Double.toString(lon), Double.toString(lat), Integer.toString(3));
-//                                Toast.makeText(getApplicationContext(), "0", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(SearchActivity.this, CatSearchActivity.class);
+                                intent.putExtra("c_type", position);
+                                intent.putExtra("uno", uno);
+                                intent.putExtra("lon", lon);
+                                intent.putExtra("lat", lat);
+                                startActivity(intent);
                             }
                             if (position == 1) {
-                                new GetRestaurantRemains().execute("http://" + MiribomInfo.ipAddress + "/home/search/remains");
-//                                Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(SearchActivity.this, CatSearchActivity.class);
+                                intent.putExtra("c_type", position);
+                                intent.putExtra("uno", uno);
+                                startActivity(intent);
                             }
 
                         }
@@ -169,137 +177,6 @@ public class SearchActivity extends AppCompatActivity {
         list2.add("기다리지 않고 바로가기");
     }
 
-    public class GetRestaurantDistance extends AsyncTask<String, String, String> {
-        String TAG = "GetRestaurantDistance>>>";
-
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                JSONObject reqInfo = new JSONObject();
-                reqInfo.accumulate("longitude", strings[1]);
-                reqInfo.accumulate("latitude", strings[2]);
-                reqInfo.accumulate("distance", strings[3]);
-
-                HttpURLConnection conn = null;
-                BufferedReader reader = null;
-                try {
-                    URL url = new URL(strings[0]);
-                    // settings
-                    conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Cache-Control", "no-cache");
-                    conn.setRequestProperty("Content-Type", "application/json");
-                    conn.setRequestProperty("Accept", "application/text");
-                    conn.setRequestProperty("Accept", "application/json");
-                    conn.setDoOutput(true);
-                    conn.setDoInput(true);
-                    conn.connect();
-
-                    OutputStream outputStream = conn.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
-                    writer.write(reqInfo.toString());
-                    writer.flush();
-                    writer.close();
-
-                    InputStream stream = conn.getInputStream();
-                    reader = new BufferedReader(new InputStreamReader(stream));
-                    StringBuffer buffer = new StringBuffer();
-                    String line = "";
-                    while ((line = reader.readLine()) != null) {
-                        buffer.append(line);
-                        Log.d(TAG, "doInBackground: readLine, " + line);
-                    }
-                    return buffer.toString();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Log.d(TAG, "onPostExecute: "+ result);
-            // 예약되었습니다. or 예약 등록에 실패 하였습니다.
-            try {
-                allRestArray = new JSONArray(result);
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "못가져옴", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    public class GetRestaurantRemains extends AsyncTask<String, String, String> {
-        String TAG = "GetRestaurantRemains>>>";
-
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                JSONObject reqInfo = new JSONObject();
-                reqInfo.accumulate("uno", "1");
-
-                HttpURLConnection conn = null;
-                BufferedReader reader = null;
-                try {
-                    URL url = new URL(strings[0]);
-                    // settings
-                    conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Cache-Control", "no-cache");
-                    conn.setRequestProperty("Content-Type", "application/json");
-                    conn.setRequestProperty("Accept", "application/text");
-                    conn.setRequestProperty("Accept", "application/json");
-                    conn.setDoOutput(true);
-                    conn.setDoInput(true);
-                    conn.connect();
-
-                    OutputStream outputStream = conn.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
-                    writer.write(reqInfo.toString());
-                    writer.flush();
-                    writer.close();
-
-                    InputStream stream = conn.getInputStream();
-                    reader = new BufferedReader(new InputStreamReader(stream));
-                    StringBuffer buffer = new StringBuffer();
-                    String line = "";
-                    while ((line = reader.readLine()) != null) {
-                        buffer.append(line);
-                        Log.d(TAG, "doInBackground: readLine, " + line);
-                    }
-                    return buffer.toString();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Log.d(TAG, "onPostExecute: "+ result);
-            // 예약되었습니다. or 예약 등록에 실패 하였습니다.
-            try {
-                allRestArray = new JSONArray(result);
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "못가져옴", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 
 
 }

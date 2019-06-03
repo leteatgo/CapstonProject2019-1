@@ -57,6 +57,19 @@ public class HomeRestaurantListItem implements
         this.homeRestaurantListAdapter = homeRestaurantListAdapter;
     }
 
+    /* 카테고리 항목에서 넘어갈 때 */
+    public HomeRestaurantListItem(int resNo, String resName, String address, String mobile, Bitmap resIcon,
+                                  double latitude, double longitude, String hours, String ownerRequest) {
+        this.resNo = resNo;
+        this.resName = resName;
+        this.address = address;
+        this.mobile = mobile;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.resIcon = resIcon;
+        this.hours = hours;
+        this.ownerRequest = ownerRequest;
+    }
 
 
     protected HomeRestaurantListItem(Parcel in) {
