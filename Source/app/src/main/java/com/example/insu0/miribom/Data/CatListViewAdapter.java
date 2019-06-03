@@ -61,11 +61,15 @@ public class CatListViewAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void addItem(Bitmap image, String title, String desc){
-        CatListViewItem item = new CatListViewItem();
-
-        item.setCatResImage(image);
-        item.setCatResName(title);
-        item.setCatResDesc(desc);
+    public void addItem(CatListViewItem item){
+        catListViewItemList.add(item);
     }
+//    public void addItem(Bitmap image, String title, String desc){
+//        CatListViewItem item = new CatListViewItem();
+//
+//        item.setCatResImage(image);
+//        item.setCatResName(title);
+//        item.setCatResDesc(desc);
+//        catListViewItemList.add()
+//    }
 }

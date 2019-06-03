@@ -65,6 +65,8 @@ public class HomeRestaurantListAdapter extends RecyclerView.Adapter<HomeRestaura
         holder.textview.setText(item.getResName());
         holder.textview.setTag(item);
         holder.textview.setOnClickListener(onClickItem);
+        holder.imageView.setTag(item);
+        holder.imageView.setOnClickListener(onClickItem);
     }
 
     @Override

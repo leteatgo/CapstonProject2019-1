@@ -1,11 +1,24 @@
 package com.example.insu0.miribom.Data;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class DataUtils {
     public static String TAG = "DATAUTILS";
@@ -135,4 +148,76 @@ public class DataUtils {
         sb.append("요일 휴무");
         return sb.toString();
     }
+
+//    public class ImageLoader extends AsyncTask<String, String, String> {
+//        String TAG = "ImageLoader>>>";
+//
+//        private Bitmap bitmap;
+//
+//        @Override
+//        protected String doInBackground(String... strings) {
+//            JSONObject reqInfo = new JSONObject();
+//            try {
+//                reqInfo.accumulate("imageUrl", strings[1]);
+//                HttpURLConnection conn = null;
+//                BufferedReader reader = null;
+//                URL url = new URL(strings[0]);
+//                // settings
+//                conn = (HttpURLConnection) url.openConnection();
+//                conn.setRequestMethod("POST");
+//                conn.setRequestProperty("Cache-Control", "no-cache");
+//                conn.setRequestProperty("Content-Type", "application/json");
+//                conn.setRequestProperty("Accept", "application/text");
+//                conn.setRequestProperty("Accept", "application/json");
+//                conn.setDoOutput(true);
+//                conn.setDoInput(true);
+//                conn.connect();
+//
+//                OutputStream outputStream = conn.getOutputStream();
+//                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+//                writer.write(reqInfo.toString());
+//                writer.flush();
+//                writer.close();
+//
+//                InputStream stream = conn.getInputStream();
+//                reader = new BufferedReader(new InputStreamReader(stream));
+//                StringBuffer buffer = new StringBuffer();
+//                String line = "";
+//                while ((line = reader.readLine()) != null) {
+//                    buffer.append(line);
+//                    Log.d(TAG, "doInBackground: readLine, " + line);
+//                }
+//                return buffer.toString();
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String result) {
+//            super.onPostExecute(result);
+//            JSONObject jsonObject = null;
+//            try {
+//                jsonObject = new JSONObject(result);
+//                String imageStr = jsonObject.getString("image");
+//                JSONObject imageObject = new JSONObject(imageStr);
+//                String data = imageObject.getString("data");
+//                String[] imageStrs = data.substring(1, data.length() - 1).split(",");
+//                byte[] imageDatas = new byte[imageStrs.length];
+//                for (int j = 0; j < imageStrs.length; j++) {
+//                    imageDatas[j] = DataUtils.intToByteArray(Integer.parseInt(imageStrs[j]));
+//                }
+//                bitmap = BitmapFactory.decodeByteArray(imageDatas, 0, imageDatas.length);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        public Bitmap getBitmap() {
+//            return bitmap;
+//        }
+//    }
 }

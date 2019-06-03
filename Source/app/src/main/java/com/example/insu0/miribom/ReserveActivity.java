@@ -82,7 +82,7 @@ public class ReserveActivity extends AppCompatActivity
         //////////////////////////////////////
         Bundle bundle = getIntent().getExtras();
         restaurant = bundle.getParcelable("ResItem");
-        Log.d(TAG, "onCreate: " + restaurant.toString());   //  succeed
+//        Log.d(TAG, "onCreate: " + restaurant.toString());   //  succeed
         uNo = getIntent().getIntExtra("uNo", -1);
         resNo = restaurant.getResNo();
 

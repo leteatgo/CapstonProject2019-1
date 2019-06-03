@@ -39,9 +39,10 @@ public class HomeRestaurantListItem implements
     private String hours;
     private double distance;
     private String ownerRequest;
+    private HomeRestaurantListAdapter homeRestaurantListAdapter;
 
     public HomeRestaurantListItem(int resNo, String resName, String address, String mobile, String imageUrl,
-                                  double latitude, double longitude, String hours, double distance, String ownerRequest) {
+                                  double latitude, double longitude, String hours, double distance, String ownerRequest,HomeRestaurantListAdapter homeRestaurantListAdapter) {
         this.resNo = resNo;
         this.resName = resName;
         this.address = address;
@@ -53,22 +54,10 @@ public class HomeRestaurantListItem implements
         this.distance = distance;
         this.ownerRequest = ownerRequest;
         setResIcon(imageUrl);
+        this.homeRestaurantListAdapter = homeRestaurantListAdapter;
     }
 
 
-
-//    public HomeRestaurantListItem(int resNo, String resName, String address, String mobile, Bitmap resIcon, double latitude, double longitude, String hours, double distance, String ownerRequest) {
-//        this.resNo = resNo;
-//        this.resName = resName;
-//        this.address = address;
-//        this.mobile = mobile;
-//        this.resIcon = resIcon;
-//        this.latitude = latitude;
-//        this.longitude = longitude;
-//        this.hours = hours;
-//        this.distance = distance;
-//        this.ownerRequest = ownerRequest;
-//    }
 
     protected HomeRestaurantListItem(Parcel in) {
         resNo = in.readInt();
@@ -219,7 +208,7 @@ public class HomeRestaurantListItem implements
         return 0;
     }
 
-    public class ImageLoader extends AsyncTask<String, String, String> {
+    private class ImageLoader extends AsyncTask<String, String, String> {
         String TAG = "ImageLoader>>>";
         @Override
         protected String doInBackground(String... strings) {
@@ -278,6 +267,7 @@ public class HomeRestaurantListItem implements
                     imageDatas[j] = DataUtils.intToByteArray(Integer.parseInt(imageStrs[j]));
                 }
                 resIcon = BitmapFactory.decodeByteArray(imageDatas, 0, imageDatas.length);
+                homeRestaurantListAdapter.notifyDataSetChanged();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

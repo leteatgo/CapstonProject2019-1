@@ -183,9 +183,7 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         itemList.add("23:00");
         itemList.add("23:30");
 
-
-        new FindRequestTask().execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/find", Integer.toString(resNo)
-                ,getTime);
+        new GetTodayAvailableSeatNums(resNo, getTime).execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/seats");
 
         dateListAdapter = new DateListAdapter(getActivity(),itemList,onClickItem);
         dateListView.setAdapter(dateListAdapter);
@@ -223,8 +221,8 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         itemList.add("23:00");
         itemList.add("23:30");
 
-        new FindRequestTask().execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/find", Integer.toString(resNo)
-                ,date);
+        new GetTodayAvailableSeatNums(resNo, date).execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/seats");
+
         dateListAdapter = new DateListAdapter(getActivity(),itemList,onClickItem);
         dateListView.setAdapter(dateListAdapter);
         DateList dateList = new DateList();
@@ -322,8 +320,88 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    public class GetTodayAvailableSeatNums extends AsyncTask<String, String, String> {
+        String TAG = "GetTodayAvailableSeatNums>>>";
+
+        private int resNo;
+        private String date;
+
+        public GetTodayAvailableSeatNums(int resNo, String date) {
+            this.resNo = resNo;
+            this.date = date;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                JSONObject reqInfo = new JSONObject();
+                reqInfo.accumulate("resNo", resNo);
+                reqInfo.accumulate("date", date);
+                HttpURLConnection conn = null;
+                BufferedReader reader = null;
+                try {
+                    URL url = new URL(strings[0]);
+                    // settings
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Cache-Control", "no-cache");
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setRequestProperty("Accept", "application/text");
+                    conn.setRequestProperty("Accept", "application/json");
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
+                    conn.connect();
+
+                    OutputStream outputStream = conn.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                    writer.write(reqInfo.toString());
+                    writer.flush();
+                    writer.close();
+
+                    InputStream stream = conn.getInputStream();
+                    reader = new BufferedReader(new InputStreamReader(stream));
+                    StringBuffer buffer = new StringBuffer();
+                    String line = "";
+                    while ((line = reader.readLine()) != null) {
+                        buffer.append(line);
+                        Log.d(TAG, "doInBackground: readLine, " + line);
+                    }
+                    return buffer.toString();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+            int maxPeopleNum = 0;
+            try {
+                JSONObject info = new JSONObject(result);
+                maxPeopleNum = info.getInt("seat");
+                new FindRequestTask(maxPeopleNum)
+                        .execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/find", Integer.toString(resNo), date);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
     public class FindRequestTask extends AsyncTask<String, String, String> {
         String TAG = "FindRequestTask>>>";
+        private int maxPeopleNum;
+
+        public FindRequestTask(int maxPeopleNum) {
+            this.maxPeopleNum = maxPeopleNum;
+        }
 
         @Override
         protected String doInBackground(String... strings) {
@@ -375,7 +453,7 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Log.d(TAG, "onPostExecute: "+ result);
+            Log.d(TAG, "onPostExecute: "+ maxPeopleNum + "\n" + result);
             try {
                 JSONArray array = new JSONArray(result);
                 HashMap<String, Integer> map = new HashMap<>();
@@ -394,7 +472,7 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
                 notAvaTime = new ArrayList<>();
                 while(iterator.hasNext()) {
                     String key = iterator.next();
-                    if (map.get(key) >= 0)
+                    if (map.get(key) >= maxPeopleNum)
                         notAvaTime.add(key);
                 }
                 for (int i = 0; i < notAvaTime.size(); i++) {
