@@ -94,14 +94,15 @@
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <ImageButton
-                    android:background="@color/white"
                     android:id="@+id/cat_korean_btn"
-                    android:scaleType="fitCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/korean"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:background="@color/white"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/korean" />
 
                 <TextView
                     android:layout_gravity="center"

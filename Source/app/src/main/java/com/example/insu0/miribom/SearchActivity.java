@@ -165,7 +165,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private void categorize(){
-        list2.add("평점 좋은 주변 음식점 보러가기");
+        list2.add("주변 음식점 보러가기");
         list2.add("기다리지 않고 바로가기");
     }
 

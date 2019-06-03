@@ -27,6 +27,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.insu0.miribom.Data.DataUtils;
@@ -67,11 +69,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 // implemented by Jason Yang
-// Updated by ckddn 090417
+// Updated by ckddn 090417~
 
 public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback{
 
@@ -108,6 +113,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private JSONArray allRestArray;
     private List<String> allRestList = new ArrayList<String>();
 
+    /*  For Category Searching */
+    private static final int CAT_KOEARN = 1;
+    private static final int CAT_CHINESE = 2;
+    private static final int CAT_JAPANES = 3;
+    private static final int CAT_WESTERN = 4;
 
     @Override
     protected void onStart() {
@@ -197,7 +207,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
 
-        /*List 초기화*/
+        /* List 초기화*/
         homeRestaurantListView = findViewById(R.id.home_restaurant_listview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         homeRestaurantListView.setLayoutManager(layoutManager);
@@ -217,6 +227,38 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             new HomeSettingTask().execute("http://" + MiribomInfo.ipAddress + "/home/"
                     , Integer.toString(uno), "126", "37");
 
+        ImageButton cat_korean_btn = (ImageButton) findViewById(R.id.cat_korean_btn); // 1
+        cat_korean_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CategorySearchTask().execute("http://" + MiribomInfo.ipAddress + "/home/search/category/" + CAT_KOEARN);
+            }
+        });
+
+        ImageButton cat_chinese_btn = (ImageButton) findViewById(R.id.cat_chinese_btn); // 2
+        cat_chinese_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CategorySearchTask().execute("http://" + MiribomInfo.ipAddress + "/home/search/category/" + CAT_CHINESE);
+            }
+        });
+
+        ImageButton cat_japanese_btn = (ImageButton) findViewById(R.id.cat_japanese_btn); // 3
+        cat_japanese_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CategorySearchTask().execute("http://" + MiribomInfo.ipAddress + "/home/search/category/" + CAT_JAPANES);
+            }
+        });
+
+        ImageButton cat_western_btn = (ImageButton) findViewById(R.id.cat_western_btn); // 4
+        cat_western_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CategorySearchTask().execute("http://" + MiribomInfo.ipAddress + "/home/search/category/" + CAT_WESTERN);
+            }
+        });
+
     }
 
     LocationCallback locationCallback = new LocationCallback() {
@@ -234,11 +276,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         = new LatLng(mylocation.getLatitude(), mylocation.getLongitude());
 
 
-                String markerTitle = getCurrentAddress(currentPosition);
-                String markerSnippet = "위도:" + String.valueOf(mylocation.getLatitude())
-                        + " 경도:" + String.valueOf(mylocation.getLongitude());
-
-                Log.d(TAG, "onLocationResult : " + markerSnippet);
+//                String markerTitle = getCurrentAddress(currentPosition);
+                String markerTitle = "현재 위치";
+//                String markerSnippet = "위도:" + String.valueOf(mylocation.getLatitude())
+//                        + " 경도:" + String.valueOf(mylocation.getLongitude());
+                String markerSnippet = getCurrentAddress(currentPosition);
 
 
                 //현재 위치에 마커 생성하고 이동
@@ -679,27 +721,20 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 JSONArray array = new JSONArray(result);
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject jsonObject = array.getJSONObject(i);
-                    JSONObject imageObject = new JSONObject(jsonObject.getString("image"));
-                    String data = imageObject.getString("data");
-                    String[] imageStrs = data.substring(1, data.length()-1).split(",");
-                    byte[] imageDatas = new byte[imageStrs.length];
-                    for (int j = 0; j < imageStrs.length; j++) {
-                        imageDatas[j] = DataUtils.intToByteArray(Integer.parseInt(imageStrs[j]));
-                    }
-                    Bitmap bmp = BitmapFactory.decodeByteArray(imageDatas, 0 , imageDatas.length);
 
+                    Log.d(TAG, "onPostExecute: " + jsonObject.getString("image"));
                     itemList.add(
                             new HomeRestaurantListItem(jsonObject.getInt("no"), jsonObject.getString("name")
-                                    , jsonObject.getString("address"), jsonObject.getString("mobile"), bmp
+                                    , jsonObject.getString("address"), jsonObject.getString("mobile"), jsonObject.getString("image")
                                     , jsonObject.getDouble("latitude"), jsonObject.getDouble("longitude")
-                                    , jsonObject.getString("hours"), jsonObject.getDouble("distance")));
+                                    , jsonObject.getString("hours"), jsonObject.getDouble("distance"), jsonObject.getString("owner_request")));
                 }
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
             Log.d(TAG, "onPostExecute: \n" + itemList.toString());
-            Collections.sort(itemList);
+//            Collections.sort(itemList);
             homeRestaurantListAdapter.notifyDataSetChanged();
 
             // add markers on google maps
@@ -707,6 +742,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             new GetRestaurantALL().execute("http://" + MiribomInfo.ipAddress + "/home/search/all");
         }
     }
+
+
 
     private void MarkRestaurants() {
         for (int i = 0; i < itemList.size(); i++) {
@@ -785,5 +822,59 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             Toast.makeText(getApplicationContext(), "완료", Toast.LENGTH_LONG).show();
         }
     }
+
+    /*  For Category Search */
+    public class CategorySearchTask extends AsyncTask<String, String, String> {
+        String TAG = "CategorySearchTask>>>";
+
+        @Override
+        protected String doInBackground(String... strings) {
+            JSONObject reqInfo = new JSONObject();
+
+            HttpURLConnection conn = null;
+            BufferedReader reader = null;
+            try {
+                URL url = new URL(strings[0]);
+                // settings
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Cache-Control", "no-cache");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "application/text");
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+                conn.connect();
+
+                OutputStream outputStream = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                writer.write(reqInfo.toString());
+                writer.flush();
+                writer.close();
+
+                InputStream stream = conn.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                    Log.d(TAG, "doInBackground: readLine, " + line);
+                }
+                return buffer.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 }

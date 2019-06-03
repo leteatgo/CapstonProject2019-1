@@ -18,6 +18,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.insu0.miribom.HomeActivity;
@@ -55,9 +56,10 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
     private String TAG = "ReserveFragment";
 
     private HomeRestaurantListItem item;
-    private int uNo, resNo, availablePlaceNum;
+    private int uNo, resNo;
     private Context context;
     private int numofPerson;
+    private String ownerRequest;
 
     private ArrayList<String> notAvaTime;
     private StringBuilder sb = new StringBuilder();
@@ -65,7 +67,7 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
 
     private RecyclerView dateListView;
     private DateListAdapter dateListAdapter;
-
+    private TextView ownerRequestTV;
     private Button res_Btn;
 
 
@@ -80,9 +82,10 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
 
 
     public ReserveFragment(int uNo, HomeRestaurantListItem item, Context context) {
+        this.item = item;
         this.uNo = uNo;
-        this.resNo = resNo;
-        this.availablePlaceNum = availablePlaceNum;
+        this.resNo = item.getResNo();
+        this.ownerRequest = item.getOwnerRequest();
         this.context = context;
     }
 
@@ -113,6 +116,7 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         NumberPicker picker = (NumberPicker)rootView.findViewById(R.id.number);
         picker.setMinValue(1);
         picker.setMaxValue(10); //이거는 추후에 예약 프로그램에서 받아오는 값으로 대체 필요하다
+
         numofPerson = picker.getValue();
         res_ppl_num = numofPerson;
 
@@ -135,8 +139,11 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         EditText userRequest = (EditText)rootView.findViewById(R.id.userrequest);
         res_usrReq = String.valueOf(userRequest.getText());
 
+        ownerRequestTV = (TextView) rootView.findViewById(R.id.ownerRequestTV);
+        ownerRequestTV.setText(ownerRequest);
 
-        Button res_Btn = (Button)rootView.findViewById(R.id.resbutton);
+
+        res_Btn = (Button)rootView.findViewById(R.id.resbutton);
         res_Btn.setOnClickListener(this);
         return rootView;
     }
@@ -229,7 +236,7 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         public void onClick(View v) {
 
             String str = (String) v.getTag();
-            res_time =str;
+            res_time = str;
             Toast.makeText(getActivity(),str,Toast.LENGTH_SHORT).show();
         }
     };
@@ -239,8 +246,6 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()){
             case R.id.resbutton:
                 ReserveData reserveData = sendData();
-                /*Server로 보낸다*/
-                /*get 함수 쓰세요 ReserveData꺼*/
                 new MakeReservationTask().execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/make",
                         Integer.toString(uNo) ,Integer.toString(resNo), reserveData.getRes_date(), reserveData.getRes_time()+":00", Integer.toString(5000),
                         Integer.toString(reserveData.getRes_ppl_num()), reserveData.getRes_usrReq());
@@ -367,8 +372,6 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
             return null;
         }
 
-
-
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -391,7 +394,7 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
                 notAvaTime = new ArrayList<>();
                 while(iterator.hasNext()) {
                     String key = iterator.next();
-                    if (map.get(key) >= availablePlaceNum)
+                    if (map.get(key) >= 0)
                         notAvaTime.add(key);
                 }
                 for (int i = 0; i < notAvaTime.size(); i++) {

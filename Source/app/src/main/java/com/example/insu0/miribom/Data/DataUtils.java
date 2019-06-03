@@ -17,9 +17,10 @@ public class DataUtils {
     public static String hoursFormatter(String hours) {
         String str = null;
         try {
-            String s = hours;
-            Log.d(TAG, "hoursFormatter: " + hours.substring(1, hours.length()-1));
-            JSONObject jsonObject = new JSONObject(hours);
+            String s = hours.replace("\\","");
+//            s = s.substring(1, s.length()-1);
+            Log.d(TAG, "hoursFormatter: " + s);
+            JSONObject jsonObject = new JSONObject(s);
             int type = jsonObject.getInt("t");
             String[] bStr;
             String[] hStr;

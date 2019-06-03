@@ -2,15 +2,28 @@ package com.example.insu0.miribom.Lists;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
 
+import com.example.insu0.miribom.Data.DataUtils;
+import com.example.insu0.miribom.Servers.MiribomInfo;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class HomeRestaurantListItem implements
         Comparable<HomeRestaurantListItem>, Parcelable {
@@ -22,20 +35,40 @@ public class HomeRestaurantListItem implements
     private double latitude;
     private double longitude;
     private Bitmap resIcon;
+    private String imageUrl;
     private String hours;
     private double distance;
+    private String ownerRequest;
 
-    public HomeRestaurantListItem(int resNo, String resName, String address, String mobile, Bitmap resIcon, double latitude, double longitude, String hours, double distance) {
+    public HomeRestaurantListItem(int resNo, String resName, String address, String mobile, String imageUrl,
+                                  double latitude, double longitude, String hours, double distance, String ownerRequest) {
         this.resNo = resNo;
         this.resName = resName;
         this.address = address;
         this.mobile = mobile;
-        this.resIcon = resIcon;
+        this.imageUrl = imageUrl;
         this.latitude = latitude;
         this.longitude = longitude;
         this.hours = hours;
         this.distance = distance;
+        this.ownerRequest = ownerRequest;
+        setResIcon(imageUrl);
     }
+
+
+
+//    public HomeRestaurantListItem(int resNo, String resName, String address, String mobile, Bitmap resIcon, double latitude, double longitude, String hours, double distance, String ownerRequest) {
+//        this.resNo = resNo;
+//        this.resName = resName;
+//        this.address = address;
+//        this.mobile = mobile;
+//        this.resIcon = resIcon;
+//        this.latitude = latitude;
+//        this.longitude = longitude;
+//        this.hours = hours;
+//        this.distance = distance;
+//        this.ownerRequest = ownerRequest;
+//    }
 
     protected HomeRestaurantListItem(Parcel in) {
         resNo = in.readInt();
@@ -47,7 +80,7 @@ public class HomeRestaurantListItem implements
         byte[] bytes = in.createByteArray();
         resIcon = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
         hours = in.readString();
-        distance = in.readDouble();
+        ownerRequest = in.readString();
     }
 
 
@@ -100,6 +133,10 @@ public class HomeRestaurantListItem implements
         this.resIcon = resIcon;
     }
 
+    private void setResIcon(String imageUrl) {
+        new ImageLoader().execute("http://" + MiribomInfo.ipAddress + "/image/load", imageUrl);
+    }
+
     public double getLatitude() {
         return latitude;
     }
@@ -132,7 +169,21 @@ public class HomeRestaurantListItem implements
         this.distance = distance;
     }
 
+    public String getOwnerRequest() {
+        return ownerRequest;
+    }
 
+    public void setOwnerRequest(String ownerRequest) {
+        this.ownerRequest = ownerRequest;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     @Override
     public String toString(){
@@ -156,11 +207,11 @@ public class HomeRestaurantListItem implements
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        resIcon.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        resIcon.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bytes = stream.toByteArray();
         dest.writeByteArray(bytes);
         dest.writeString(hours);
-        dest.writeDouble(distance);
+        dest.writeString(ownerRequest);
     }
 
     @Override
@@ -168,6 +219,69 @@ public class HomeRestaurantListItem implements
         return 0;
     }
 
+    public class ImageLoader extends AsyncTask<String, String, String> {
+        String TAG = "ImageLoader>>>";
+        @Override
+        protected String doInBackground(String... strings) {
+            JSONObject reqInfo = new JSONObject();
+            try {
+                reqInfo.accumulate("imageUrl", strings[1]);
+                HttpURLConnection conn = null;
+                BufferedReader reader = null;
+                URL url = new URL(strings[0]);
+                // settings
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Cache-Control", "no-cache");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "application/text");
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+                conn.connect();
 
+                OutputStream outputStream = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                writer.write(reqInfo.toString());
+                writer.flush();
+                writer.close();
+
+                InputStream stream = conn.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                    Log.d(TAG, "doInBackground: readLine, " + line);
+                }
+                return buffer.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(result);
+                String imageStr = jsonObject.getString("image");
+                JSONObject imageObject = new JSONObject(imageStr);
+                String data = imageObject.getString("data");
+                String[] imageStrs = data.substring(1, data.length() - 1).split(",");
+                byte[] imageDatas = new byte[imageStrs.length];
+                for (int j = 0; j < imageStrs.length; j++) {
+                    imageDatas[j] = DataUtils.intToByteArray(Integer.parseInt(imageStrs[j]));
+                }
+                resIcon = BitmapFactory.decodeByteArray(imageDatas, 0, imageDatas.length);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

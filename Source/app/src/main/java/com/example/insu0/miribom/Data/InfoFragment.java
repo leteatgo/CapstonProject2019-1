@@ -54,6 +54,7 @@ public class InfoFragment extends Fragment
     private TextView addrTextView;
     private TextView seatinfoTextView;
     private ImageView resMenuImage;
+    private TextView menuNameTextView;
 
     @SuppressLint("ValidFragment")
     public InfoFragment(HomeRestaurantListItem item, Context context) {
@@ -78,9 +79,10 @@ public class InfoFragment extends Fragment
         addrTextView = (TextView)layout.findViewById(R.id.frag_inf_addrTextView);
         seatinfoTextView = (TextView)layout.findViewById(R.id.frag_inf_seatinfoTextView);
         resMenuImage = (ImageView) layout.findViewById(R.id.frag_inf_resMenuImage);
+        menuNameTextView = (TextView) layout.findViewById(R.id.frag_inf_menuNameTextView);
 
         telTextView.setText(restaurant.getMobile());
-        lunchtimeTextView.setText(restaurant.getHours());
+        lunchtimeTextView.setText(DataUtils.hoursFormatter(restaurant.getHours()));
         Log.d(TAG, "onCreateView: " + DataUtils.hoursFormatter(restaurant.getHours()));
         addrTextView.setText(restaurant.getAddress());
 
@@ -158,6 +160,7 @@ public class InfoFragment extends Fragment
                     }
                     Bitmap bmp = BitmapFactory.decodeByteArray(imageDatas, 0, imageDatas.length);
                     resMenuImage.setImageBitmap(bmp);
+                    menuNameTextView.setText(jsonObject.getString("menu_name"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
