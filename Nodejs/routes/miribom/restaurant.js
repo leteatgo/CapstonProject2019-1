@@ -13,8 +13,7 @@ exports.getRestInfo = (req, res) => {
 
 
     // 필요한것
-    // 
-    knex.select('s_left_num','image').from('seat')
+    knex.select('s_left_num','image', 'menu.name as name').from('seat')
         .leftOuterJoin('menu', 'seat.no', 'menu.res_no')
         .where('seat.no', resNo)
         .then((rows) => {
@@ -27,6 +26,7 @@ exports.getRestInfo = (req, res) => {
                     // s_type: rows[0].s_type,
                     // f_type: rows[0].f_type,
                     // r_num: rows[0].r_num,
+                    menu_name: rows[0].name,
                     image: JSON.stringify(bmpBuffer),
                     s_left_num: rows[0].s_left_num,
                 }
@@ -42,6 +42,62 @@ exports.getRestInfo = (req, res) => {
         })
 }
 
+exports.getRestInfoFromCat = (req, res) => {
+    console.log('/restaurant/cat/info');
+    const inputData = req.body;
+    var resNo = inputData.resNo;
+
+    knex.from('restaurant').where('no', resNo)
+    .select('mobile','longitude','latitude','hours','owner_request')
+    .then((rows) => {
+        var info = {
+            mobile: rows[0].mobile,
+            longitude: rows[0].longitude,
+            latitude: rows[0].latitude,
+            hours: rows[0].hours,
+            owner_request: rows[0].owner_request
+        }
+        res.json(info);
+    }).catch((err) => {
+        console.log(err);
+        res.send('매장 정보를 불러오는데 실패했습니다.');
+    });
+
+    // mobile, longitude, latitude, hours, ownerRequest
+}
+
+exports.getTodayAvailableSeatNums = (req, res) => {
+    console.log('/restaurant/reservation/seats');
+    const inputData = req.body;
+    var resNo = inputData.resNo;
+    var date = inputData.date;
+    console.log(inputData);
+
+    knex.from('reservable').select('seat').where({res_no:resNo, date:date})
+    .then((rows) => {
+        console.log('예약 가능 인원수 ',rows);
+        var info = {
+            seat: rows[0].seat
+        };
+        res.json(info);
+    }).catch((err) => { // seat정보가 없을 때
+        console.log('예약 가능 인원수가 등록 되지 않음');
+        return knex.from('restaurant').select('initial_reservable').where({res_no: resNo}).then((rows) => {
+            console.log('초기 설정된 예약가능 인원 수',rows);
+            var info = {
+                seat: rows[0].initial_reservable
+            };
+            res.json(info);
+        }).catch((err) => {
+            console.log(err);
+            var info = {
+                seat: 0
+            };
+            res.json(info);
+        })
+    })
+}
+
 /* wake when user click date on a calendar */
 exports.findReservation = (req, res) => {
     console.log('/restaurant/reservation/find');
@@ -49,18 +105,6 @@ exports.findReservation = (req, res) => {
     const inputData = req.body;
     var resNo = inputData.resNo;
     var date = inputData.date;
-    // knex.from('users').innerJoin('accounts', 'users.id', 'accounts.user_id')
-
-    knex.from('reservation')
-    .join('reservable', function() {
-        this.on('reservation.res_no','=','reservable.res_no').on('reservation.date','=','reservable.date')
-    }).select('time').count('*').groupBy('time').where('reservation.date','19-05-26')
-    .then((rows) => {
-        
-        console.log(rows);
-    }).catch((err) => {
-        console.log(err);
-    })
 
     knex('reservation').where({ res_no: resNo, date: date }).select('time').count('time as count').groupBy('time')
         .then((rows) => {
@@ -69,7 +113,7 @@ exports.findReservation = (req, res) => {
             rows.forEach(element => {
                 var reservationInfo = {
                     time: element.time,
-                    count: element.count,
+                    count: element.count
                 }
                 jsonArray.push(reservationInfo);
             });
@@ -92,11 +136,14 @@ exports.makeReservation = (req, res) => {
     var people_num = inputData.peopleNum;
     var user_request = inputData.userRequest;
 
+    console.log(inputData);
+    
     var tasks = [
         function (callback) {
             knex('restaurant').select('name').where({no: res_no}).then((rows) => {
                 callback(null, rows[0].name);
             }).catch((err) => {
+                console.log(err);
                 callback(err);
             })
         },

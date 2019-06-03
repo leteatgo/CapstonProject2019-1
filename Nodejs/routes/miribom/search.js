@@ -34,7 +34,7 @@ exports.searchByDistance = (req, res) => {
     if (max_dis === false)
         max_dis = 1;
 
-    knex('restaurant').select('no', 'name', 'longitude', 'latitude').then((rows) => {
+    knex('restaurant').select('no', 'name', 'image','address','longitude', 'latitude').then((rows) => {
         var jsonArray = new Array();
         rows.forEach(row => {
             var distance = getDistance(u_lon, u_lat, row.longitude, row.latitude, "kilometer");
@@ -42,6 +42,8 @@ exports.searchByDistance = (req, res) => {
                 var rest = {
                     no: row.no,
                     name: row.name,
+                    image: row.image,
+                    address: row.address,
                     distance: distance
                 };
                 jsonArray.push(rest);
@@ -55,17 +57,19 @@ exports.searchByDistance = (req, res) => {
     });
 } // returning no, name, distance
 
-// 잔여좌석
+// 잔여좌석순 레스토랑
 exports.searchByRemains = (req, res) => {
     console.log('/home/search/remains')
 
-    knex.select('restaurant.no', 'name', 's_total_num', 's_left_num').from('restaurant').innerJoin('seat', 'restaurant.no', 'seat.no')
+    knex.select('restaurant.no', 'name', 'image','address', 's_total_num', 's_left_num').from('restaurant').innerJoin('seat', 'restaurant.no', 'seat.no')
         .then((rows) => {
             var jsonArray = new Array();
             rows.forEach(row => {
                 var rest = {
                     no: row.no,
                     name: row.name,
+                    image: row.image,
+                    address: row.address,
                     remains: row.s_left_num
                 };
                 jsonArray.push(rest);
@@ -78,7 +82,30 @@ exports.searchByRemains = (req, res) => {
         });
 } // returning no, name, remains(seats)
 
+// 음식 종류
+exports.searchByCategory = (req, res) => {
+    var f_type = req.params.type;
+    console.log('/home/search/category/',f_type);
 
+    knex.from('restaurant').select('no','name','image','address').where('f_type', f_type)
+    .then((rows) => {
+        var jsonArray = new Array();
+        rows.forEach(row => {
+            var rest = {
+                no: row.no,
+                name: row.name,
+                address: row.address,
+                image: row.image
+            };
+            jsonArray.push(rest);
+        });
+        var sJson = JSON.stringify(jsonArray);
+        res.send(sJson);
+    }).catch((err) => {
+        console.log(err);
+        res.send('fail to load restaurant lists...');
+    })
+}
 
 function getDistance(lon1, lat1, lon2, lat2, unit) {
     theta = lon1 - lon2;

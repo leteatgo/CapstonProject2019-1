@@ -19,8 +19,6 @@ exports.home = (req, res) => {
         var jsonArray = new Array();
         rows.forEach(element => {
             console.log('distance from ' + element.name + ' : ' + getDistance(longitude, latitude, element.longitude, element.latitude, "kilometer"));
-            var filename = "/home/ckddn9496/LetEatGo/images/" + element.image + ".jpg";
-            var bmpBuffer = fs.readFileSync(filename);
             var restInfo = {
                 no: element.no,
                 name: element.name,
@@ -30,7 +28,8 @@ exports.home = (req, res) => {
                 longitude: element.longitude,
                 distance: getDistance(longitude, latitude, element.longitude, element.latitude, "kilometer"),
                 hours: element.hours,
-                image: JSON.stringify(bmpBuffer)
+                image: element.image,
+                owner_request: element.owner_request
             }
             jsonArray.push(restInfo);
         });
@@ -40,8 +39,8 @@ exports.home = (req, res) => {
         console.error(err);
         res.send('레스토랑 정보를 가져오는것에 실패 하였습니다.');
     })
-
 }
+
 
 function getDistance(lon1, lat1, lon2, lat2, unit) {
     theta = lon1 - lon2;

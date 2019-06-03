@@ -2,6 +2,7 @@ const express = require('express');
 
 var pos_pos = require('./routes/pos/pos');
 var pos_menu = require('./routes/pos/menu');
+var miribom_image = require('./routes/miribom/image');
 var miribom_search = require('./routes/miribom/search');
 var miribom_pay = require('./routes/miribom/pay');
 var miribom_join = require('./routes/miribom/join');
@@ -29,6 +30,9 @@ app.post('/login/signIn', (req, res) => { miribom_login.signIn(req, res);});
 // 홈 화면 구성
 app.post('/home/', (req, res) => { miribom_home.home(req, res);});
 
+// 이미지 가져오기
+app.post('/image/load', (req, res) => { miribom_image.loadImage(req, res);});
+
 /* 검색 탭 */
 // 기본 검색 - 가게명
 app.post('/home/search/all', (req, res) => { miribom_search.searchAll(req, res); });
@@ -36,9 +40,15 @@ app.post('/home/search/all', (req, res) => { miribom_search.searchAll(req, res);
 app.post('/home/search/distance', (req, res) => { miribom_search.searchByDistance(req, res); });
 // 잔여좌석 기준 검색
 app.post('/home/search/remains', (req, res) => { miribom_search.searchByRemains(req, res); });
+// 카테고리 검색
+app.post('/home/search/category/:type', (req, res) => { miribom_search.searchByCategory(req, res);});
 
 // 레스토랑 정보 가져오기
 app.post('/restaurant/getRestInfo', (req, res) => { miribom_restaurant.getRestInfo(req, res);});
+// 카테고리 검색에서 레스토랑 선택
+app.post('/restaurant/cat/info', (req, res) =>{ miribom_restaurant.getRestInfoFromCat(req, res);});
+// 예약 가능 좌석수 가져오기
+app.post('/restaurant/reservation/seats', (req, res) => { miribom_restaurant.getTodayAvailableSeatNums(req, res);});
 // 선택 레스토랑 예약 내역
 app.post('/restaurant/reservation/find', (req, res) => { miribom_restaurant.findReservation(req, res);});
 // 선택 레스토랑 예약 하기
