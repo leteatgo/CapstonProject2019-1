@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReserveConfirmActivity">
+
+    <ScrollView
+        android:id="@+id/reserveconfirmsc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            
+            
+            <ImageView
+                android:id="@+id/resconf_ImageView"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_loading"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+
+            <TextView
+                android:id="@+id/resconf_resName"
+                android:text="파스타집"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="예약이 완료되었습니다."
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/resinfoLayout"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_people" />
+
+                    <TextView
+                        android:id="@+id/resconf_personNum"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:text="2명" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/ic_calendar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:id="@+id/resconf_date"
+                        android:text="6/20/2019"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/ic_time"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:id="@+id/resconf_time"
+                        android:text="16:00"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/resconf_cancelBtn"
+                    android:text="예약 취소"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/resconf_callBtn"
+                    android:text="전화 걸기"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></LinearLayout>
+
+            <TextView
+                android:text="오시는길"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <fragment
+                android:id="@+id/resconf_map"
+                class="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:gravity="center_horizontal" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

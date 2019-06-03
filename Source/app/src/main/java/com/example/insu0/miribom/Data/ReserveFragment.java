@@ -26,6 +26,7 @@ import com.example.insu0.miribom.Lists.DateList;
 import com.example.insu0.miribom.Lists.DateListAdapter;
 import com.example.insu0.miribom.Lists.HomeRestaurantListItem;
 import com.example.insu0.miribom.R;
+import com.example.insu0.miribom.ReserveConfirmActivity;
 import com.example.insu0.miribom.Servers.MiribomInfo;
 
 import org.json.JSONArray;
@@ -313,6 +314,18 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
             super.onPostExecute(result);
             Log.d(TAG, "onPostExecute: "+ result);
             // 예약되었습니다. or 예약 등록에 실패 하였습니다.
+
+
+            Intent intent = new Intent(getActivity(), ReserveConfirmActivity.class);
+            intent.putExtra("ResItem",item);
+            intent.putExtra("uNo",uNo);
+            intent.putExtra("numofPerson", numofPerson);
+            intent.putExtra("res_time", res_time);
+            intent.putExtra("res_year",res_year);
+            intent.putExtra("res_month",res_month);
+            intent.putExtra("res_dayOfMonth",res_dayOfMonth);
+            startActivity(intent);
+
             Uri kakaopayurl = Uri.parse(result);
             Intent gotokakao = new Intent(Intent.ACTION_VIEW, kakaopayurl);
             startActivity(gotokakao);
