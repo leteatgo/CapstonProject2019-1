@@ -760,7 +760,7 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         
         reservationReceiver = new ReservationReceiver(dateStr);
-        reservationList = reservationReceiver.sendDateInfo();
+        reservationList = reservationReceiver.sendDateInfo(ownerInfo.getNo());
         
         String rowdata[] = new String[3];
         for (int i = 0; i < reservationList.size(); i++) {

@@ -45,11 +45,11 @@ public class ReservationReceiver {
         this.dateStr = dateStr;
     }
 
-    public ArrayList<Reservation> sendDateInfo() {
+    public ArrayList<Reservation> sendDateInfo(int oNo) {
         try {
             BufferedReader reader = null;
             JSONObject requestObject = new JSONObject();
-            requestObject.accumulate("rNo", 1);
+            requestObject.accumulate("oNo", oNo);
             requestObject.accumulate("date", dateStr);
             URL url = new URL(LetEatGoIP);
             HttpURLConnection conn = null;
@@ -77,7 +77,7 @@ public class ReservationReceiver {
                 while((line = reader.readLine()) != null) {
                     buffer.append(line);
                 }
-//                System.out.println(buffer.toString());
+                System.out.println(buffer.toString());
                 JSONArray jsonArray = new JSONArray(buffer.toString());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
