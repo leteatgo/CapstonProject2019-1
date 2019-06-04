@@ -5,6 +5,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/listbackground"
     tools:context=".CatSearchActivity">
 
     <TextView
@@ -13,8 +14,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="food type"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/blackhansregular"
+        android:textSize="25dp"
+        />
 
     <ListView
         android:id="@+id/catlistView"

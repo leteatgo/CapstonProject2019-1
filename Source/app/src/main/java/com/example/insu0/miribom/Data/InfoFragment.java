@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -73,7 +74,7 @@ public class InfoFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_res_info, container, false);
+        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.fragment_res_info, container, false);
         telTextView = (TextView)layout.findViewById(R.id.frag_inf_telTextView);
         lunchtimeTextView = (TextView)layout.findViewById(R.id.frag_inf_lunchtimeTextView);
         addrTextView = (TextView)layout.findViewById(R.id.frag_inf_addrTextView);

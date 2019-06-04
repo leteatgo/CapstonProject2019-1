@@ -5,6 +5,7 @@
     android:orientation="horizontal">
 
     <ImageView
+        android:padding="2dp"
         android:id="@+id/cat_res_img"
         android:layout_width="140dp"
         android:layout_height="match_parent"
@@ -24,12 +25,14 @@
             android:layout_weight="2"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
+            android:fontFamily="@font/blackhansregular"
             android:text="Restaurant Name"
-            android:textSize="24dp"
-            android:textStyle="bold" />
+            android:textSize="30dp"
+            />
 
         <TextView
             android:id="@+id/catsearch_restDesc"
+            android:fontFamily="@font/nanumgothicbold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout
+    android:gravity="center"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/frag_inf_infoLayout"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
+            <TextView
+                android:textSize="25dp"
+                android:fontFamily="@font/blackhansregular"
+                android:gravity="center"
+                android:text="식당정보"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <LinearLayout
                 android:id="@+id/frag_inf_phonelayout"
                 android:orientation="horizontal"
@@ -28,8 +38,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/nanumgothicbold"
+                    android:textSize="15dp"
                     android:text="02-123-1234"
-                    android:textSize="20dp"/>
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -46,9 +58,10 @@
                     android:id="@+id/frag_inf_addrTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/nanumgothicbold"
+                    android:textSize="15dp"
                     android:text="서울시 강남구 학동로 88길 5"
-                    android:textSize="20dp"/>
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -67,38 +80,59 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="매일 12:00~14:30 [LUNCH]"
-                    android:textSize="20dp"/>
+                    android:fontFamily="@font/nanumgothicbold"
+                    android:textSize="15dp"/>
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="350dp"
+                android:layout_height="1dp"
+                android:background="@drawable/bgpink1"
+                ></LinearLayout>
+
+
+            <LinearLayout
                 android:id="@+id/frag_inf_menuLayout"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:text="대표 메뉴"
-                    android:textSize="30dp"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/blackhansregular"
+                    android:gravity="center"
+                    android:text="대표 메뉴"
+                    android:textSize="25dp" />
+
                 <ImageView
                     android:id="@+id/frag_inf_resMenuImage"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/image_loading"
-                    android:adjustViewBounds="true"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    />
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/image_loading" />
+
                 <TextView
                     android:id="@+id/frag_inf_menuNameTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="메뉴를 준비중입니다."/>
+                    android:text="메뉴를 준비중입니다." />
 
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="350dp"
+                android:layout_height="1dp"
+                android:background="@drawable/bgpink1"
+                ></LinearLayout>
+
+            <LinearLayout
+                android:paddingTop="30dp"
                 android:id="@+id/frag_inf_addInfoLayout"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -116,6 +150,7 @@
 
                     <TextView
                         android:id="@+id/frag_inf_seatinfoTextView"
+                        android:fontFamily="@font/blackhansregular"
                         android:text="현재 잔여 좌석: 0석"
                         android:textSize="20dp"
                         android:layout_width="wrap_content"
@@ -132,4 +167,4 @@
     </ScrollView>
 
 
-</RelativeLayout>
+</LinearLayout>

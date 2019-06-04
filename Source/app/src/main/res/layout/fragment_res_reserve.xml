@@ -24,8 +24,9 @@
 
         <NumberPicker
             android:id="@+id/number"
-            android:layout_width="30dp"
-            android:layout_height="30dp"></NumberPicker>
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            ></NumberPicker>
         <TextView
             android:text="명"
             android:textStyle="normal"
@@ -57,7 +58,7 @@
         <TextView
             android:text="예약 요청사항:"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
@@ -69,29 +70,32 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_below="@id/requestlayout"
         android:id="@+id/ownerlayout"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="이곳의 특이사항:"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/ownerRequestTV"
-            android:textSize="10dp"
-            android:text="발렛 파킹을 원하실 경우에 미리 말씀해주세요!"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/requestlayout"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/resbutton"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="예약하기" />
+            android:text="이곳의 특이사항:"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ownerRequestTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="발렛 파킹을 원하실 경우에 미리 말씀해주세요!"
+            android:textSize="10dp" />
+
+        <ImageButton
+            android:id="@+id/resbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/kakaopay" />
 
     </LinearLayout>
 </RelativeLayout>

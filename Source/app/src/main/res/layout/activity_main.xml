@@ -1,63 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/mainbackground"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/mainTitle"
-        android:text="미리봄"
-        android:textSize="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_below="@id/mainTitle"
-        android:layout_centerHorizontal="true"
-        android:text="웨이팅 하기 전에 미리보기."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
-    <Button
-        android:id="@+id/main_kakaoBtn"
-        android:text="카카오톡으로 시작하기"
-        android:layout_marginTop="250dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below = "@id/mainTitle"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content" />
-    <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
-        android:id="@+id/main_naverBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="네이버로 시작하기"
-        android:layout_below = "@id/main_kakaoBtn"
-        />
-
-    <Button
-        android:id="@+id/main_emailBtn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/main_naverBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="이메일로 시작하기" />
 
     <LinearLayout
-        android:id="@+id/main_join"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:layout_below="@+id/main_emailBtn"
-        android:layout_width="wrap_content"
+        android:id="@+id/logo_layout"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/mainTitle"
+            android:text="미리봄"
+            android:textColor="#ffffff"
+            android:fontFamily="@font/blackhansregular"
+            android:textSize="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mainTitle"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/nanumgothicbold"
+            android:text="기다리지 않고 외식하기!" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/mainlogo"
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        android:src="@drawable/mainpiggy" />
+
+    <LinearLayout
+        android:id="@+id/main_buttonlayout"
+        android:layout_width="310dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/mainlogo"
+        android:adjustViewBounds="true"
+        android:background="@drawable/round_corner"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:scaleType="fitXY">
+
+        <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
+            android:id="@+id/main_naverBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="네이버로 시작하기" />
+
+        <ImageButton
+            android:id="@+id/main_emailBtn"
+            android:src="@drawable/emailbutton"
+            android:layout_width="240dp"
+            android:layout_height="55dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+        <TextView
             android:id="@+id/main_jointext"
+            android:fontFamily="@font/nanumgothicbold"
+            android:layout_below="@id/main_buttonlayout"
             android:layout_marginTop="10dp"
             android:text="아직도 회원이 아니신가요?"
             android:layout_centerHorizontal="true"
@@ -65,7 +83,5 @@
             android:layout_height="wrap_content" />
 
 
-    </LinearLayout>
 
-
-</RelativeLayout>
+</LinearLayout>

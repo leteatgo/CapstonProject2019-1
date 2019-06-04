@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name = "numberPickerCustomSize">
+        <item name="android:textSize">20sp</item>
+        <item name="android:editTextColor">@color/colorTime</item>
+
+    </style>
 </resources>

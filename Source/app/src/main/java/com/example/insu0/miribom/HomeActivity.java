@@ -107,7 +107,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private int uno;
     private double longitude, latitude;
-    Button searchBtn;
+    ImageButton searchBtn;
 
     private ArrayList<HomeRestaurantListItem> itemList = new ArrayList<>();
     private JSONArray allRestArray;
@@ -739,7 +739,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 e.printStackTrace();
             }
             Log.d(TAG, "onPostExecute: \n" + itemList.toString());
-//            Collections.sort(itemList); // 서버에서 sort하여 전송
+            Collections.sort(itemList);
             homeRestaurantListAdapter.notifyDataSetChanged();
 
             // add markers on google maps

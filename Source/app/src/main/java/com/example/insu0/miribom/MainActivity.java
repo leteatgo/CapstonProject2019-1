@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     Button main_kakaoBtn;
-    Button main_emailBtn;
+    ImageButton main_emailBtn;
     TextView main_joinText;
 
 

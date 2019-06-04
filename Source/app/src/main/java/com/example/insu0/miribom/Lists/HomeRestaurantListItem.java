@@ -269,7 +269,6 @@ public class HomeRestaurantListItem implements
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             JSONObject jsonObject = null;
-//            Log.d(TAG, "onPostExecute: " + result);
             try {
                 jsonObject = new JSONObject(result);
                 String imageStr = jsonObject.getString("image");
