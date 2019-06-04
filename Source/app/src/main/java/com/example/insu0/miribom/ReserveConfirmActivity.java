@@ -202,6 +202,7 @@ public class ReserveConfirmActivity extends AppCompatActivity implements OnMapRe
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 

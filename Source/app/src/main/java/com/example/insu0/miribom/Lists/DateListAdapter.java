@@ -41,7 +41,6 @@ public class DateListAdapter extends RecyclerView.Adapter<DateListAdapter.ViewHo
         holder.textview.setText(item);
         holder.textview.setTag(item);
         holder.textview.setOnClickListener(onClickItem);
-
     }
 
     @Override

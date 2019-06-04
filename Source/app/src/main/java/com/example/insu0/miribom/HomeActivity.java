@@ -739,7 +739,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 e.printStackTrace();
             }
             Log.d(TAG, "onPostExecute: \n" + itemList.toString());
-            Collections.sort(itemList);
+//            Collections.sort(itemList); // 서버에서 sort하여 전송
             homeRestaurantListAdapter.notifyDataSetChanged();
 
             // add markers on google maps

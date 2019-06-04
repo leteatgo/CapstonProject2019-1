@@ -59,11 +59,9 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
     private HomeRestaurantListItem item;
     private int uNo, resNo;
     private Context context;
-    private int numofPerson;
     private String ownerRequest;
 
     private ArrayList<String> notAvaTime;
-    private StringBuilder sb = new StringBuilder();
     private ArrayList<String> itemList;
 
     private RecyclerView dateListView;
@@ -71,16 +69,15 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
     private TextView ownerRequestTV;
     private Button res_Btn;
 
+    private NumberPicker picker;
 
     /*ReserveData*/
-    private int res_ppl_num;
     private int res_year;
     private int res_month;
     private int res_dayOfMonth;
     private String res_usrReq;
     private String res_time;
-
-
+    private int maxPeopleNum;
 
     public ReserveFragment(int uNo, HomeRestaurantListItem item, Context context) {
         this.item = item;
@@ -91,7 +88,8 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
     }
 
     public ReserveData sendData(){
-        ReserveData sendingData = new ReserveData(res_ppl_num,res_year,res_month,res_dayOfMonth,res_usrReq,res_time);
+        ReserveData sendingData = new ReserveData(picker.getValue(), res_year, res_month
+                , res_dayOfMonth, res_usrReq, res_time);
         return sendingData;
 
     }
@@ -112,28 +110,35 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         dateListView.setLayoutManager(layoutManager);
         dateListView.setHasFixedSize(true);
-        setDateListTest();
+        setDateList();
 
-        NumberPicker picker = (NumberPicker)rootView.findViewById(R.id.number);
+        picker = (NumberPicker)rootView.findViewById(R.id.number);
         picker.setMinValue(1);
-        picker.setMaxValue(10); //이거는 추후에 예약 프로그램에서 받아오는 값으로 대체 필요하다
+        picker.setMaxValue(10); // 이거는 추후에 예약 프로그램에서 받아오는 값으로 대체 필요하다
 
-        numofPerson = picker.getValue();
-        res_ppl_num = numofPerson;
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+        String getTime = sdf.format(date);
+        Log.d(TAG, "onCreateView: getTime: " + getTime);
+        String[] dates = getTime.split("-");
+        res_year = Integer.parseInt(dates[0]);
+        res_month = Integer.parseInt(dates[1]);
+        res_dayOfMonth = Integer.parseInt(dates[2]);
 
 
         CalendarView calendarview = (CalendarView)rootView.findViewById(R.id.frag_res_calendar);
         calendarview.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-
                 res_year = year;
-                res_month = month;
+                res_month = month + 1;
                 res_dayOfMonth = dayOfMonth;
+                Log.d(TAG, "onSelectedDayChange: " + res_year + res_month + res_dayOfMonth);
 
                 /* 여기 안에 날짜정보를 서버에 보내는걸 IMPLEMENT*/
-                setDateList(""+year+"/"+(month+1)+"/"+dayOfMonth);
-                Toast.makeText(getActivity(), ""+year+"/"+(month+1)+"/"+dayOfMonth, Toast.LENGTH_LONG).show();
+                setDateList(res_year+"/"+res_month+"/"+res_dayOfMonth);
+                Toast.makeText(getActivity(), res_year+"/"+res_month+"/"+res_dayOfMonth, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -143,46 +148,22 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         ownerRequestTV = (TextView) rootView.findViewById(R.id.ownerRequestTV);
         ownerRequestTV.setText(ownerRequest);
 
-
         res_Btn = (Button)rootView.findViewById(R.id.resbutton);
         res_Btn.setOnClickListener(this);
+
+        new GetTodayAvailableSeatNums(resNo, getTime).execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/seats");
+
+
         return rootView;
     }
 
-    private void setDateListTest(){
+    private void setDateList(){
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
         String getTime = sdf.format(date);
-        Log.d(TAG, "setDateListTest: " + getTime);
+        Log.d(TAG, "setDateList: " + getTime);
         itemList = new ArrayList<String>();
-
-        itemList.add("11:00");
-        itemList.add("11:30");
-        itemList.add("12:00");
-        itemList.add("12:30");
-        itemList.add("13:00");
-        itemList.add("13:30");
-        itemList.add("14:00");
-        itemList.add("14:30");
-        itemList.add("15:00");
-        itemList.add("15:30");
-        itemList.add("16:00");
-        itemList.add("16:30");
-        itemList.add("17:00");
-        itemList.add("17:30");
-        itemList.add("18:00");
-        itemList.add("18:30");
-        itemList.add("19:00");
-        itemList.add("19:30");
-        itemList.add("20:00");
-        itemList.add("20:30");
-        itemList.add("21:00");
-        itemList.add("21:30");
-        itemList.add("22:00");
-        itemList.add("22:30");
-        itemList.add("23:00");
-        itemList.add("23:30");
 
         new GetTodayAvailableSeatNums(resNo, getTime).execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/seats");
 
@@ -194,37 +175,9 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
 
     private void setDateList(String date) {
         itemList = new ArrayList<String>();
-
-        itemList.add("11:00");
-        itemList.add("11:30");
-        itemList.add("12:00");
-        itemList.add("12:30");
-        itemList.add("13:00");
-        itemList.add("13:30");
-        itemList.add("14:00");
-        itemList.add("14:30");
-        itemList.add("15:00");
-        itemList.add("15:30");
-        itemList.add("16:00");
-        itemList.add("16:30");
-        itemList.add("17:00");
-        itemList.add("17:30");
-        itemList.add("18:00");
-        itemList.add("18:30");
-        itemList.add("19:00");
-        itemList.add("19:30");
-        itemList.add("20:00");
-        itemList.add("20:30");
-        itemList.add("21:00");
-        itemList.add("21:30");
-        itemList.add("22:00");
-        itemList.add("22:30");
-        itemList.add("23:00");
-        itemList.add("23:30");
-
         new GetTodayAvailableSeatNums(resNo, date).execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/seats");
 
-        dateListAdapter = new DateListAdapter(getActivity(),itemList,onClickItem);
+        dateListAdapter = new DateListAdapter(getActivity(),itemList, onClickItem);
         dateListView.setAdapter(dateListAdapter);
         DateList dateList = new DateList();
         dateListView.addItemDecoration(dateList);
@@ -244,10 +197,14 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.resbutton:
-                ReserveData reserveData = sendData();
-                new MakeReservationTask().execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/make",
-                        Integer.toString(uNo) ,Integer.toString(resNo), reserveData.getRes_date(), reserveData.getRes_time()+":00", Integer.toString(5000),
-                        Integer.toString(reserveData.getRes_ppl_num()), reserveData.getRes_usrReq());
+                if (maxPeopleNum == 0) {
+                    Toast.makeText(context, "예약이 불가능한 날짜 입니다.", Toast.LENGTH_LONG).show();
+                } else {
+                    ReserveData reserveData = sendData();
+                    new MakeReservationTask().execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/make",
+                            Integer.toString(uNo) ,Integer.toString(resNo), reserveData.getRes_date(), reserveData.getRes_time()+":00", Integer.toString(5000),
+                            Integer.toString(reserveData.getRes_ppl_num()), reserveData.getRes_usrReq());
+                }
                 break;
         }
     }
@@ -324,7 +281,7 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
                 intent.putExtra("payNo", payNo);
                 intent.putExtra("ResItem",item);
                 intent.putExtra("uNo",uNo);
-                intent.putExtra("numofPerson", numofPerson);
+                intent.putExtra("numofPerson", picker.getValue());
                 intent.putExtra("res_time", res_time);
                 intent.putExtra("res_year",res_year);
                 intent.putExtra("res_month",res_month);
@@ -405,13 +362,18 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-            int maxPeopleNum = 0;
+            Log.d(TAG, "onPostExecute: " + result);
             try {
                 JSONObject info = new JSONObject(result);
                 maxPeopleNum = info.getInt("seat");
+                if (maxPeopleNum != 0) {
+                    makeDateList();
+                } else {
+                    maxPeopleNum = 0;
+                }
                 new FindRequestTask(maxPeopleNum)
                         .execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/find", Integer.toString(resNo), date);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -437,7 +399,6 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
                 BufferedReader reader = null;
                 try {
                     URL url = new URL(strings[0]);
-                    // settings
                     conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Cache-Control", "no-cache");
@@ -480,37 +441,75 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
             Log.d(TAG, "onPostExecute: "+ maxPeopleNum + "\n" + result);
             try {
                 JSONArray array = new JSONArray(result);
-                HashMap<String, Integer> map = new HashMap<>();
+                ArrayList<ReservationCounter> reservationList = new ArrayList<ReservationCounter>();
+
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject jsonObject = array.getJSONObject(i);
                     String time = jsonObject.getString("time");
-                    if (map.containsKey(time)) {
-                        int count = map.get(time);
-                        map.put(time, count + 1);
-                    } else {
-                        map.put(time, 1);
+                    reservationList.add(new ReservationCounter(jsonObject.getString("time"), jsonObject.getInt("count")));
+                }
+                notAvaTime = new ArrayList<String>(); // not available time
+                Log.d(TAG, "onPostExecute: 예약가능 인원 수 : " + maxPeopleNum);
+                if (maxPeopleNum != 0) {
+                    for (int i = 0; i < reservationList.size(); i++) {
+                        if (reservationList.get(i).count >= maxPeopleNum)
+                            notAvaTime.add(reservationList.get(i).time);
+                    }
+
+                    for (int i = 0; i < notAvaTime.size(); i++) {
+                        String time = notAvaTime.get(i);
+                        itemList.remove(time.substring(0, time.length()-3));
                     }
                 }
-                Set<String> keySet = map.keySet();
-                Iterator<String> iterator = keySet.iterator();
-                notAvaTime = new ArrayList<>();
-                while(iterator.hasNext()) {
-                    String key = iterator.next();
-                    if (map.get(key) >= maxPeopleNum)
-                        notAvaTime.add(key);
-                }
-                for (int i = 0; i < notAvaTime.size(); i++) {
-                    String time = notAvaTime.get(i);
-                    itemList.remove(time.substring(0, time.length()-3));
-                }
-                Log.d(TAG, "onPostExecute: " + notAvaTime.toString());
 
+                Log.d(TAG, "onPostExecute: " + notAvaTime.toString());
                 dateListAdapter.notifyDataSetChanged();
             } catch (JSONException e) {
                 Toast.makeText(context, "실패", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }
+
+        private class ReservationCounter {
+            String time;
+            int count;
+
+            public ReservationCounter(String time, int count) {
+                this.time = time;
+                this.count = count;
+            }
+
+        }
     }
+
+    private void makeDateList() {
+        itemList.add("11:00");
+        itemList.add("11:30");
+        itemList.add("12:00");
+        itemList.add("12:30");
+        itemList.add("13:00");
+        itemList.add("13:30");
+        itemList.add("14:00");
+        itemList.add("14:30");
+        itemList.add("15:00");
+        itemList.add("15:30");
+        itemList.add("16:00");
+        itemList.add("16:30");
+        itemList.add("17:00");
+        itemList.add("17:30");
+        itemList.add("18:00");
+        itemList.add("18:30");
+        itemList.add("19:00");
+        itemList.add("19:30");
+        itemList.add("20:00");
+        itemList.add("20:30");
+        itemList.add("21:00");
+        itemList.add("21:30");
+        itemList.add("22:00");
+        itemList.add("22:30");
+        itemList.add("23:00");
+        itemList.add("23:30");
+    }
+
 }
 

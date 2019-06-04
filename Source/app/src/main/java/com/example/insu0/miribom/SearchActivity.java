@@ -249,6 +249,7 @@ public class SearchActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.d(TAG, "onPostExecute: " + result);
+
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 String image = jsonObject.getString("image");
