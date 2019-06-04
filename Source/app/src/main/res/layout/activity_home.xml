@@ -55,13 +55,13 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/swipeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:paddingBottom="5dp"
-            android:textStyle="bold"
-            android:id="@+id/swipeTitle"
-            android:text="바로 갈 수 있는 곳들"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:text="바로 갈 수 있는 곳들 (1km 이내)"
+            android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/home_restaurant_listview"
@@ -92,16 +92,17 @@
             <LinearLayout
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <ImageButton
                     android:id="@+id/cat_korean_btn"
-                    android:layout_width="match_parent"
+                    android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:adjustViewBounds="true"
                     android:background="@color/white"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:src="@drawable/korean" />
 
                 <TextView
@@ -117,12 +118,13 @@
             <LinearLayout
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
                 <ImageButton
                     android:background="@color/white"
                     android:id="@+id/cat_japanese_btn"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:adjustViewBounds="true"
                     android:src="@drawable/japanese"
                     android:layout_width="100dp"
@@ -140,12 +142,14 @@
             <LinearLayout
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <ImageButton
                     android:background="@color/white"
                     android:id="@+id/cat_chinese_btn"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:adjustViewBounds="true"
                     android:src="@drawable/chinese"
                     android:layout_width="100dp"
@@ -163,12 +167,14 @@
             <LinearLayout
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <ImageButton
                     android:background="@color/white"
                     android:id="@+id/cat_western_btn"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:adjustViewBounds="true"
                     android:src="@drawable/western"
                     android:layout_width="100dp"

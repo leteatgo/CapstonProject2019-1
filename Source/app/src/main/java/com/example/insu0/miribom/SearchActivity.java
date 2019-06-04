@@ -16,9 +16,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.insu0.miribom.Data.CatListViewItem;
 import com.example.insu0.miribom.Data.DataUtils;
 import com.example.insu0.miribom.Lists.HomeRestaurantListItem;
 import com.example.insu0.miribom.Lists.SearchAdapter;
+import com.example.insu0.miribom.Lists.SearchItem;
 import com.example.insu0.miribom.Servers.MiribomInfo;
 
 import org.json.JSONArray;
@@ -36,19 +38,20 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 //implemented by Insu Yang
 
 public class SearchActivity extends AppCompatActivity {
 
-    private List<String> list = new ArrayList<String>();
-    private List<String> list2 = new ArrayList<String>();
+    private List<SearchItem> list = new ArrayList<SearchItem>();    //  no, name
+    private List<SearchItem> list2 = new ArrayList<SearchItem>();
     private ListView listView;
     private SearchAdapter adapter;
     private SearchAdapter adapter2;
-    private ArrayList<String> emptyList;
-    private ArrayList<String> arrayList;
+    private ArrayList<SearchItem> emptyList;
+    private ArrayList<SearchItem> arrayList;
     private EditText editSearch;
     private JSONArray allRestArray;
     private int uno;
@@ -68,7 +71,7 @@ public class SearchActivity extends AppCompatActivity {
         try {
             allRestArray = new JSONArray(arrayStr);
             for (int i = 0; i < allRestArray.length(); i++) {
-                list.add(allRestArray.getJSONObject(i).getString("name"));
+                list.add(new SearchItem(allRestArray.getJSONObject(i).getInt("no"),allRestArray.getJSONObject(i).getString("name")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -82,8 +85,8 @@ public class SearchActivity extends AppCompatActivity {
 
         categorize();
 
-        arrayList = new ArrayList<String>();
-        emptyList = new ArrayList<String>();
+        arrayList = new ArrayList<SearchItem>();
+        emptyList = new ArrayList<SearchItem>();
 
         arrayList.addAll(list);
         emptyList.addAll(list2);
@@ -96,7 +99,22 @@ public class SearchActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(SearchActivity.this ,list2.get(position),Toast.LENGTH_LONG).show();
+                Toast.makeText(SearchActivity.this ,list2.get(position).getName(),Toast.LENGTH_LONG).show();
+                if (position == 0) {
+                    Intent intent = new Intent(SearchActivity.this, CatSearchActivity.class);
+                    intent.putExtra("c_type", position);
+                    intent.putExtra("uno", uno);
+                    intent.putExtra("lon", lon);
+                    intent.putExtra("lat", lat);
+                    startActivity(intent);
+                }
+                if (position == 1) {
+                    Intent intent = new Intent(SearchActivity.this, CatSearchActivity.class);
+                    intent.putExtra("c_type", position);
+                    intent.putExtra("uno", uno);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -108,7 +126,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.equals(null))
+                if (s.equals(null))
                     Toast.makeText(SearchActivity.this, "None", Toast.LENGTH_SHORT).show();
                 listView.setAdapter(adapter2);
             }
@@ -138,21 +156,20 @@ public class SearchActivity extends AppCompatActivity {
 
                         }
                     });
-                }else {
+                } else {    //  from EditText: keyword를 통한 검색
                     listView.setAdapter(adapter);
                     String text = editSearch.getText().toString();
                     search(text);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Toast.makeText(SearchActivity.this ,list.get(position),Toast.LENGTH_LONG).show();
+                            Toast.makeText(SearchActivity.this , list.get(position).getName(),Toast.LENGTH_LONG).show();
+                            new MakeHomeRestaurantItemFromSearch(list.get(position).getResNo()).execute("http://" + MiribomInfo.ipAddress + "/restaurant/search/info");
                         }
                     });
                 }
             }
         });
-
-
 
     }
 
@@ -163,7 +180,7 @@ public class SearchActivity extends AppCompatActivity {
         }
         else{
             for(int i = 0;i<arrayList.size();i++){
-                if(arrayList.get(i).toLowerCase().contains(charText)){
+                if(arrayList.get(i).getName().toLowerCase().contains(charText)){
                     list.add(arrayList.get(i));
                 }
             }
@@ -171,12 +188,91 @@ public class SearchActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-
     private void categorize(){
-        list2.add("주변 음식점 보러가기");
-        list2.add("기다리지 않고 바로가기");
+        list2.add(new SearchItem(-1,"주변 음식점 보러가기"));
+        list2.add(new SearchItem(-1, "기다리지 않고 바로가기"));
     }
 
+
+    /* CatListViewItem Click Event */
+    public class MakeHomeRestaurantItemFromSearch extends AsyncTask<String, String, String> {
+        private String TAG = "MakeHomeRestaurantItemFromSearch>>>";
+        private int resNo;
+        public MakeHomeRestaurantItemFromSearch(int resNo) {
+            this.resNo = resNo;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            JSONObject reqInfo = new JSONObject();
+            try {
+                reqInfo.accumulate("resNo", resNo);
+                HttpURLConnection conn = null;
+                BufferedReader reader = null;
+                URL url = new URL(strings[0]);
+                // settings
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Cache-Control", "no-cache");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "application/text");
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+                conn.connect();
+
+                OutputStream outputStream = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                writer.write(reqInfo.toString());
+                writer.flush();
+                writer.close();
+
+                InputStream stream = conn.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                    Log.d(TAG, "doInBackground: readLine, " + line);
+                }
+                return buffer.toString();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.d(TAG, "onPostExecute: " + result);
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                String image = jsonObject.getString("image");
+                JSONObject object = new JSONObject(image);
+                String data = object.getString("data");
+                String[] imageStrs = data.substring(1, data.length() - 1).split(",");
+                byte[] imageDatas = new byte[imageStrs.length];
+                for (int i = 0; i < imageStrs.length; i++) {
+                    imageDatas[i] = DataUtils.intToByteArray(Integer.parseInt(imageStrs[i]));
+                }
+                Bitmap bmp = BitmapFactory.decodeByteArray(imageDatas, 0, imageDatas.length);
+                HomeRestaurantListItem hItem = new HomeRestaurantListItem(resNo, jsonObject.getString("name"), jsonObject.getString("address")
+                        , jsonObject.getString("mobile"), bmp, jsonObject.getDouble("latitude"), jsonObject.getDouble("longitude")
+                        , jsonObject.getString("hours"), jsonObject.getString("owner_request"));
+                Intent intent = new Intent(SearchActivity.this, ReserveActivity.class);
+                intent.putExtra("ResItem", hItem);
+                intent.putExtra("uNo", uno);
+                startActivity(intent);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 
 
 }

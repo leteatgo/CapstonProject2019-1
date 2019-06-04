@@ -248,7 +248,6 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
                 new MakeReservationTask().execute("http://" + MiribomInfo.ipAddress + "/restaurant/reservation/make",
                         Integer.toString(uNo) ,Integer.toString(resNo), reserveData.getRes_date(), reserveData.getRes_time()+":00", Integer.toString(5000),
                         Integer.toString(reserveData.getRes_ppl_num()), reserveData.getRes_usrReq());
-//                Toast.makeText(context,reserveData.getRes_date() , Toast.LENGTH_SHORT).show();
                 break;
         }
     }

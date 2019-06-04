@@ -104,7 +104,7 @@ public class CatSearchActivity extends AppCompatActivity {
     }
 
     private void foodCatListInit(){
-        new CategorySearchTask().execute("http://" + MiribomInfo.ipAddress + "/home/search/category/" + f_type);
+        new CategorySearchTask().execute("http://" + MiribomInfo.ipAddress + "/home/search/category/" + f_type ,Double.toString(lon), Double.toString(lat));
     }
 
 
@@ -123,7 +123,12 @@ public class CatSearchActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             JSONObject reqInfo = new JSONObject();
-
+            try {
+                reqInfo.accumulate("longitude", strings[1]);
+                reqInfo.accumulate("latitude", strings[2]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             HttpURLConnection conn = null;
             BufferedReader reader = null;
             try {
@@ -165,6 +170,8 @@ public class CatSearchActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            Log.d(TAG, "onPostExecute: " + result);
+            list = new ArrayList<>();
 //            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
             try {
                 JSONArray jsonArray = new JSONArray(result);
@@ -174,12 +181,25 @@ public class CatSearchActivity extends AppCompatActivity {
                     String name = object.getString("name");
                     String imageUrl = object.getString("image");
                     String address = object.getString("address");
-                    catListViewAdapter.addItem(new CatListViewItem(no, imageUrl, name, address, catListViewAdapter));
+                    double distance = object.getDouble("distance");
+                    list.add(new CatListViewItem(no, imageUrl, name, address, distance, catListViewAdapter));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            catListViewAdapter.notifyDataSetChanged();
+            list.sort(new Comparator<CatListViewItem>() {
+                @Override
+                public int compare(CatListViewItem o1, CatListViewItem o2) {
+                    if (o1.getDistance() - o2.getDistance() > 0)
+                        return 1;
+                    else
+                        return -1;
+                }
+            });
+            for (int i = 0; i < list.size(); i++) {
+                catListViewAdapter.addItem(list.get(i));
+                catListViewAdapter.notifyDataSetChanged();
+            }
         }
     }
 

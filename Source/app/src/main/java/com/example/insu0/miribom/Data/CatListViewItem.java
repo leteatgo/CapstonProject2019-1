@@ -53,7 +53,7 @@ public class CatListViewItem {
         setResIcon(catImgUrl);
         this.distance = distance;
         this.catListViewAdapter = catListViewAdapter;
-        this.catResDest = distance + "km";
+        this.catResDest = Double.toString(distance).substring(0, 4)+ "km";
     }
 
     //  기다리지 않고 바로가기

@@ -237,6 +237,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Intent intent = new Intent(HomeActivity.this, CatSearchActivity.class);
                 intent.putExtra("uno", uno);
                 intent.putExtra("f_type", CAT_KOEARN);
+                intent.putExtra("lon", currentPosition.longitude);
+                intent.putExtra("lat", currentPosition.latitude);
                 startActivity(intent);
             }
         });
@@ -248,6 +250,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Intent intent = new Intent(HomeActivity.this, CatSearchActivity.class);
                 intent.putExtra("uno", uno);
                 intent.putExtra("f_type", CAT_CHINESE);
+                intent.putExtra("lon", currentPosition.longitude);
+                intent.putExtra("lat", currentPosition.latitude);
                 startActivity(intent);
             }
         });
@@ -259,6 +263,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Intent intent = new Intent(HomeActivity.this, CatSearchActivity.class);
                 intent.putExtra("uno", uno);
                 intent.putExtra("f_type", CAT_JAPANES);
+                intent.putExtra("lon", currentPosition.longitude);
+                intent.putExtra("lat", currentPosition.latitude);
                 startActivity(intent);
             }
         });
@@ -270,6 +276,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Intent intent = new Intent(HomeActivity.this, CatSearchActivity.class);
                 intent.putExtra("uno", uno);
                 intent.putExtra("f_type", CAT_WESTERN);
+                intent.putExtra("lon", currentPosition.longitude);
+                intent.putExtra("lat", currentPosition.latitude);
                 startActivity(intent);
             }
         });
