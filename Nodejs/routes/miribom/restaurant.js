@@ -86,8 +86,6 @@ exports.getRestInfoFromCat = (req, res) => {
         console.log(err);
         res.send('매장 정보를 불러오는데 실패했습니다.');
     });
-
-    // mobile, longitude, latitude, hours, ownerRequest
 }
 
 exports.getTodayAvailableSeatNums = (req, res) => {
@@ -99,24 +97,23 @@ exports.getTodayAvailableSeatNums = (req, res) => {
 
     knex.from('reservable').select('seat').where({res_no:resNo, date:date})
     .then((rows) => {
-        console.log('예약 가능 인원수 ',rows);
         var info = {
             seat: rows[0].seat
         };
+        console.log('예약 가능 인원수 ',rows);
         res.json(info);
     }).catch((err) => { // seat정보가 없을 때
-        console.log('예약 가능 인원수가 등록 되지 않음');
         return knex.from('restaurant').select('initial_reservable').where({res_no: resNo}).then((rows) => {
-            console.log('초기 설정된 예약가능 인원 수',rows);
             var info = {
                 seat: rows[0].initial_reservable
             };
+            console.log('초기 설정된 예약가능 인원 수: ',rows[0].initial_reservable);
             res.json(info);
         }).catch((err) => {
-            // console.log(err);
             var info = {
                 seat: 0
             };
+            console.log('예약 가능 인원수가 등록 되지 않음');
             res.json(info);
         })
     })
@@ -173,7 +170,7 @@ exports.makeReservation = (req, res) => {
         },
         function (rest_name, callback) {
             exec(`curl -v -X POST 'https://kapi.kakao.com/v1/payment/ready' \
-                        -H 'Authorization: KakaoAK {Admin Key}' \
+                        -H 'Authorization: KakaoAK {Admin key}' \
                         --data-urlencode 'cid=TC0ONETIME' \
                         --data-urlencode 'partner_order_id=partner_order_id' \
                         --data-urlencode 'partner_user_id=partner_user_id' \
@@ -215,10 +212,7 @@ exports.makeReservation = (req, res) => {
         else
             console.log('done')
     })
-    
-    
 }
-
 
 exports.deleteReservation = (req, res) => {
     console.log('/restaurant/reservation/delete');

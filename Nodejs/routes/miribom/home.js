@@ -1,6 +1,5 @@
 /* ./route/miribom/home.js */
 var knex = require('./../knex-mysql');
-var fs = require('fs');
 /* when user click the login, give information about restaurants */
 exports.home = (req, res) => {
     console.log('/home')
@@ -18,22 +17,29 @@ exports.home = (req, res) => {
     knex('restaurant').select('*').then((rows) => {
         var jsonArray = new Array();
         rows.forEach(element => {
-            console.log('distance from ' + element.name + ' : ' + getDistance(longitude, latitude, element.longitude, element.latitude, "kilometer"));
-            var restInfo = {
-                no: element.no,
-                name: element.name,
-                address: element.address,
-                mobile: element.mobile,
-                latitude: element.latitude,
-                longitude: element.longitude,
-                distance: getDistance(longitude, latitude, element.longitude, element.latitude, "kilometer"),
-                hours: element.hours,
-                image: element.image,
-                owner_request: element.owner_request
+            distance = getDistance(longitude, latitude, element.longitude, element.latitude, "kilometer");
+            console.log('distance from ' + element.name + ' : ' + distance);
+            if (distance < 1) {
+                var restInfo = {
+                    no: element.no,
+                    name: element.name,
+                    address: element.address,
+                    mobile: element.mobile,
+                    latitude: element.latitude,
+                    longitude: element.longitude,
+                    distance: getDistance(longitude, latitude, element.longitude, element.latitude, "kilometer"),
+                    hours: element.hours,
+                    image: element.image,
+                    owner_request: element.owner_request
+                } 
+                jsonArray.push(restInfo);
             }
-            jsonArray.push(restInfo);
         });
+        jsonArray.sort(function(a, b) {
+            return a.distance - b.distance;
+        })
         var sJson = JSON.stringify(jsonArray);
+        // console.log(sJson);
         res.send(sJson);
     }).catch((err) => {
         console.error(err);

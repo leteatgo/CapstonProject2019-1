@@ -783,9 +783,17 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
       
-    private void selectcomboToday(){
-        jComboBox2.setSelectedIndex(4);
-        jComboBox3.setSelectedIndex(8);
+    private void selectcomboToday() {
+        SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+        Date time = new Date();
+        String time1 = date.format(time);
+        String[] array = time1.split("/");
+        int[] da = {0, 0, 0,};
+        for (int i = 0; i < array.length; i++) {
+            da[i] = Integer.parseInt(array[i]);
+        }
+        jComboBox2.setSelectedIndex(da[1] - 1);
+        jComboBox3.setSelectedIndex(da[2] - 1);
     }
 
 

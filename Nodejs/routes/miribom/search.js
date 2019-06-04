@@ -4,7 +4,6 @@ var knex = require('./../knex-mysql');
 // 가져와야 할것, restaurant no, name
 exports.searchAll = (req, res) => {
     console.log('/home/search/all')
-
     knex('restaurant').select('no', 'name').then((rows) => {
         var jsonArray = new Array();
         rows.forEach(row => {
@@ -31,10 +30,10 @@ exports.searchByDistance = (req, res) => {
     var max_dis = inputData.distance;  //  몇 km이내: default
     console.log(inputData);
 
-    if (max_dis === false)
+    if (max_dis == null)
         max_dis = 1;
 
-    knex('restaurant').select('no', 'name', 'image','address','longitude', 'latitude').then((rows) => {
+    knex('restaurant').select('no', 'name', 'image', 'address', 'longitude', 'latitude').then((rows) => {
         var jsonArray = new Array();
         rows.forEach(row => {
             var distance = getDistance(u_lon, u_lat, row.longitude, row.latitude, "kilometer");
