@@ -45,6 +45,8 @@ app.post('/home/search/category/:type', (req, res) => { miribom_search.searchByC
 
 // 레스토랑 정보 가져오기
 app.post('/restaurant/getRestInfo', (req, res) => { miribom_restaurant.getRestInfo(req, res);});
+// 키워드 검색에서 레스토랑 선택
+app.post('/restaurant/search/info', (req, res) => { miribom_restaurant.getRestInfoFromSearch(req, res);});
 // 카테고리 검색에서 레스토랑 선택
 app.post('/restaurant/cat/info', (req, res) =>{ miribom_restaurant.getRestInfoFromCat(req, res);});
 // 예약 가능 좌석수 가져오기

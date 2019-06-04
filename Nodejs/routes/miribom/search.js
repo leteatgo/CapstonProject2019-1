@@ -38,7 +38,7 @@ exports.searchByDistance = (req, res) => {
         var jsonArray = new Array();
         rows.forEach(row => {
             var distance = getDistance(u_lon, u_lat, row.longitude, row.latitude, "kilometer");
-            if (distance <= 1) {
+            if (distance < 1) {
                 var rest = {
                     no: row.no,
                     name: row.name,
@@ -85,16 +85,23 @@ exports.searchByRemains = (req, res) => {
 // 음식 종류
 exports.searchByCategory = (req, res) => {
     var f_type = req.params.type;
+    const inputData = req.body;
+    var u_lon = inputData.longitude;
+    var u_lat = inputData.latitude;
     console.log('/home/search/category/',f_type);
+    console.log(inputData);
+    
 
-    knex.from('restaurant').select('no','name','image','address').where('f_type', f_type)
+    knex.from('restaurant').select('no','name','image','address', 'longitude', 'latitude').where('f_type', f_type)
     .then((rows) => {
         var jsonArray = new Array();
         rows.forEach(row => {
+            var distance = getDistance(u_lon, u_lat, row.longitude, row.latitude, "kilometer");
             var rest = {
                 no: row.no,
                 name: row.name,
                 address: row.address,
+                distance: distance,
                 image: row.image
             };
             jsonArray.push(rest);

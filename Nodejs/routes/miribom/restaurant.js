@@ -11,7 +11,6 @@ exports.getRestInfo = (req, res) => {
     var resNo = inputData.resNo;
     console.log('resNo : ' + resNo);
 
-
     // 필요한것
     knex.select('s_left_num','image', 'menu.name as name').from('seat')
         .leftOuterJoin('menu', 'seat.no', 'menu.res_no')
@@ -22,10 +21,6 @@ exports.getRestInfo = (req, res) => {
                 var filename = "/home/ckddn9496/LetEatGo/images/" + rows[0].image + ".jpg";
                 var bmpBuffer = fs.readFileSync(filename);
                 var restInfo = {
-                    // r_type: rows[0].r_type,
-                    // s_type: rows[0].s_type,
-                    // f_type: rows[0].f_type,
-                    // r_num: rows[0].r_num,
                     menu_name: rows[0].name,
                     image: JSON.stringify(bmpBuffer),
                     s_left_num: rows[0].s_left_num,
@@ -40,6 +35,35 @@ exports.getRestInfo = (req, res) => {
         }).catch((err) => {
             res.send('더 이상 존재하지 않는 가게입니다.');
         })
+}
+
+exports.getRestInfoFromSearch = (req, res) => {
+    console.log('/restaurant/search/info');
+    const inputData = req.body;
+    var res_no = inputData.resNo;
+    console.log(inputData);
+    
+    knex.from('restaurant').select('*').where('no', res_no)
+    .then((rows) => {
+        console.log(rows);
+        var filename = "/home/ckddn9496/LetEatGo/images/" + rows[0].image + ".jpg";
+        var bmpBuffer = fs.readFileSync(filename);
+
+        var info = {
+            name: rows[0].name,
+            address: rows[0].address,
+            mobile: rows[0].mobile,
+            latitude: rows[0].latitude,
+            longitude: rows[0].longitude,
+            image: JSON.stringify(bmpBuffer),
+            hours: rows[0].hours,
+            owner_request: rows[0].owner_request
+        }
+        res.json(info);
+    }).catch((err) => {
+        console.log(err);
+        res.send('레스토랑 정보를 불러오는데 실패하였습니다.')
+    })
 }
 
 exports.getRestInfoFromCat = (req, res) => {
@@ -149,7 +173,7 @@ exports.makeReservation = (req, res) => {
         },
         function (rest_name, callback) {
             exec(`curl -v -X POST 'https://kapi.kakao.com/v1/payment/ready' \
-                        -H 'Authorization: KakaoAK {Admin key}' \
+                        -H 'Authorization: KakaoAK {Admin Key}' \
                         --data-urlencode 'cid=TC0ONETIME' \
                         --data-urlencode 'partner_order_id=partner_order_id' \
                         --data-urlencode 'partner_user_id=partner_user_id' \
