@@ -9,7 +9,7 @@ public class ReserveData {
 
     public ReserveData(int pnum, int year, int month, int dayOfMonth, String usrReq, String time) {
         res_ppl_num = pnum;
-        res_date = ((year) + "-" + (month+1) + "-" + (dayOfMonth));
+        res_date = ((year) + "-" + (month) + "-" + (dayOfMonth));
         res_usrReq = usrReq;
         res_time = time;
 

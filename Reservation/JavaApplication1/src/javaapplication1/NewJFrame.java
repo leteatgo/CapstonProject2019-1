@@ -765,7 +765,7 @@ public class NewJFrame extends javax.swing.JFrame {
         String rowdata[] = new String[3];
         for (int i = 0; i < reservationList.size(); i++) {
             Reservation reservation = reservationList.get(i);
-            rowdata[0] = Integer.toString(i);
+            rowdata[0] = Integer.toString(i+1);
             rowdata[1] = reservation.getTime();
             rowdata[2] = reservation.getName();
             m.addRow(rowdata);
